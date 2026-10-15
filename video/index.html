@@ -12,12 +12,13 @@ canvas { display: block; }
 <canvas id="c" width="1920" height="1080"></canvas>
 <script src="cues.js"></script>
 <script>
-const CHAR_IMG = new Image();
+const IMGS = {};
 window.ready = Promise.all([
-  new Promise(r => { CHAR_IMG.onload = r; CHAR_IMG.src = '../assets/character.png'; }),
+  ...['bakery_products', 'bakery_seller', 'bills', 'cafe_talk', 'city_night', 'confused', 'cooking_class', 'creator_setup', 'creator_woman', 'dough', 'family_beach', 'family_packing', 'father_kids', 'late_work', 'money', 'overtime', 'phone', 'spreadsheet', 'studying'].map(n => new Promise(r => { const im = new Image(); im.onload = () => { IMGS[n] = im; r(); }; im.src = '../assets/images/' + n + '.jpg'; })),
   ...[300, 400, 500, 700].map(w => document.fonts.load(`${w} 50px NEXON`, '가나다₩○')),
 ]);
 </script>
 <script src="engine.js"></script>
+<script src="icons.js"></script>
 <script src="scenes.js"></script>
 </body></html>

@@ -24,7 +24,7 @@ const grab = (page, t, type = 'image/jpeg') => page.evaluate(([t, type]) => { re
 if (opt('--preview')) {
   const page = await newPage();
   for (const t of opt('--preview').split(',').map(Number)) {
-    writeFileSync(path.join(out, `preview_${t.toFixed(2)}.jpg`), await grab(page, t));
+    writeFileSync(path.join(out, 'prev', `p_${t.toFixed(2)}.jpg`), await grab(page, t));
   }
   await browser.close(); process.exit(0);
 }

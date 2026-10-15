@@ -8,16 +8,23 @@
 - **주요 색상**: 흰색과 빨간색
 - **모션**: 과하지 않게, 깔끔하고 절제된 움직임
 - **구성**: 음성(MP3)과 SRT에 맞춰 문장마다 모션그래픽으로 표현
+- **디자인**: 장면마다 레이아웃과 표현 방식을 다르게 한다. 같은 카드나 아이콘 배치를 반복하지 않는다
+  (예: 에디토리얼 타이포, 아웃라인 대형 글자, 분할 화면, 차트, 다이어그램, UI 목업, 타임라인 등)
+- **이미지**: 이미지가 어울리는 장면에는 사진을 깔고, 불투명도는 30%, 장면 동안 천천히 줌인한다
+- **인물**: 인물이 나오거나 상황을 설명할 때는 인물 그림자(실루엣) 아이콘을 넣어 가독성을 높인다
+- **캐릭터**: 사용하지 않는다 (사용자가 따로 요청할 때만 사용)
 - **자막**: 넣는다. 스타일은 `assets/TTS 회색바 자막.prtextstyle` 기준 (NEXON Lv2 Gothic Regular 50px, 흰 글씨, 회색 바, 하단 중앙)
-- **캐릭터**: `assets/character.png` 캐릭터를 중간중간 등장시켜 장면을 표현
+- **폰트**: NEXON Lv2 Gothic (`assets/fonts/`)
 
 사용자가 다른 형식을 원하면 그 요청에 명시된 부분만 위 규칙 대신 따른다.
 
 ## 제작 파이프라인 (`video/`)
 
-- `engine.js`: 캔버스 렌더 엔진 (아이콘, 카드, 텍스트, 자막, 애니메이션)
+- `engine.js`: 캔버스 렌더 엔진 (텍스트, 실루엣, 사진 레이어, 차트 등 요소와 자막)
+- `icons.js`: 라인 아이콘
 - `scenes.js`: 문장(큐)별 장면 정의
 - `cues.json` / `cues.js`: SRT에서 중복 줄을 합친 큐 목록
 - `render.mjs`: Playwright로 프레임을 캡처해 ffmpeg로 인코딩
-  - 미리보기: `node render.mjs --preview 1,10,20` → `build/preview_*.jpg`
+  - 미리보기: `node render.mjs --preview 1,10,20` → `build/prev/`
   - 전체 렌더: `node render.mjs` 후 `build/seg*.mp4`를 concat하고 음성 합성
+- 사진: `assets/images/` (Adobe Stock 무료 라이선스, 목록은 `assets/images/CREDITS.md`)

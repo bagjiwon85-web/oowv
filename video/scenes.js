@@ -716,7 +716,8 @@ const SCENE_DEFS = [
   ] },
 ];
 
-// Resolve cue-relative timing into scene-relative seconds.
+// Resolve cue-relative timing into scene-relative seconds. IN_DELAY lets the previous scene fade most of the way first.
+const IN_DELAY = 0.28;
 const CUES = CUES_RAW.map(c => ({ ...c, sub: c.text.replace(/^\*/, '').replace('만들찌', '만들지').replace(' — ', ' - ') }));
 const CHAPTERS = [
   { n: '01', title: '목표를 구체적으로 정해라', from: CUES[20].start, to: CUES[51].end },
@@ -726,7 +727,7 @@ const CHAPTERS = [
 const SCENES = SCENE_DEFS.map(sd => {
   const start = CUES[sd.c[0]].start, end = CUES[sd.c[1]].end;
   const els = sd.els.map(e => {
-    const at = e.k === 'photo' ? 0 : CUES[e.c ?? sd.c[0]].start - start + (e.d || 0) + 0.05;
+    const at = e.k === 'photo' ? 0 : CUES[e.c ?? sd.c[0]].start - start + (e.d || 0) + IN_DELAY;
     const o = { ...e, at };
     for (const key of ['out', 'dimAt', 'toAt']) if (e[key] !== undefined) o[key] = at + e[key];
     return o;

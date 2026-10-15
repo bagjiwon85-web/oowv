@@ -5,6 +5,7 @@ const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 const FONT = '"NEXON"';
 const PHOTO_ALPHA = 0.3;
+const OUT_LEAD = 0.15, OUT_TAIL = 0.4; // outgoing scene starts fading OUT_LEAD before its end and is gone OUT_TAIL after
 
 // ---------- easing ----------
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -67,29 +68,55 @@ function arrowHead(x, y, ang, s) {
 }
 
 // ---------- person silhouettes (feet at origin, height h) ----------
-function silhouette(kind, h, col, acc = RED) {
-  ctx.save(); const s = h / 100; ctx.scale(s, s); ctx.fillStyle = col;
-  const limb = (x, y, w, hh) => { rrect(x, y, w, hh, w / 2); ctx.fill(); };
-  const torso = (w = 26) => { rrect(-w / 2, -76, w, 38, 7); ctx.fill(); };
-  const head = (r = 9.5) => { circle(0, -88, r); ctx.fill(); };
-  if (kind === 'woman') {
-    ctx.beginPath(); ctx.arc(0, -88, 10.5, Math.PI, 0); ctx.lineTo(11, -76); ctx.lineTo(-11, -76); ctx.closePath(); ctx.fill(); head(9);
-    rrect(-11, -76, 22, 30, 7); ctx.fill();
-    ctx.beginPath(); ctx.moveTo(-11, -50); ctx.lineTo(11, -50); ctx.lineTo(17, -24); ctx.lineTo(-17, -24); ctx.closePath(); ctx.fill();
-    limb(-17, -74, 5.5, 30); limb(11.5, -74, 5.5, 30); limb(-9, -28, 6.5, 28); limb(2.5, -28, 6.5, 28);
-  } else if (kind === 'child') {
-    ctx.scale(0.62, 0.62); head(11); torso(24); limb(-18, -74, 6, 30); limb(12, -74, 6, 30); limb(-11, -42, 10, 42); limb(1, -42, 10, 42);
-  } else if (kind === 'elder') {
-    ctx.save(); ctx.rotate(0.06); head(9.5); torso(25); limb(-18, -73, 6, 32); limb(12, -73, 6, 32); limb(-11.5, -42, 10, 42); limb(1.5, -42, 10, 42); ctx.restore();
-    ctx.fillRect(18, -44, 3, 44);
+// Each figure is drawn once at high resolution into an offscreen canvas (opaque, so the mirrored halves
+// overlap without seams) and then scaled down; fades apply to the finished image.
+const MIRROR = new DOMMatrix([-1, 0, 0, 1, 0, 0]);
+const SIL_HALF = {
+  man: new Path2D('M-0.5 -80.5 C2.6 -80.5 3.4 -79.6 3.6 -78.2 C6.5 -77 11.8 -76.8 15 -74.6 C17.6 -72.8 18.2 -69.8 18.3 -66.5 C18.6 -60 19.3 -54 19.6 -48.5 C19.8 -45.6 18.8 -43.6 17.4 -43.6 C16 -43.6 15.6 -45 15.6 -47 C15.4 -53 15 -58.5 14.4 -62.5 L13.3 -61.5 C12.9 -55 12.4 -49 12.1 -43.5 C11.9 -30 11.2 -16 10.4 -4 C10.3 -1.4 9.4 -0.2 7.4 0 L3.4 0 C3 -12 2.6 -26 2.2 -36.5 C2 -38.6 1 -39.4 -0.5 -39.4 Z'),
+  manNoArm: new Path2D('M-0.5 -80.5 C2.6 -80.5 3.4 -79.6 3.6 -78.2 C6.5 -77 11.8 -76.8 15 -74.6 C16.6 -73.4 14.6 -67 13.3 -61.5 C12.9 -55 12.4 -49 12.1 -43.5 C11.9 -30 11.2 -16 10.4 -4 C10.3 -1.4 9.4 -0.2 7.4 0 L3.4 0 C3 -12 2.6 -26 2.2 -36.5 C2 -38.6 1 -39.4 -0.5 -39.4 Z'),
+  woman: new Path2D('M-0.5 -80 C2.4 -80 3.1 -79.2 3.3 -78 C6 -77 10.4 -76.8 13 -74.8 C15.2 -73.2 15.8 -70.4 15.9 -67 C16.2 -61 16.9 -55 17.2 -50 C17.4 -47.2 16.4 -45.4 15.1 -45.4 C13.8 -45.4 13.4 -46.8 13.4 -48.6 C13.2 -54 12.8 -59 12.2 -62.6 L11.2 -61.8 C10.6 -57.5 9.6 -53.6 9.4 -50.6 C11.6 -43 14.4 -33 15.6 -23.6 C12 -22.6 9 -22.4 7.6 -22.4 C7.3 -15 7 -8 6.6 -3.4 C6.5 -1 5.6 0 3.9 0 L2.3 0 C2.1 -8 1.9 -16 1.8 -22.4 L-0.5 -22.4 Z'),
+};
+const SIL_HAIR = new Path2D('M0 -99.4 C6.4 -99.4 9.6 -95 9.4 -88.6 L9.6 -80.6 C8 -79.2 6.2 -79.4 5 -81 L-5 -81 C-6.2 -79.4 -8 -79.2 -9.6 -80.6 L-9.4 -88.6 C-9.6 -95 -6.4 -99.4 0 -99.4 Z');
+const SIL_CACHE = {};
+const SIL_RES = 11; // px per unit in the cached image
+function silImage(kind, col, acc) {
+  const key = kind + col + acc; if (SIL_CACHE[key]) return SIL_CACHE[key];
+  const cv = document.createElement('canvas'); cv.width = 80 * SIL_RES; cv.height = 120 * SIL_RES;
+  const c = cv.getContext('2d'); c.translate(40 * SIL_RES, 114 * SIL_RES); c.scale(SIL_RES, SIL_RES);
+  c.fillStyle = col; c.strokeStyle = col; c.lineCap = 'round'; c.lineJoin = 'round';
+  const both = (p, pm = p) => { c.fill(p); c.save(); c.setTransform(c.getTransform().multiply(MIRROR)); c.fill(pm); c.restore(); };
+  const ell = (x, y, rx, ry) => { c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); };
+  if (kind === 'child') { c.save(); c.scale(0.7, 0.6); both(SIL_HALF.man); c.restore(); ell(0, -59, 6.6, 7.4); }
+  else if (kind === 'woman') { both(SIL_HALF.woman); c.fill(SIL_HAIR); ell(0, -89, 7.2, 8.8); }
+  else if (kind === 'mega') {
+    c.fill(SIL_HALF.manNoArm); c.save(); c.setTransform(c.getTransform().multiply(MIRROR)); c.fill(SIL_HALF.man); c.restore(); ell(0, -89.3, 7.6, 9.2);
+    c.lineWidth = 5; c.beginPath(); c.moveTo(13.5, -71); c.quadraticCurveTo(21, -68, 19.5, -83); c.stroke();
+    c.fillStyle = acc; c.beginPath(); c.moveTo(8, -88.5); c.lineTo(29, -97); c.lineTo(29, -77); c.lineTo(8, -84.5); c.closePath(); c.fill();
   } else {
-    head(); torso(); limb(-20, -73, 6.5, 33); limb(13.5, -73, 6.5, 33); limb(-12, -42, 10.5, 42); limb(1.5, -42, 10.5, 42);
-    if (kind === 'suit') { ctx.fillStyle = acc; ctx.beginPath(); ctx.moveTo(0, -75); ctx.lineTo(-3, -70); ctx.lineTo(0, -54); ctx.lineTo(3, -70); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = col; rrect(20, -48, 18, 14, 2); ctx.fill(); ctx.fillRect(25, -51, 8, 3); }
-    if (kind === 'chef') { ctx.fillStyle = acc; rrect(-11, -66, 22, 34, 3); ctx.fill(); ctx.fillStyle = col;
-      ctx.beginPath(); ctx.arc(-5, -101, 6, 0, 7); ctx.arc(5, -101, 6, 0, 7); ctx.fill(); ctx.fillRect(-8, -100, 16, 6); }
-    if (kind === 'mega') { ctx.fillStyle = acc; ctx.beginPath(); ctx.moveTo(18, -70); ctx.lineTo(40, -82); ctx.lineTo(40, -56); ctx.lineTo(18, -64); ctx.closePath(); ctx.fill(); }
+    if (kind === 'elder') { c.translate(-2, 0); c.rotate(0.05); }
+    both(SIL_HALF.man); ell(0, -89.3, 7.6, 9.2);
+    if (kind === 'suit') {
+      c.fillStyle = acc; c.beginPath(); c.moveTo(0, -78.6); c.lineTo(-2.2, -75); c.lineTo(0, -59); c.lineTo(2.2, -75); c.closePath(); c.fill();
+      c.fillStyle = col; c.beginPath(); c.roundRect(11.4, -42.4, 15, 11, 1.6); c.fill(); c.lineWidth = 1.6; c.beginPath(); c.arc(17.4, -43, 2.6, Math.PI, 0); c.stroke();
+    }
+    if (kind === 'chef') {
+      c.fillStyle = acc; c.beginPath(); c.moveTo(-8.6, -66); c.lineTo(8.6, -66); c.lineTo(10.6, -30); c.quadraticCurveTo(0, -27.4, -10.6, -30); c.closePath(); c.fill();
+      c.fillStyle = col; ell(-4.4, -100.6, 5.6, 5); ell(4.4, -100.6, 5.6, 5); ell(0, -103, 5.4, 4.8); c.fillRect(-6.8, -100, 13.6, 4.6);
+    }
+    if (kind === 'elder') { c.lineWidth = 2.2; c.beginPath(); c.moveTo(17.4, -44.5); c.quadraticCurveTo(21, -46.5, 21, -42.5); c.lineTo(22, 0); c.stroke(); }
   }
+  return (SIL_CACHE[key] = cv);
+}
+function silhouette(kind, h, col, acc = RED, T = 0, phase = 0) {
+  ctx.save(); const s = h / 100;
+  // soft contact shadow so figures sit on the ground
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 24 * s);
+  g.addColorStop(0, 'rgba(255,255,255,0.09)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.save(); ctx.scale(1, 0.14); ctx.fillStyle = g; circle(0, 0, 24 * s); ctx.fill(); ctx.restore();
+  ctx.scale(s, s);
+  ctx.scale(1, 1 + 0.006 * Math.sin(T * 1.7 + phase)); // subtle idle breathing, anchored at the feet
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(silImage(kind, col, acc), -40, -114, 80, 120);
   ctx.restore();
 }
 
@@ -97,7 +124,7 @@ function silhouette(kind, h, col, acc = RED) {
 // Every element: {k: kind, at: start seconds (scene-relative), ...}.
 function drawElement(e, lt, T, sc) {
   if (lt < e.at) return;
-  const dur = e.dur || 0.6;
+  const dur = e.dur || 0.8;
   const p = clamp((lt - e.at) / dur);
   let alpha = e.k === 'photo' ? 1 : easeOut(p);
   if (e.out !== undefined) alpha *= 1 - easeOut((lt - e.out) / 0.4);
@@ -108,13 +135,13 @@ function drawElement(e, lt, T, sc) {
   let x = e.x || 0, y = e.y || 0;
   if (e.move) { const mp = easeInOut((lt - e.at - (e.move.delay || 0)) / (e.move.dur || 1.5)); x += (e.move.dx || 0) * mp; y += (e.move.dy || 0) * mp; }
   const anim = e.anim || DEFAULT_ANIM[e.k] || 'none';
-  if (anim === 'rise') y += (1 - easeOut(p)) * 30;
-  if (anim === 'slide') x += (1 - easeOut(p)) * -60;
-  if (anim === 'drop') y += (1 - easeOut(p)) * -40;
+  if (anim === 'rise') y += (1 - easeOut(p)) * 20;
+  if (anim === 'slide') x += (1 - easeOut(p)) * -40;
+  if (anim === 'drop') y += (1 - easeOut(p)) * -26;
   if (e.k !== 'photo') ctx.translate(x, y);
   if (e.rot) ctx.rotate(e.rot);
-  if (anim === 'pop') { const s = lerp(0.8, 1, easeBack(p)); ctx.scale(s, s); }
-  if (anim === 'grow') { const s = lerp(0.94, 1, easeOut(p)); ctx.scale(s, s); }
+  if (anim === 'pop') { const s = lerp(0.9, 1, easeOut(p)); ctx.scale(s, s); }
+  if (anim === 'grow') { const s = lerp(0.96, 1, easeOut(p)); ctx.scale(s, s); }
   if (anim === 'wipe' || anim === 'wipeUp' || anim === 'wipeL') {
     const k = easeInOut((lt - e.at) / (e.wdur || 0.7)), bw = e.cw || e.w || 2000, bh = e.ch || e.h || 400;
     const ox = e.cx || 0, oy = e.cy || 0;
@@ -135,7 +162,7 @@ const KINDS = {
     const z = lerp(e.z0 ?? 1.0, e.z1 ?? 1.12, clamp(lt / (sc.end - sc.start + 0.3)));
     const s = Math.max(W / img.width, H / img.height) * z;
     const fx = e.fx ?? 0.5, fy = e.fy ?? 0.5;
-    ctx.globalAlpha *= PHOTO_ALPHA * easeOut(lt / 0.8);
+    ctx.globalAlpha *= PHOTO_ALPHA * easeInOut(lt / 1.2);
     ctx.drawImage(img, W * fx - img.width * s * fx, H * fy - img.height * s * fy, img.width * s, img.height * s);
   },
   text(e, lt) {
@@ -143,7 +170,9 @@ const KINDS = {
     drawRich(e.s, 0, 0, e.size || 64, { weight: e.weight || 700, align: e.align, color: e.color, ls: e.ls, outline: e.outline, lh: e.lh, chars });
   },
   icon(e) { const s = (e.size || 160) / 100; ctx.scale(s, s); ICONS[e.name](e.color || WHITE, e.accent || RED); },
-  sil(e) { if (e.flip) ctx.scale(-1, 1); silhouette(e.kind || 'man', e.h || 300, e.color || WHITE, e.accent || RED); },
+  sil(e, lt) { if (e.flip) ctx.scale(-1, 1);
+    if (e.move) { const m = clamp((lt - e.at - (e.move.delay || 0)) / (e.move.dur || 1.5)); if (m > 0 && m < 1) ctx.translate(0, -Math.abs(Math.sin(m * Math.PI * 7)) * (e.h || 300) * 0.012); }
+    silhouette(e.kind || 'man', e.h || 300, e.color || WHITE, e.accent || RED, lt, (e.x || 0) * 0.01); },
   panel(e) { ctx.fillStyle = e.color || RED; ctx.fillRect(-e.w / 2, -e.h / 2, e.w, e.h); },
   rect(e) { ctx.strokeStyle = e.color || LINE; ctx.lineWidth = e.lw ?? 2; if (e.dash) ctx.setLineDash(e.dash); rrect(-e.w / 2, -e.h / 2, e.w, e.h, e.r ?? 0);
     if (e.fill) { ctx.fillStyle = e.fill; ctx.fill(); } if (e.lw !== 0) ctx.stroke(); ctx.setLineDash([]); },
@@ -226,10 +255,13 @@ function render(T) {
   ctx.globalAlpha = 1;
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
   for (const sc of SCENES) {
-    if (T < sc.start - 0.01 || T > sc.end + 0.3) continue;
+    // scenes overlap at cuts: the outgoing scene eases out (fade + slight lift) while the next one eases in
+    if (T < sc.start - 0.01 || T > sc.end + OUT_TAIL) continue;
     const lt = T - sc.start;
-    const fadeOut = sc.last ? clamp((sc.end + 0.3 - T) / 0.8) : clamp((sc.end + 0.3 - T) / 0.3);
+    const k = sc.last ? clamp((sc.end + OUT_TAIL - T) / 1.0) : clamp((sc.end + OUT_TAIL - T) / (OUT_TAIL + OUT_LEAD));
+    const fadeOut = easeInOut(k);
     ctx.save(); ctx.globalAlpha = fadeOut;
+    if (!sc.last) { ctx.translate(W / 2, H / 2 - (1 - fadeOut) * 14); const z = 1 - (1 - fadeOut) * 0.012; ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); }
     for (const e of sc.els) drawElement(e, lt, T, sc);
     ctx.restore();
   }

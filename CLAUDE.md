@@ -9,6 +9,7 @@
 - **모션**: 과하지 않게, 깔끔하고 절제된 움직임
 - **템포**: 천천히. 요소 등장·전환을 서두르지 않고 여유 있게 (`MOTION_SLOW`, `STAGGER`, 전환 시간으로 조절)
 - **구성**: 음성(MP3)과 SRT에 맞춰 문장마다 모션그래픽으로 표현
+- **내레이션 쉼**: 원본 TTS가 빡빡하면 문장 사이에 쉼을 넣는다 (문장 끝 +0.6초, 쉼표·이어지는 문장 +0.25초, 챕터 제목 앞뒤 +0.9초). 무음 구간에서만 자르고 자막·장면 타이밍도 같이 민다
 - **디자인**: 장면마다 레이아웃과 표현 방식을 다르게 한다. 같은 카드나 아이콘 배치를 반복하지 않는다
   (예: 에디토리얼 타이포, 아웃라인 대형 글자, 분할 화면, 차트, 다이어그램, UI 목업, 타임라인 등)
 - **이미지**: 이미지가 어울리는 장면에는 사진을 깔고, 불투명도는 30%, 장면 동안 천천히 줌인한다
@@ -27,5 +28,6 @@
 - `cues.json` / `cues.js`: SRT에서 중복 줄을 합친 큐 목록
 - `render.mjs`: Playwright로 프레임을 캡처해 ffmpeg로 인코딩
   - 미리보기: `node render.mjs --preview 1,10,20` → `build/prev/`
-  - 전체 렌더: `node render.mjs` 후 `build/seg*.mp4`를 concat하고 음성 합성
+  - 전체 렌더: `node render.mjs` 후 `build/seg*.mp4`를 concat하고 음성(`assets/narration_paced.mp3`) 합성
+- `cues_original.json`: 원본 SRT 타이밍 / `cues.json`: 쉼을 넣은 타이밍
 - 사진: `assets/images/` (Adobe Stock 무료 라이선스, 목록은 `assets/images/CREDITS.md`)

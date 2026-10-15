@@ -29,7 +29,7 @@ if (opt('--preview')) {
   await browser.close(); process.exit(0);
 }
 
-const from = Number(opt('--from') ?? 0), to = Number(opt('--to') ?? 320.6);
+const from = Number(opt('--from') ?? 0), to = Number(opt('--to') ?? 386.3);
 const total = Math.ceil((to - from) * FPS);
 const per = Math.ceil(total / WORKERS);
 const t0 = Date.now();

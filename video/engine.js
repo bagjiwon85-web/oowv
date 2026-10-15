@@ -5,7 +5,8 @@ const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 const FONT = '"NEXON"';
 const PHOTO_ALPHA = 0.3;
-const OUT_LEAD = 0.15, OUT_TAIL = 0.4; // outgoing scene starts fading OUT_LEAD before its end and is gone OUT_TAIL after
+const OUT_LEAD = 0.25, OUT_TAIL = 0.6;
+const MOTION_SLOW = 1.4; // >1 slows every entrance, draw-on, counter and loop // outgoing scene starts fading OUT_LEAD before its end and is gone OUT_TAIL after
 
 // ---------- easing ----------
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -122,13 +123,15 @@ function silhouette(kind, h, col, acc = RED, T = 0, phase = 0) {
 
 // ---------- element drawing ----------
 // Every element: {k: kind, at: start seconds (scene-relative), ...}.
-function drawElement(e, lt, T, sc) {
-  if (lt < e.at) return;
+function drawElement(e, rt, T, sc) {
+  if (rt < e.at) return;
+  // animation clock runs slower than real time (MOTION_SLOW); start times stay locked to the narration
+  const lt = e.k === 'photo' ? rt : e.at + (rt - e.at) / MOTION_SLOW;
   const dur = e.dur || 0.8;
   const p = clamp((lt - e.at) / dur);
   let alpha = e.k === 'photo' ? 1 : easeOut(p);
-  if (e.out !== undefined) alpha *= 1 - easeOut((lt - e.out) / 0.4);
-  if (e.dimAt !== undefined) alpha *= lerp(1, e.dimTo ?? 0.25, easeOut((lt - e.dimAt) / 0.4));
+  if (e.out !== undefined) alpha *= 1 - easeInOut((rt - e.out) / 0.6);
+  if (e.dimAt !== undefined) alpha *= lerp(1, e.dimTo ?? 0.25, easeInOut((rt - e.dimAt) / 0.6));
   if (alpha <= 0.001) return;
   ctx.save();
   ctx.globalAlpha *= alpha;
@@ -159,10 +162,10 @@ const DEFAULT_ANIM = { text: 'rise', icon: 'pop', sil: 'rise', bubble: 'pop', ch
 const KINDS = {
   photo(e, lt, p, sc) { // full-bleed photo at 30% opacity, slow zoom-in across the scene
     const img = IMGS[e.src]; if (!img) return;
-    const z = lerp(e.z0 ?? 1.0, e.z1 ?? 1.12, clamp(lt / (sc.end - sc.start + 0.3)));
+    const z = lerp(e.z0 ?? 1.0, e.z1 ?? 1.08, clamp(lt / (sc.end - sc.start + 0.3)));
     const s = Math.max(W / img.width, H / img.height) * z;
     const fx = e.fx ?? 0.5, fy = e.fy ?? 0.5;
-    ctx.globalAlpha *= PHOTO_ALPHA * easeInOut(lt / 1.2);
+    ctx.globalAlpha *= PHOTO_ALPHA * easeInOut(lt / 1.6);
     ctx.drawImage(img, W * fx - img.width * s * fx, H * fy - img.height * s * fy, img.width * s, img.height * s);
   },
   text(e, lt) {
@@ -261,11 +264,11 @@ function render(T) {
     const k = sc.last ? clamp((sc.end + OUT_TAIL - T) / 1.0) : clamp((sc.end + OUT_TAIL - T) / (OUT_TAIL + OUT_LEAD));
     const fadeOut = easeInOut(k);
     ctx.save(); ctx.globalAlpha = fadeOut;
-    if (!sc.last) { ctx.translate(W / 2, H / 2 - (1 - fadeOut) * 14); const z = 1 - (1 - fadeOut) * 0.012; ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); }
+    if (!sc.last) { ctx.translate(W / 2, H / 2 - (1 - fadeOut) * 10); const z = 1 - (1 - fadeOut) * 0.012; ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); }
     for (const e of sc.els) drawElement(e, lt, T, sc);
     ctx.restore();
   }
-  if (!SCENES.some(sc => sc.noTag && T >= sc.start && T <= sc.end + 0.3)) drawChapterTag(T);
+  if (!SCENES.some(sc => sc.noTag && T >= sc.start && T <= sc.end + OUT_TAIL)) drawChapterTag(T);
   const cue = CUES.find(c => T >= c.start && T < c.end);
   if (cue) drawSubtitle(cue.sub);
 }

@@ -672,8 +672,34 @@ function finalizeScenes(total) {
 function drawScene(ctx, s, t, exitQ = 0) {
   ctx.save(); ctx.globalAlpha = 1 - ease.inout(exitQ);
   if (exitQ > 0) { const z = 1 - 0.015 * ease.inout(exitQ); ctx.translate(960, 500 - 12 * ease.inout(exitQ)); ctx.scale(z, z); ctx.translate(-960, -500); }
+  if (s.fit) { const f = s.fit; ctx.translate(FIT.cx, FIT.cy); ctx.scale(f.k, f.k); ctx.translate(-f.cx, -f.cy); }
   for (const el of s.els) drawEl(ctx, el, t);
   ctx.restore();
+}
+// Auto-fit: measure each scene's drawn extent and scale it up to fill the frame above the caption bar.
+const FIT = { x0: 120, x1: 1800, y0: 72, y1: 905, maxK: 1.6 };
+FIT.cx = (FIT.x0 + FIT.x1) / 2; FIT.cy = (FIT.y0 + FIT.y1) / 2;
+function computeFits() {
+  const R = 0.25, cv = document.createElement('canvas'); cv.width = W * R; cv.height = H * R;
+  const c = cv.getContext('2d', { willReadFrequently: true });
+  for (const s of SCENES) {
+    let bx0 = 1e9, by0 = 1e9, bx1 = -1e9, by1 = -1e9;
+    const n = 8;
+    for (let i = 0; i < n; i++) {
+      const t = s.start + 0.8 + (s.end - s.start - 0.8) * i / (n - 1);
+      c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, cv.width, cv.height); c.scale(R, R);
+      c.textAlign = 'left'; c.textBaseline = 'middle'; c.globalAlpha = 1;
+      for (const el of s.els) drawEl(c, el, Math.min(t, s.end - 0.01));
+      const d = c.getImageData(0, 0, cv.width, cv.height).data;
+      for (let y = 0; y < cv.height; y++) for (let x = 0; x < cv.width; x++) {
+        if (d[(y * cv.width + x) * 4 + 3] > 20) { if (x < bx0) bx0 = x; if (x > bx1) bx1 = x; if (y < by0) by0 = y; if (y > by1) by1 = y; }
+      }
+    }
+    if (bx1 < 0) continue;
+    bx0 /= R; bx1 = (bx1 + 1) / R; by0 /= R; by1 = (by1 + 1) / R;
+    const k = Math.min(FIT.maxK, (FIT.x1 - FIT.x0) / (bx1 - bx0), (FIT.y1 - FIT.y0) / (by1 - by0));
+    s.fit = { k: Math.max(1, k), cx: (bx0 + bx1) / 2, cy: (by0 + by1) / 2, box: [bx0, by0, bx1, by1] };
+  }
 }
 function render(t) {
   const cv = document.getElementById('c'), ctx = cv.getContext('2d');

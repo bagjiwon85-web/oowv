@@ -20,6 +20,6 @@ finalizeScenes(385.28);
 window.ready = (async () => {
   const fams = ['400','500','600','700','800'].map(w => document.fonts.load(`${w} 40px Pretendard`, '가나다ABC₩'));
   fams.push(document.fonts.load('400 40px "DM Serif Display"', '0123'), document.fonts.load('400 50px "NEXON Lv2 Gothic"', '가나다ABC'));
-  await Promise.all(fams); await document.fonts.ready; render(0); return true;
+  await Promise.all(fams); await document.fonts.ready; computeFits(); render(0); return true;
 })();
 </script></body></html>

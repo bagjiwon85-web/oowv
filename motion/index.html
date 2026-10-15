@@ -6,6 +6,7 @@
 @font-face{font-family:Pretendard;font-weight:600;src:url(fonts/Pretendard-SemiBold.otf)}
 @font-face{font-family:Pretendard;font-weight:700;src:url(fonts/Pretendard-Bold.otf)}
 @font-face{font-family:Pretendard;font-weight:800;src:url(fonts/Pretendard-ExtraBold.otf)}
+@font-face{font-family:"NEXON Lv2 Gothic";font-weight:400;src:url(fonts/NEXON_Lv2_Gothic_OTF.woff2)}
 @font-face{font-family:"DM Serif Display";font-weight:400;src:url(fonts/dm-serif-display-latin-400-normal.woff2)}
 html,body{margin:0;background:#fafafa;overflow:hidden}
 canvas{display:block}
@@ -18,7 +19,7 @@ canvas{display:block}
 finalizeScenes(385.28);
 window.ready = (async () => {
   const fams = ['400','500','600','700','800'].map(w => document.fonts.load(`${w} 40px Pretendard`, '가나다ABC₩'));
-  fams.push(document.fonts.load('400 40px "DM Serif Display"', '0123'));
+  fams.push(document.fonts.load('400 40px "DM Serif Display"', '0123'), document.fonts.load('400 50px "NEXON Lv2 Gothic"', '가나다ABC'));
   await Promise.all(fams); await document.fonts.ready; render(0); return true;
 })();
 </script></body></html>

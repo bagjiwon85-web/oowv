@@ -642,11 +642,12 @@ function bgCanvas() {
   c.fillStyle = g; c.fillRect(0, 0, W, H);
   return BGC;
 }
+// Caption style from "TTS 회색바 자막" (.prtextstyle): NEXON Lv2 Gothic Regular 50, white text, #181818 bar
 function drawCaption(ctx, t) {
   const c = (window.CAPS || []).find(c => t >= c.s && t < c.e); if (!c) return;
-  const size = 38; ctx.font = font(size, 500); const tw = ctx.measureText(c.text).width;
-  const w = tw + 64, h = 70, x = 960 - w / 2, y = 962;
-  ctx.fillStyle = 'rgba(30,30,30,0.94)'; rr(ctx, x, y, w, h, 10); ctx.fill();
+  const size = 50; ctx.font = `400 ${size}px "NEXON Lv2 Gothic", Pretendard`; const tw = ctx.measureText(c.text).width;
+  const padX = 30, h = 88, w = tw + padX * 2, x = 960 - w / 2, y = 948;
+  ctx.fillStyle = '#181818'; rr(ctx, x, y, w, h, 10); ctx.fill();
   ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(c.text, 960, y + h / 2 + 2);
 }
 

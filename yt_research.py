@@ -2,7 +2,7 @@
 
 선정 조건 (사용자 요청):
 - 쇼츠 제외 (4분 이상 롱폼만), 좋아요 1,000개 이상, 업로드 기간 제한 없음
-- SNS, 브랜딩, 돈, 자기계발, 사업, 마케팅, 부자 분야
+- SNS, 브랜딩, 돈, 자기계발, 사업, 마케팅, 부자, 성공(성공한 사람 이야기·성공 습관·성공 방법·자수성가) 분야
 - 계정 검증: 구독자 3만 이상 또는 (3만 미만이면 영상 조회수가 구독자의 5배 이상)
   관련 분야 영상 9개 확인 -> 저반응(좋아요 1,000 이하, 좋아요 숨김이면 댓글 50 이하) 3개 이상이면 통과
   통과한 계정에서 가장 성과가 좋은 영상 채택
@@ -27,20 +27,23 @@ KR_QUERIES = [
     "마케팅 강의", "퍼스널 브랜딩", "부자 되는 법", "돈 버는 습관", "자기계발 동기부여",
     "사업 성공 노하우", "인스타그램 마케팅", "유튜브 성장 전략", "창업 조언", "재테크 마인드",
     "세일즈 비법", "브랜드 만드는 법",
+    "성공한 사람 이야기", "성공 습관", "성공하는 방법", "자수성가",
 ]
 EN_QUERIES = [
     "marketing strategy", "personal branding", "how to get rich", "money habits",
     "self improvement", "how to start a business", "social media growth strategy",
     "sales psychology", "entrepreneur advice", "wealth mindset", "brand building",
     "copywriting tips",
+    "success story self made", "habits of successful people", "how to be successful",
+    "self made millionaire story",
 ]
 
 FIELD_WORDS = re.compile(
     r"마케팅|브랜딩|브랜드|부자|돈|재테크|투자|자기계발|성공|사업|창업|장사|매출|세일즈|판매|"
-    r"인스타|유튜브|SNS|콘텐츠|습관|부의|경제|월급|수익|"
+    r"인스타|유튜브|SNS|콘텐츠|습관|부의|경제|월급|수익|자수성가|성공담|"
     r"market|brand|rich|money|wealth|millionaire|self|habit|business|entrepreneur|"
     r"startup|sales|sell|social media|instagram|youtube|content|income|invest|success|"
-    r"productiv|copywrit|growth|founder|ceo|financ",
+    r"productiv|copywrit|growth|founder|ceo|financ|self.made|success story",
     re.I,
 )
 # 자체 캠페인/자사 홍보로 보이는 영상 제외

@@ -9,6 +9,9 @@ const ease = {
   out: t => 1 - Math.pow(1 - t, 3),
   back: t => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
   inout: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  expo: t => t >= 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  soft: t => { const c1 = 0.9, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
+  in: t => t * t * t,
 };
 const lerp = (a, b, q) => a + (b - a) * q;
 
@@ -484,11 +487,15 @@ function drawIcon(ctx, name, s, o = {}) {
 
 // ---------- elements ----------
 const KIND = {};
-function popT(ctx, x, y, p, from = 0.82) { const s = from + (1 - from) * ease.back(clamp(p)); ctx.translate(x, y); ctx.scale(s, s); ctx.globalAlpha *= ease.out(clamp(p * 1.6)); }
-function bob(el, t, amp = 3) { return Math.sin((t - el.at) * 1.5 + (el.x || 0) * 0.013) * amp * clamp((t - el.at) / 0.6); }
+function popT(ctx, x, y, p, from = 0.82) {
+  const q = clamp(p), e = ease.expo(q), f = Math.max(from, 0.9);
+  const s = f + (1 - f) * ease.soft(q);
+  ctx.translate(x, y + (1 - e) * 14); ctx.scale(s, s); ctx.globalAlpha *= ease.out(clamp(q * 1.4));
+}
+function bob() { return 0; }
 
 KIND.txt = (ctx, el, p, t, x, y) => {
-  ctx.globalAlpha *= ease.out(p); y += (1 - ease.out(p)) * 18;
+  ctx.globalAlpha *= ease.out(clamp(p * 1.3)); y += (1 - ease.expo(p)) * 16;
   const r = drawRich(ctx, el.text, x, y, el);
   if (el.ul != null) {
     const q = ease.out(clamp((t - el.ul) / 0.45));
@@ -510,15 +517,19 @@ KIND.person = (ctx, el, p, t, x, y) => {
 };
 KIND.box = (ctx, el, p, t, x, y) => {
   const w = el.w, h = el.h, x0 = x - w / 2, y0 = y - h / 2;
-  const q = ease.inout(clamp(p * 1.15));
-  ctx.save(); ctx.globalAlpha *= clamp(p * 2); shadow(ctx, true); ctx.fillStyle = el.fill || PAPER; ctx.fillRect(x0, y0, w, h); ctx.restore();
+  const q = ease.out(clamp(p * 1.7));
+  ctx.save(); ctx.globalAlpha *= ease.out(q); shadow(ctx, true); ctx.fillStyle = el.fill || PAPER; ctx.fillRect(x0, y0, w, h); ctx.restore();
   ctx.strokeStyle = el.col || INK; ctx.lineWidth = el.lw || 3; ctx.lineCap = 'square'; ctx.lineJoin = 'miter';
-  partialPoly(ctx, [[x0, y0], [x0 + w, y0], [x0 + w, y0 + h], [x0, y0 + h]], q, true);
-  const pc = clamp((p - 0.35) / 0.65);
+  if (q >= 1) { ctx.strokeRect(x0, y0, w, h); }
+  else if (q > 0) {
+    partialPoly(ctx, [[x0, y0], [x0 + w, y0], [x0 + w, y0 + h]], q, false);
+    partialPoly(ctx, [[x0, y0], [x0, y0 + h], [x0 + w, y0 + h]], q, false);
+  }
+  const pc = clamp((p - 0.22) / 0.6);
   if (pc > 0) {
     ctx.save(); ctx.globalAlpha *= ease.out(pc);
     const iy = el.icon ? (el.text ? y - h * 0.12 : y) : y;
-    if (el.icon) { ctx.save(); ctx.translate(x, iy + (1 - ease.out(pc)) * 10); const sc = 0.8 + 0.2 * ease.back(pc); ctx.scale(sc, sc); drawIcon(ctx, el.icon, el.is || Math.min(w, h) * 0.46); ctx.restore(); }
+    if (el.icon) { ctx.save(); ctx.translate(x, iy + (1 - ease.expo(pc)) * 10); const sc = 0.94 + 0.06 * ease.soft(pc); ctx.scale(sc, sc); drawIcon(ctx, el.icon, el.is || Math.min(w, h) * 0.46); ctx.restore(); }
     if (el.text) drawRich(ctx, el.text, x, el.icon ? y + h * 0.32 : y, { size: el.size || 36, w: el.w8 || 700, col: el.tcol || (el.col === RED ? RED : INK) });
     if (el.num) drawRich(ctx, el.num, x, y0 + 4, { size: 44, w: 400, font: SERIF, col: el.col === RED ? RED : INK });
     ctx.restore();
@@ -528,7 +539,8 @@ KIND.box = (ctx, el, p, t, x, y) => {
 };
 function drawCheck(ctx, x, y, s, q) {
   if (q <= 0) return; ctx.save();
-  ctx.fillStyle = RED; ctx.beginPath(); ctx.arc(x, y, s, 0, Math.PI * 2 * 1); ctx.globalAlpha *= ease.out(clamp(q * 2)); ctx.fill();
+  const sc = 0.7 + 0.3 * ease.soft(clamp(q * 1.6)); ctx.translate(x, y); ctx.scale(sc, sc); ctx.translate(-x, -y);
+  ctx.fillStyle = RED; ctx.beginPath(); ctx.arc(x, y, s, 0, Math.PI * 2); ctx.globalAlpha *= ease.out(clamp(q * 2)); ctx.fill();
   ctx.strokeStyle = PAPER; ctx.lineWidth = s * 0.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   partialPoly(ctx, [[x - s * 0.45, y + s * 0.02], [x - s * 0.1, y + s * 0.36], [x + s * 0.48, y - s * 0.32]], ease.out(q), false); ctx.restore();
 }
@@ -561,8 +573,8 @@ KIND.bubble = (ctx, el, p, t, x, y) => {
   if (dir === 'r') { bx = x + (lift > 60 ? 0 : 46); by = y - lift - h / 2; }
   else if (dir === 'l') { bx = x - (lift > 60 ? 0 : 46) - w; by = y - lift - h / 2; }
   else { bx = x - w / 2 + (el.shift || 0); by = y - 30 - h - lift; }
-  const s = 0.55 + 0.45 * ease.back(clamp(p));
-  ctx.translate(x, y); ctx.scale(s, s); ctx.translate(-x, -y); ctx.globalAlpha *= ease.out(clamp(p * 1.8));
+  const s = 0.8 + 0.2 * ease.soft(clamp(p));
+  ctx.translate(x, y); ctx.scale(s, s); ctx.translate(-x, -y); ctx.globalAlpha *= ease.out(clamp(p * 1.5));
   const r = el.think ? Math.min(h / 2, 46) : 22;
   ctx.lineWidth = 3; ctx.strokeStyle = el.col || INK; ctx.lineJoin = 'round';
   const cy = by + h / 2;
@@ -607,9 +619,10 @@ function drawEl(ctx, el, t) {
   if (t < el.at) return;
   const p = clamp((t - el.at) / (el.dur || 0.5));
   let a = 1;
-  if (el.dim != null && t > el.dim) a *= 1 - 0.72 * ease.out(clamp((t - el.dim) / 0.4));
-  if (el.out != null) { if (t > el.out + 0.35) return; if (t > el.out) a *= 1 - clamp((t - el.out) / 0.35); }
-  ctx.save(); ctx.globalAlpha *= a;
+  if (el.dim != null && t > el.dim) a *= 1 - 0.7 * ease.inout(clamp((t - el.dim) / 0.5));
+  let oy = 0;
+  if (el.out != null) { if (t > el.out + 0.4) return; if (t > el.out) { const o = ease.inout(clamp((t - el.out) / 0.4)); a *= 1 - o; oy = -10 * o; } }
+  ctx.save(); ctx.globalAlpha *= a; ctx.translate(0, oy);
   let x = el.x, y = el.y;
   if (el.move) for (const m of [].concat(el.move)) { const q = ease.inout(clamp((t - m.at) / (m.dur || 0.8))); x += (m.dx || 0) * q; y += (m.dy || 0) * q; }
   KIND[el.k](ctx, el, p, t, x, y);
@@ -640,13 +653,24 @@ function drawCaption(ctx, t) {
 // ---------- scenes ----------
 const SCENES = [];
 function sc(start, els) { SCENES.push({ start, els: els.flat().filter(Boolean) }); }
-function finalizeScenes(total) { SCENES.sort((a, b) => a.start - b.start); SCENES.forEach((s, i) => s.end = i + 1 < SCENES.length ? SCENES[i + 1].start : total); }
-const XFADE = 0.32;
-function drawScene(ctx, s, t, alpha) {
-  ctx.save(); ctx.globalAlpha = alpha;
-  const q = clamp((t - s.start) / Math.max(1, s.end - s.start));
-  const z = 1 + 0.022 * ease.inout(q) + (alpha < 1 ? (1 - alpha) * 0.02 : 0);
-  ctx.translate(960, 500); ctx.scale(z, z); ctx.translate(-960, -500);
+const XFADE = 0.3, ENTER = 0.2;
+function finalizeScenes(total) {
+  SCENES.sort((a, b) => a.start - b.start);
+  SCENES.forEach((s, i) => {
+    s.end = i + 1 < SCENES.length ? SCENES[i + 1].start : total;
+    const lead = i === 0 ? 0 : ENTER;
+    const groups = {};
+    for (const el of s.els) {
+      if (el.k === 'fn' && el.noShift) continue;
+      const key = el.at.toFixed(2); const n = groups[key] = (groups[key] || 0) + 1;
+      const shift = Math.max(0, s.start + lead - el.at);
+      el.at += shift + (n - 1) * 0.12;
+    }
+  });
+}
+function drawScene(ctx, s, t, exitQ = 0) {
+  ctx.save(); ctx.globalAlpha = 1 - ease.inout(exitQ);
+  if (exitQ > 0) { const z = 1 - 0.015 * ease.inout(exitQ); ctx.translate(960, 500 - 12 * ease.inout(exitQ)); ctx.scale(z, z); ctx.translate(-960, -500); }
   for (const el of s.els) drawEl(ctx, el, t);
   ctx.restore();
 }
@@ -657,8 +681,8 @@ function render(t) {
   const i = SCENES.findIndex(s => t >= s.start && t < s.end);
   const idx = i < 0 ? SCENES.length - 1 : i;
   const prev = SCENES[idx - 1];
-  if (prev && t < prev.end + XFADE) drawScene(ctx, prev, Math.min(t, prev.end), 1 - ease.out((t - prev.end) / XFADE));
-  drawScene(ctx, SCENES[idx], t, prev && t < prev.end + XFADE ? ease.out(clamp((t - prev.end) / XFADE * 1.4)) : 1);
+  if (prev && t < prev.end + XFADE) drawScene(ctx, prev, t, (t - prev.end) / XFADE);
+  drawScene(ctx, SCENES[idx], t, 0);
   drawCaption(ctx, t);
 }
 

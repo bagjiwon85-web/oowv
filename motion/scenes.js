@@ -59,7 +59,7 @@ const stairs = (at) => (ctx, p, t) => {
 };
 const targetJump = (pts, at, every = 1.05) => (ctx, p, t) => {
   const lt = Math.max(0, t - at - 0.6); const n = pts.length;
-  const i = Math.floor(lt / every) % n, f = ease.inout(clamp((lt % every) / 0.55));
+  const i = Math.floor(lt / every) % n, f = ease.inout(clamp((lt % every) / 0.7));
   const a = pts[i], b = pts[(i + 1) % n];
   const x = lerp(a[0], b[0], f), y = lerp(a[1], b[1], f) - Math.sin(f * Math.PI) * 90;
   ctx.save(); ctx.globalAlpha *= ease.out(p); ctx.translate(x, y); drawIcon(ctx, 'target', 92); ctx.restore();
@@ -88,9 +88,11 @@ const blankCycle = (x, y, at) => (ctx, p, t) => {
   const icons = ['airplane', 'parents', 'clock', 'house'];
   ctx.save(); ctx.globalAlpha *= ease.out(p);
   ctx.setLineDash([10, 8]); ctx.strokeStyle = RED; ctx.lineWidth = 4; rr(ctx, x - 90, y - 90, 180, 180, 16); ctx.fillStyle = PAPER; ctx.fill(); ctx.stroke(); ctx.setLineDash([]);
-  const k = Math.floor(Math.max(0, t - at) / 0.75) % icons.length, f = (Math.max(0, t - at) % 0.75) / 0.75;
-  const s = f < 0.2 ? ease.back(f / 0.2) : 1;
-  ctx.translate(x, y); ctx.scale(s, s); drawIcon(ctx, icons[k], 120); ctx.restore();
+  const lt = Math.max(0, t - at), per = 0.9, k = Math.floor(lt / per) % icons.length, f = (lt % per) / per;
+  ctx.translate(x, y);
+  const fin = clamp(f / 0.3), fout = clamp((f - 0.75) / 0.25);
+  ctx.save(); ctx.globalAlpha *= ease.out(fin) * (1 - ease.in(fout)); const sc = 0.92 + 0.08 * ease.expo(fin); ctx.translate(0, (1 - ease.expo(fin)) * 10 - 8 * ease.in(fout)); ctx.scale(sc, sc); drawIcon(ctx, icons[k], 120); ctx.restore();
+  ctx.restore();
 };
 const pipes = (at, at2) => (ctx, p, t) => {
   const px = 960, py = 680;
@@ -217,11 +219,11 @@ const funnel = (at, t2, t3) => (ctx, p, t) => {
   const lt = t - at;
   for (let i = 0; i < 26; i++) {
     const ph = ((lt * 0.33 + i / 26) % 1); const stage = t < t2 ? 0.38 : t < t3 ? 0.68 : 1.02;
-    if (ph > stage) continue;
+    if (ph > stage) continue; const endFade = clamp((stage - ph) / 0.06);
     const yy = lerp(top - 120, bot + 40, ph);
     const half = yy < top ? 380 : yy < mid + 40 ? lerp(360, 70, (yy - top) / (mid + 40 - top)) - 30 : 40;
     const xx = cx + Math.sin(i * 12.9898) * half * 0.85;
-    const a = clamp(lt * 2) * (yy < top ? clamp((yy - top + 120) / 60) : 1);
+    const a = endFade * clamp(lt * 2) * (yy < top ? clamp((yy - top + 120) / 60) : 1);
     ctx.save(); ctx.globalAlpha *= a; ctx.fillStyle = yy > 480 ? RED : '#4A4A4A'; circ(ctx, xx, yy - 6, 9); ctx.fill(); ctx.beginPath(); ctx.roundRect(xx - 11, yy + 5, 22, 13, [8, 8, 2, 2]); ctx.fill(); ctx.restore();
   }
   const row = (y, ic, text, ta, col) => {

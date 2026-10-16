@@ -34,7 +34,8 @@ export const lerp = (a, b, p) => a + (b - a) * p;
 export function spr(t, t0, cfg = {}) {
   const f = Math.round((t - t0) * FPS);
   if (f < 0) return 0;
-  return spring({ frame: f, fps: FPS, config: Object.assign({ damping: 16, stiffness: 120, mass: 0.9 }, cfg) });
+  const v = spring({ frame: f, fps: FPS, config: Object.assign({ damping: 16, stiffness: 120, mass: 0.9 }, cfg) });
+  return Math.abs(1 - v) < 0.004 && f > 10 ? 1 : v;
 }
 
 // ---------- items ----------
@@ -47,12 +48,12 @@ export function mk(html, x, y, o = {}) {
 }
 const BURST_ICONS = new Set(['check', 'xmark', 'question', 'alert']);
 export function I(name, x, y, size = 200, o = {}) {
-  return mk(iconSVG(name, size, o.arg), x, y, Object.assign({ anim: 'pop', float: size >= 170 ? 3 : 0, burst: BURST_ICONS.has(name) }, o));
+  return mk(iconSVG(name, size, o.arg), x, y, Object.assign({ anim: 'pop', burst: BURST_ICONS.has(name) }, o));
 }
 const groundShadow = w => `<div style="position:absolute;left:50%;bottom:-6px;width:${w}px;height:18px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(31,36,48,.14),rgba(31,36,48,0))"></div>`;
 export function P(x, y, h = 330, o = {}) {
   const w = h * 200 / 230;
-  return mk(`<div style="position:relative">${groundShadow(w * .8)}${svg(w, h, '0 0 200 230', personInner(o))}</div>`, x, y, Object.assign({ anim: 'up', float: 2 }, o));
+  return mk(`<div style="position:relative">${groundShadow(w * .8)}${svg(w, h, '0 0 200 230', personInner(o))}</div>`, x, y, Object.assign({ anim: 'up' }, o));
 }
 export function Bd(x, y, size = 150, o = {}) {
   return mk(`<div style="border-radius:50%;box-shadow:0 10px 24px rgba(31,36,48,.12)">${badgeSVG(o, o.bg || K.yel, size)}</div>`, x, y, Object.assign({ anim: 'pop' }, o));
@@ -129,6 +130,7 @@ function wordSpans(html, t, t0) {
     return part.split(/(\s+)/).map(w => {
       if (!w.trim()) return w;
       const s = spr(t, t0 + 0.07 * k++, { damping: 15, stiffness: 140 });
+      if (s >= 1) return `<span style="display:inline-block">${w}</span>`;
       return `<span style="display:inline-block;opacity:${clamp(s * 1.4).toFixed(3)};transform:translateY(${((1 - s) * 34).toFixed(1)}px)">${w}</span>`;
     }).join('');
   }).join('');
@@ -148,14 +150,15 @@ export function itemState(it, t) {
     case 'fade': sc = .96 + .04 * s; op = clamp(s * 1.3); break;
     case 'words': op = 1; break;
   }
-  sc *= .97 + .03 * q; // settle slightly smaller while leaving
+  if (q < 1) sc *= .97 + .03 * q; // settle slightly smaller while leaving
   let x = it.x, y = it.y, rot = 0;
-  if (it.float) ty += Math.sin((t - it.t0) * 1.9 + it.x * .01) * it.float;
   if (it.fx) {
     const f = it.fx(t) || {};
     if (f.x != null) x = f.x; if (f.y != null) y = f.y;
     if (f.dx) tx += f.dx; if (f.dy) ty += f.dy; if (f.rot) rot = f.rot; if (f.scale) sc *= f.scale;
   }
+  if (Math.abs(tx) < 0.5) tx = 0; if (Math.abs(ty) < 0.5) ty = 0;
+  if (!it.fx) { x = Math.round(x); y = Math.round(y); }
   let html = it.htmlAt ? it.htmlAt(t) : it.html;
   if (it.anim === 'words') {
     const inner = html.match(/^(<div[^>]*>)([\s\S]*)(<\/div>)$/);
@@ -165,7 +168,7 @@ export function itemState(it, t) {
   return {
     html, x, y, z: it.z, origin: it.origin || '50% 50%',
     opacity: op * q,
-    transform: `translate(-50%,-50%) translate(${tx.toFixed(2)}px,${ty.toFixed(2)}px) rotate(${rot.toFixed(3)}deg) scale(${sc.toFixed(4)})`,
+    transform: (tx || ty || rot || sc !== 1) ? `translate(-50%,-50%) translate(${tx.toFixed(2)}px,${ty.toFixed(2)}px) rotate(${rot.toFixed(3)}deg) scale(${sc.toFixed(4)})` : 'translate(-50%,-50%)',
     filter: blur > .2 ? `blur(${blur.toFixed(2)}px)` : 'none',
     burst: it.burst ? clamp((t - it.t0) / 0.6) : 1,
   };

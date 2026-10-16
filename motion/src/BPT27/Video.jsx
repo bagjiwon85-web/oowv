@@ -10,7 +10,7 @@ export const BPT27_DURATION = Math.round(END * FPS);
 
 const WEIGHTS = [[400, 'Regular'], [500, 'Medium'], [600, 'SemiBold'], [700, 'Bold'], [800, 'ExtraBold']];
 const CSS = `
-.el{position:absolute;will-change:transform,opacity}
+.el{position:absolute;}
 .el em{font-style:normal;color:#EE4036}
 svg text{font-family:P}
 .sub em{font-style:normal;color:#FF6A5F;font-weight:800}
@@ -33,12 +33,11 @@ const Item = ({ st }) => (
   </div>
 );
 
-// One scene: its items plus a very slow camera push-in.
+// One scene: its items. The frame itself never moves.
 const Scene = ({ sc, t }) => {
-  const p = Math.min(1, Math.max(0, (t - sc.t) / (sc.end - sc.t)));
   const states = sc.items.map(it => [it.id, itemState(it, t)]).filter(([, s]) => s);
   return (
-    <AbsoluteFill style={{ transform: `scale(${1 + 0.018 * p})`, transformOrigin: '960px 600px' }}>
+    <AbsoluteFill>
       {states.map(([id, st]) => <Item key={id} st={st} />)}
     </AbsoluteFill>
   );
@@ -49,7 +48,7 @@ const Subtitle = ({ t }) => {
   if (!ln) return null;
   const a = Math.min(1, (t - ln.start) / 0.12);
   return (
-    <div style={{ position: 'absolute', left: '50%', top: 992, transform: `translate(-50%,-50%) translateY(${(1 - a) * 6}px)`, opacity: 0.4 + 0.6 * a, zIndex: 100 }}>
+    <div style={{ position: 'absolute', left: '50%', top: 992, transform: 'translate(-50%,-50%)', opacity: 0.4 + 0.6 * a, zIndex: 100 }}>
       <span className="sub" style={{ display: 'block', background: 'rgba(24,27,36,.92)', color: '#fff', fontSize: 44, fontWeight: 600, padding: '14px 34px 16px', borderRadius: 14, whiteSpace: 'nowrap', letterSpacing: '-0.01em' }}
         dangerouslySetInnerHTML={{ __html: ln.html }} />
     </div>

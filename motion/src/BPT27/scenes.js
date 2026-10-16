@@ -82,7 +82,7 @@ function commentCard(hi) {
     </div></div>`;
 }
 const chapter = (num, icon, title, t) => [
-  T(num, CX, 560, 520, { color: '#FDECEB', w: 800, anim: 'fade', t: t - 0.05, z: -1, fx: tt => ({ scale: 1 + 0.03 * clamp((tt - t) / 3) }) }),
+  T(num, CX, 560, 520, { color: '#FDECEB', w: 800, anim: 'fade', t: t - 0.05, z: -1 }),
   I(icon, CX, 420, 210, { t }),
   T(`<span style="color:${K.red};font-size:120px;font-weight:800;margin-right:30px;vertical-align:-8px">${num}</span>${title}`, CX, 650, 80, { t: t + 0.25 }),
 ];
@@ -332,7 +332,7 @@ export function buildScenes() {
       T(`먼저 ${em('확인')}하기`, CX, 400, 56, { t: at(82, '확인') }));
   }
   S(at(83),
-    G(wheel(), 700, 600, { anim: 'pop' }), G(runner(), 700, 560, { t: at(83) + .2, fx: t => ({ dy: Math.sin(t * 9) * 4 }) }),
+    G(wheel(), 700, 600, { anim: 'pop' }), G(runner(), 700, 560, { t: at(83) + .2 }),
     T('지금 일을 더 많이', 1260, 520, 60, { anim: 'right', t: at(83, '지금') }),
     T(`≠ ${em('유일한 방법')}`, 1260, 630, 72, { anim: 'right', t: at(84, '유일한') }));
   S(at(85),
@@ -391,7 +391,7 @@ export function buildScenes() {
   }
   S(at(109),
     T(`작게<br>${em('반복')}`, CX, 610, 64, { t: at(109, '작게') }),
-    G(box(460, 460, `<circle cx="230" cy="230" r="200" fill="none" stroke="${K.grayL}" stroke-width="14" stroke-dasharray="30 22"/>`), CX, 610, { anim: 'fade', fx: t => ({ rot: (t - at(109)) * 12 }) }),
+    G(box(460, 460, `<circle cx="230" cy="230" r="200" fill="none" stroke="${K.grayL}" stroke-width="14" stroke-dasharray="30 22"/>`), CX, 610, { anim: 'fade' }),
     LI('book', 720, 470, 140, '배우기', at(109, '배워')),
     LI('flask', 1200, 470, 140, em('작게 시도'), at(109, '작게')),
     LI('chat', CX, 790, 130, '반응 보기', at(110, '반응'), { gap: 30 }));
@@ -424,7 +424,7 @@ export function buildScenes() {
   S(at(121), I('alert', CX, 520, 190), T(`그런데 ${em('중요한 점')}`, CX, 720, 72, { t: at(121, '중요') }));
   S(at(122),
     I('youtube', 640, 610, 230),
-    ...[[580, 470, 60, .0], [660, 420, 70, .15], [730, 480, 50, .3]].map(([x, y, s, d]) => I('heart', x, y, s, { t: at(122, '관심') + d, fx: t => ({ dy: -Math.min(30, Math.max(0, t - at(122, '관심') - d) * 12) }) })),
+    ...[[580, 470, 60, .0], [660, 420, 70, .15], [730, 480, 50, .3]].map(([x, y, s, d]) => I('heart', x, y, s, { t: at(122, '관심') + d })),
     Lb('관심은 모였지만', 640, 770, { t: at(122, '관심') + .2 }),
     A(800, 610, 1080, 610, { dash: '12 14', t: at(123) }),
     I('coins', 1250, 610, 200, { arg: 5, t: at(123) }), I('xmark', 1330, 510, 80, { t: at(123, '아니') }),

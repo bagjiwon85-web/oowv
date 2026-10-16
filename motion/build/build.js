@@ -16,11 +16,14 @@ html,body{margin:0;background:#fff;font-family:P,sans-serif}
 #stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#fff}
 .el{position:absolute;transform-origin:center;will-change:transform,opacity}
 #sub{position:absolute;left:50%;top:992px;transform:translate(-50%,-50%);z-index:100;display:none}
-#sub span{display:block;background:#1E1E1E;color:#fff;font-size:44px;font-weight:500;padding:14px 32px 16px;border-radius:12px;white-space:nowrap;letter-spacing:-0.01em}
+#sub span{display:block;background:rgba(24,27,36,.92);color:#fff;font-size:44px;font-weight:600;padding:14px 34px 16px;border-radius:14px;white-space:nowrap;letter-spacing:-0.01em}
+#sub em{font-style:normal;color:#FF6A5F;font-weight:800}
+.el em{font-style:normal;color:#EE4036}
+svg text{font-family:P}
 </style></head><body><div id="stage"><div id="sub"><span></span></div></div>
 <script>const LINES=${lines};const ICONS=${JSON.stringify(icons)};</script>
-<script src="engine.js"></script><script src="scenes.js"></script>
-<script>buildScenes();finalize(385.3);document.fonts.ready.then(()=>{window.READY=true;});</script>
+<script src="art.js"></script><script src="engine.js"></script><script src="scenes.js"></script>
+<script>buildScenes();finalize(385.3);Promise.all([400,500,600,700,800].map(w=>document.fonts.load(w+' 40px P','가나다AB₩0123'))).then(()=>document.fonts.ready).then(()=>{window.READY=true;});</script>
 </body></html>`;
 fs.writeFileSync(__dirname + '/index.html', html);
 console.log('icons', Object.keys(icons).length);

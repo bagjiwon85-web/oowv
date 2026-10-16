@@ -12,12 +12,13 @@ const coinsGrow = (x, y, at) => (ctx, p, t) => {
     for (let j = 0; j < n; j++) { ctx.save(); ctx.globalAlpha *= clamp(p * 2); ctx.translate(x + (i - 1) * 96, y - j * 22); ctx.lineWidth = 3; ctx.strokeStyle = INK; rr(ctx, -40, -11, 80, 22, 11); ctx.fillStyle = PAPER; ctx.fill(); ctx.stroke(); ctx.restore(); }
   }
 };
+// dashed road drawn first so it sits behind the person, bag and flag
+const roadLine = () => (ctx, p) => { ctx.save(); ctx.globalAlpha *= ease.out(p); ctx.strokeStyle = PGRAY; ctx.lineWidth = 3; ctx.setLineDash([10, 12]); ln(ctx, 300, 650, 1640, 650); ctx.restore(); };
 const flagDrift = (at) => (ctx, p, t) => {
   const q = ease.inout(prog(t, at + 1.0, 2.4));
   const fx = lerp(1180, 1520, q);
   ctx.save(); ctx.globalAlpha *= ease.out(p); ctx.translate(fx, 560); drawIcon(ctx, 'flag', 170); ctx.restore();
   label(ctx, '원하는 삶', fx, 690, { col: INK, size: 38, w: 700 });
-  ctx.save(); ctx.strokeStyle = PGRAY; ctx.lineWidth = 3; ctx.setLineDash([10, 12]); ln(ctx, 300, 650, 1640, 650); ctx.restore();
   if (q > 0) {
     ctx.save(); ctx.strokeStyle = RED; ctx.lineWidth = 4; ctx.lineCap = 'round'; const x1 = 800, x2 = fx - 110;
     ln(ctx, x1, 440, x2, 440); arrowHead(ctx, x2, 440, 0, 14); arrowHead(ctx, x1, 440, Math.PI, 14); ctx.restore();
@@ -311,6 +312,7 @@ sc(11.0, [
 ]);
 // 4. 원하는 삶과 멀어짐
 sc(16.85, [
+  Fn(16.85, roadLine(), { dur: 0.5 }),
   L(16.85, 960, 200, '돈을 많이 벌어도'),
   Pe(16.85, 520, 590, 230),
   Ic(16.85, 'moneybag', 680, 600, 140),

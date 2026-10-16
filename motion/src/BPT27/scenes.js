@@ -1,3 +1,6 @@
+import { K, ICON, iconSVG, badgeSVG } from './art';
+import { C, L, W, clamp, easeOut, easeInOut, lerp, mk, I, P, Bd, T, H, Lb, Tag, G, B, A, S, seqOut } from './engine';
+
 // Scene list. Coordinates are centres on a 1920x1080 canvas.
 // The top band (y < 240) stays empty for the section bar (left) and logo (right).
 const CX = 960;
@@ -16,11 +19,11 @@ function LI(name, x, y, size, label, t, o = {}) {
 const box = (w, h, inner, vb) => `<svg width="${w}" height="${h}" viewBox="${vb || `0 0 ${w} ${h}`}" style="display:block;overflow:visible">${inner}</svg>`;
 
 // ---- custom drawings (flat) ----
-function donut() {
+function donut(frac = 1, label = '10시간') {
   const r = 110, c = 2 * Math.PI * r;
   return box(300, 300, `<circle cx="150" cy="150" r="${r}" fill="none" stroke="${K.grayL}" stroke-width="56"/>
-    <circle class="arc" cx="150" cy="150" r="${r}" fill="none" stroke="${K.red}" stroke-width="56" stroke-dasharray="${c} ${c}" transform="rotate(-90 150 150)"/>
-    <circle cx="150" cy="150" r="78" fill="#fff"/><text class="lbl" x="150" y="168" text-anchor="middle" font-size="50" font-weight="800" fill="${C.ink}">10시간</text>`);
+    <circle class="arc" cx="150" cy="150" r="${r}" fill="none" stroke="${K.red}" stroke-width="56" stroke-dasharray="${c * frac} ${c}" transform="rotate(-90 150 150)"/>
+    <circle cx="150" cy="150" r="78" fill="#fff"/><text class="lbl" x="150" y="168" text-anchor="middle" font-size="50" font-weight="800" fill="${C.ink}">${label}</text>`);
 }
 function bucket() {
   return box(260, 300, `<ellipse cx="130" cy="286" rx="96" ry="10" fill="#000" opacity=".07"/>
@@ -79,11 +82,12 @@ function commentCard(hi) {
     </div></div>`;
 }
 const chapter = (num, icon, title, t) => [
+  T(num, CX, 560, 520, { color: '#FDECEB', w: 800, anim: 'fade', t: t - 0.05, z: -1, fx: tt => ({ scale: 1 + 0.03 * clamp((tt - t) / 3) }) }),
   I(icon, CX, 420, 210, { t }),
   T(`<span style="color:${K.red};font-size:120px;font-weight:800;margin-right:30px;vertical-align:-8px">${num}</span>${title}`, CX, 650, 80, { t: t + 0.25 }),
 ];
 
-function buildScenes() {
+export function buildScenes() {
   // ===== Intro =====
   S(at(0),
     H(`우리가 ${em('부자')}가 되고 싶을 때`, { t: at(0) }),
@@ -153,7 +157,7 @@ function buildScenes() {
   {
     const tq = at(25);
     const q = T(`돈이 많아지면 ${em('무엇이')} 달라질까?`, CX, 560, 84, {
-      t: at(24), upd: (t, it) => { const p = easeInOut(clamp((t - tq) / 0.7)); it.d.style.top = lerp(560, HY, p) + 'px'; it.d.firstChild.style.fontSize = lerp(84, 60, p) + 'px'; } });
+      t: at(24), fx: t => { const p = easeInOut(clamp((t - tq) / 0.7)); return { y: lerp(560, HY, p), scale: lerp(1, 60 / 84, p) }; } });
     S(at(24), q, I('moneybag', CX, 760, 150, { t: at(24, '무엇이'), out: tq }),
       LI('parents', X3[0], 590, 210, '부모님 생활비', at(25)),
       LI('plane', X3[1], 590, 210, '가족 여행', at(26)),
@@ -173,10 +177,9 @@ function buildScenes() {
     LI('piggy', X3[2], 590, 200, em('얼마 모을지'), at(31, '얼마')));
   {
     const t1 = at(33, '덜');
-    const d = G(donut(), 720, 590, { t: at(32), anim: 'pop', upd: (t, it) => {
-      const p = easeInOut(clamp((t - t1) / 0.9)); const c = 2 * Math.PI * 110;
-      it.d.querySelector('.arc').setAttribute('stroke-dasharray', `${c * (1 - .5 * p)} ${c}`);
-      it.d.querySelector('.lbl').textContent = p < .5 ? '10시간' : '5시간'; } });
+    const d = G(donut(), 720, 590, { t: at(32), anim: 'pop', htmlAt: t => {
+      const p = easeInOut(clamp((t - t1) / 0.9));
+      return donut(1 - .5 * p, p < .5 ? '10시간' : '5시간'); } });
     S(at(32), H(`반대로 ${em('일하는 시간')}을 줄이고 싶다면`), d,
       A(890, 590, 1060, 590, { t: t1 + .4 }),
       LI('house', 1220, 590, 210, `${em('덜 일해도')} 생활할 방법`, t1 + .5),
@@ -210,19 +213,19 @@ function buildScenes() {
   { // seesaw
     const tilt = t => { const a = clamp((t - at(42, '줄어')) / 1.0), b = clamp((t - at(43, '멀어')) / 1.0); return 6 * easeInOut(a) + 4 * easeInOut(b) - 4; };
     const cx = CX, cy = 640;
-    const onBeam = (dx, dy) => (t, it) => { const g = tilt(t) * Math.PI / 180; it.d.style.left = (cx + dx * Math.cos(g) - dy * Math.sin(g)) + 'px'; it.d.style.top = (cy + dx * Math.sin(g) + dy * Math.cos(g)) + 'px'; };
+    const onBeam = (dx, dy) => t => { const g = tilt(t) * Math.PI / 180; return { x: cx + dx * Math.cos(g) - dy * Math.sin(g), y: cy + dx * Math.sin(g) + dy * Math.cos(g) }; };
     const h1 = H(`처음 원했던 것은 ${em('가족과의 시간')}`, { t: at(41) });
     const h2 = H(`수입 ${em('↑')}  원하는 삶 ${em('↓')}`, { t: at(43, '수입') });
     h1.t1 = h2.t0;
-    const s1 = I('coins', cx, cy, 150, { arg: 2, upd: onBeam(290, -66), t: at(41, '돈을') });
+    const s1 = I('coins', cx, cy, 150, { arg: 2, fx: onBeam(290, -66), t: at(41, '돈을') });
     s1.t1 = at(42, '더 벌수록') + .25;
     S(at(41), h1, h2,
-      G(seesawBeam(), cx, cy, { z: 1, upd: (t, it) => { it.d.style.transform += ` rotate(${tilt(t)}deg)`; } }), G(seesawBase(), cx, cy + 70),
-      I('family', cx, cy, 190, { upd: onBeam(-280, -98) }),
-      I('heart', cx, cy, 60, { upd: onBeam(-190, -190), t: at(41, '시간을') }),
-      s1, I('coins', cx, cy, 170, { arg: 6, upd: onBeam(290, -86), t: at(42, '더 벌수록') }),
-      Lb('가족과의 시간', cx, cy, { upd: onBeam(-280, 70), t: at(41) + .3 }),
-      Lb('수입', cx, cy, { upd: onBeam(290, 70), t: at(41, '돈을') + .3 }));
+      G(seesawBeam(), cx, cy, { z: 1, fx: t => ({ rot: tilt(t) }) }), G(seesawBase(), cx, cy + 70),
+      I('family', cx, cy, 190, { fx: onBeam(-280, -98) }),
+      I('heart', cx, cy, 60, { fx: onBeam(-190, -190), t: at(41, '시간을') }),
+      s1, I('coins', cx, cy, 170, { arg: 6, fx: onBeam(290, -86), t: at(42, '더 벌수록') }),
+      Lb('가족과의 시간', cx, cy, { fx: onBeam(-280, 70), t: at(41) + .3 }),
+      Lb('수입', cx, cy, { fx: onBeam(290, 70), t: at(41, '돈을') + .3 }));
   }
   {
     const b1 = B(`“${em('얼마를')} 벌고 싶다”`, 1100, 460, { t: at(44, '얼마'), tail: 'bl' });
@@ -295,7 +298,7 @@ function buildScenes() {
     S(at(68),
       G(box(220, 210, ICON.puzzleSlot()), 1220, 590, { anim: 'pop', t: at(68, '누군가') }),
       Lb('누군가의 문제', 1220, 760, { t: at(68, '누군가') + .2, out: t0 + .8 }),
-      I('puzzle', 700, 590, 190, { upd: (t, it) => { it.d.style.left = lerp(700, 1220, mv(t)) + 'px'; } }),
+      I('puzzle', 700, 590, 190, { fx: t => ({ x: lerp(700, 1220, mv(t)) }) }),
       Lb(em('내 능력'), 700, 760, { out: t0 }),
       I('coin', 1220, 360, 110, { t: at(69, '가치') }),
       T(`돈이 되는 ${em('가치')}`, 1220, 780, 52, { t: at(69, '가치') + .1 }));
@@ -329,7 +332,7 @@ function buildScenes() {
       T(`먼저 ${em('확인')}하기`, CX, 400, 56, { t: at(82, '확인') }));
   }
   S(at(83),
-    G(wheel(), 700, 600, { anim: 'pop' }), G(runner(), 700, 560, { t: at(83) + .2, upd: (t, it) => { it.d.style.transform += ` translateY(${Math.sin(t * 9) * 4}px)`; } }),
+    G(wheel(), 700, 600, { anim: 'pop' }), G(runner(), 700, 560, { t: at(83) + .2, fx: t => ({ dy: Math.sin(t * 9) * 4 }) }),
     T('지금 일을 더 많이', 1260, 520, 60, { anim: 'right', t: at(83, '지금') }),
     T(`≠ ${em('유일한 방법')}`, 1260, 630, 72, { anim: 'right', t: at(84, '유일한') }));
   S(at(85),
@@ -375,19 +378,20 @@ function buildScenes() {
     T(`수입으로 ${em('이어지기 어렵다')}`, CX, 400, 56, { t: at(103) }));
   {
     const ts = at(104, '보다');
-    S(at(104), T('무조건 더 일하기', CX, 560, 84, { color: '#5A6172', upd: (t, it) => { const p = clamp((t - ts) / .5); const tx = it.d.firstChild; tx.style.textDecoration = p > 0 ? 'line-through' : 'none'; tx.style.textDecorationColor = K.red; tx.style.textDecorationThickness = '7px'; tx.style.opacity = 1 - .45 * p; } }));
+    S(at(104), mk('', CX, 560, { anim: 'up', htmlAt: t => { const p = easeInOut(clamp((t - ts) / .45));
+      return `<div style="position:relative;font-size:84px;font-weight:800;color:#5A6172;white-space:nowrap;letter-spacing:-0.025em"><span style="opacity:${1 - .45 * p}">무조건 더 일하기</span><div style="position:absolute;left:-12px;top:52%;height:9px;border-radius:5px;background:${K.red};width:calc(${p * 100}% + ${24 * p}px)"></div></div>`; } }));
   }
   {
     const t2 = at(106);
     S(at(105, '부족한'),
-      T(`내게 ${em('부족한 것')}은?`, CX, 560, 100, { upd: (t, it) => { const p = easeInOut(clamp((t - t2) / .7)); it.d.style.top = lerp(560, HY, p) + 'px'; it.d.firstChild.style.fontSize = lerp(100, 62, p) + 'px'; } }),
+      T(`내게 ${em('부족한 것')}은?`, CX, 560, 100, { fx: t => { const p = easeInOut(clamp((t - t2) / .7)); return { y: lerp(560, HY, p), scale: lerp(1, .62, p) }; } }),
       LI('megaphone', X3[0], 600, 200, '나를 알리는 법', at(106)),
       LI('present', X3[1], 600, 200, '능력 설명하는 법', at(107)),
       LI('userSearch', X3[2], 600, 200, '필요를 찾는 법', at(108, '필요로')));
   }
   S(at(109),
     T(`작게<br>${em('반복')}`, CX, 610, 64, { t: at(109, '작게') }),
-    G(box(460, 460, `<circle cx="230" cy="230" r="200" fill="none" stroke="${K.grayL}" stroke-width="14" stroke-dasharray="30 22"/>`), CX, 610, { anim: 'fade', upd: (t, it) => { it.d.firstChild.style.transform = `rotate(${(t - at(109)) * 12}deg)`; } }),
+    G(box(460, 460, `<circle cx="230" cy="230" r="200" fill="none" stroke="${K.grayL}" stroke-width="14" stroke-dasharray="30 22"/>`), CX, 610, { anim: 'fade', fx: t => ({ rot: (t - at(109)) * 12 }) }),
     LI('book', 720, 470, 140, '배우기', at(109, '배워')),
     LI('flask', 1200, 470, 140, em('작게 시도'), at(109, '작게')),
     LI('chat', CX, 790, 130, '반응 보기', at(110, '반응'), { gap: 30 }));
@@ -413,13 +417,14 @@ function buildScenes() {
       Bd(1200, 470, 110, { outfit: 'purple', hair: 'quiff', bg: K.grayL, t: at(120, '필요한') }), Bd(1340, 560, 110, { outfit: 'jacket', hair: 'long', bg: K.grayL, t: at(120, '필요한') + .12 }),
       Bd(1200, 660, 110, { outfit: 'blue', hair: 'short', bg: K.grayL, t: at(120, '필요한') + .24 }), Bd(1340, 750, 110, { outfit: 'pinkTop', hair: 'bun', bg: K.grayL, t: at(120, '필요한') + .36 }));
     S(t1, T('매출', CX, 420, 56, { color: '#5A6172' }),
-      T(`<span class="num" style="color:${K.red};font-size:180px">1억 원</span>`, CX, 590, 80, { anim: 'pop', upd: (t, it) => { const p = easeOut(clamp((t - t1) / 1.0)); const v = Math.round(p * 10000); it.d.querySelector('.num').textContent = v >= 10000 ? '1억 원' : v.toLocaleString() + '만 원'; } }),
+      mk('', CX, 590, { anim: 'pop', htmlAt: t => { const p = easeOut(clamp((t - t1) / 1.1)); const v = Math.round(p * 10000);
+      return `<div style="font-size:180px;font-weight:800;color:${K.red};white-space:nowrap;letter-spacing:-0.03em;font-variant-numeric:tabular-nums">${v >= 10000 ? '1억 원' : v.toLocaleString() + '만 원'}</div>`; } }),
       I('coins', 1450, 640, 150, { arg: 5, t: t1 + .6 }), I('coins', 470, 660, 120, { arg: 3, t: t1 + .7 }));
   }
   S(at(121), I('alert', CX, 520, 190), T(`그런데 ${em('중요한 점')}`, CX, 720, 72, { t: at(121, '중요') }));
   S(at(122),
     I('youtube', 640, 610, 230),
-    ...[[580, 470, 60, .0], [660, 420, 70, .15], [730, 480, 50, .3]].map(([x, y, s, d]) => I('heart', x, y, s, { t: at(122, '관심') + d, upd: (t, it) => { it.d.style.top = (y - Math.min(30, (t - it.t0) * 12)) + 'px'; } })),
+    ...[[580, 470, 60, .0], [660, 420, 70, .15], [730, 480, 50, .3]].map(([x, y, s, d]) => I('heart', x, y, s, { t: at(122, '관심') + d, fx: t => ({ dy: -Math.min(30, Math.max(0, t - at(122, '관심') - d) * 12) }) })),
     Lb('관심은 모였지만', 640, 770, { t: at(122, '관심') + .2 }),
     A(800, 610, 1080, 610, { dash: '12 14', t: at(123) }),
     I('coins', 1250, 610, 200, { arg: 5, t: at(123) }), I('xmark', 1330, 510, 80, { t: at(123, '아니') }),
@@ -442,7 +447,7 @@ function buildScenes() {
     H(`사람마다 ${em('다르다')}`),
     P(640, 610, 230, { outfit: 'blue', hair: 'short' }), P(CX, 610, 230, { outfit: 'red', hair: 'long', delay: .12 }), P(1280, 610, 230, { outfit: 'purple', hair: 'quiff', delay: .24 }),
     I('book', 760, 470, 90, { t: at(131, '지식') }), I('toolbox', 1080, 470, 90, { t: at(131, '지식') + .12 }), I('laptop', 1400, 470, 90, { t: at(131, '경험') }),
-    ...[[640, .3, K.navy2], [CX, .6, K.red], [1280, .15, K.navy2]].map(([x, f, c], k) => G(progress(f, c), x, 770, { t: at(132) + k * .12, anim: 'left', upd: (t, it) => { const p = easeOut(clamp((t - it.t0) / .8)); it.d.querySelector('rect:nth-child(2)').setAttribute('width', 240 * f * p); } })),
+    ...[[640, .3, K.navy2], [CX, .6, K.red], [1280, .15, K.navy2]].map(([x, f, c], k) => G(progress(f, c), x, 770, { t: at(132) + k * .12, anim: 'left', htmlAt: t => progress(f * easeOut(clamp((t - at(132) - k * .12) / .8)), c) })),
     Lb(`현재 ${em('준비된 정도')}`, CX, 840, { t: at(132, '준비') }));
   S(at(133),
     LI('videoOff', 660, 580, 220, '무작정 영상 만들기', at(133)),

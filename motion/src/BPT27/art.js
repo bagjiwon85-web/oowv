@@ -200,3 +200,5 @@ function iconSVG(name, size = 200, arg) {
   if (!f) throw new Error('art ' + name);
   return svg(size, size, '0 0 200 200', f(arg));
 }
+
+export { K, OUTFITS, svg, personInner, personSVG, badgeSVG, ICON, iconSVG };

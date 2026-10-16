@@ -1,0 +1,33 @@
+# Premiere workflow evaluation kit
+
+These are synthetic fixtures and human-readable prompts, not a recorded demo,
+native Premiere project, or automatically executable workflow manifest.
+The two MP4 clips have no audio. No third-party footage is included.
+
+1. Install your AI-client server and the separate Premiere connector:
+   https://premiere-pro-mcp.com/#install
+2. Create a NEW disposable Premiere project and import blue.mp4 and violet.mp4.
+3. Create a sequence from blue.mp4. Put violet.mp4 at 4 seconds on the same track.
+   Blue lasts 3 seconds, leaving a one-second gap. Save the disposable project.
+4. Run the read-only connection check. Stop if it is not ready.
+5. Follow one of the three recipes at https://premiere-pro-mcp.com/workflows/.
+   The same prompts and steps are in evaluation-recipes.json.
+
+Expected inspection: compare the reported primary-track gap with 3–4 seconds.
+Confirm that no clip moved. A missing/incorrect result is a failed test, not proof
+of successful automation. Frame export writes files only after your confirmation.
+The product-spot starter ends at preview and requires a separate empty sequence.
+
+The optional caption sample matches the manual 7-second gap fixture; it is not
+imported by any starter recipe and does not test generated captions.
+
+Evaluation checklist: package version; connector; client; OS; Premiere build;
+connection result; requested recipe; expected versus actual result; manual
+timeline/file review; pass, fail, unsupported, or not_run. Do not include client
+media, names, paths, transcripts, or tokens in a shared report.
+
+Host validation and screen recordings remain NOT RUN for this kit. The manifest
+reports media-file checks only. A downloaded kit is not a completed installation.
+
+Recovery: https://premiere-pro-mcp.com/docs/troubleshooting/
+Recipe contributions: https://github.com/leancoderkavy/premiere-pro-mcp/discussions

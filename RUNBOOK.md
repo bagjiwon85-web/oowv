@@ -8,7 +8,7 @@
 2. `python3 yt_research.py candidates --existing existing.txt --out cand.json`
    (YOUTUBE_API_KEY 환경변수 필요. 약 10~15분 소요, 검색 64회 = 할당량 약 6,400 / 일일 10,000)
    - 날마다 같은 결과가 나오지 않도록 `--order viewCount` / `relevance` 를 번갈아 쓰거나,
-     `KR_QUERIES`/`EN_QUERIES` 검색어를 바꿔 실행해도 된다.
+     `--queryset 2`(다른 검색어 세트)로 바꿔 실행한다. 이전 날 cand.json에서 아직 안 쓴 채널도 함께 볼 수 있다.
 3. `cand.json`은 계정 검증을 통과한 채널 목록이다. 각 채널의 `picks[0]`이 그 채널의 최고 성과 영상.
    여기서 국내 10, 해외 10을 고른다:
    - 가능한 한 채널당 1개 (같은 계정은 최대 2개)

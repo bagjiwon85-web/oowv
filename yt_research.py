@@ -29,6 +29,18 @@ KR_QUERIES = [
     "세일즈 비법", "브랜드 만드는 법",
     "성공한 사람 이야기", "성공 습관", "성공하는 방법", "자수성가",
 ]
+# 매일 후보가 겹치지 않도록 바꿔 쓰는 추가 검색어 세트 (--queryset 2)
+KR_QUERIES2 = [
+    "창업 성공 스토리", "자수성가 부자 인터뷰", "퍼스널브랜딩 강의", "마케팅 전략 사례",
+    "부자 마인드셋", "돈 관리 방법", "1인 기업 성공", "인스타그램 성장 방법",
+    "브랜드 스토리", "영업 잘하는 법", "성공한 CEO 인터뷰", "습관 바꾸는 법",
+]
+EN_QUERIES2 = [
+    "founder story how I built", "self made billionaire interview", "personal brand strategy",
+    "marketing lessons", "millionaire habits", "personal finance tips", "solopreneur business",
+    "instagram growth", "brand story", "how to sell anything", "CEO interview success",
+    "build better habits",
+]
 EN_QUERIES = [
     "marketing strategy", "personal branding", "how to get rich", "money habits",
     "self improvement", "how to start a business", "social media growth strategy",
@@ -144,7 +156,8 @@ def cmd_candidates(a):
     if a.existing and os.path.exists(a.existing):
         existing = {l.strip() for l in open(a.existing) if l.strip()}
     found = {}
-    for region, qs in (("KR", KR_QUERIES), ("GLOBAL", EN_QUERIES)):
+    kq, eq = (KR_QUERIES2, EN_QUERIES2) if a.queryset == 2 else (KR_QUERIES, EN_QUERIES)
+    for region, qs in (("KR", kq), ("GLOBAL", eq)):
         for q in qs:
             for dur in ("medium", "long"):
                 kw = dict(part="id", q=q, type="video", videoDuration=dur, maxResults=25,
@@ -231,6 +244,7 @@ if __name__ == "__main__":
     c.add_argument("--existing")
     c.add_argument("--out", default="cand.json")
     c.add_argument("--order", default="relevance")
+    c.add_argument("--queryset", type=int, default=1)
     c.set_defaults(f=cmd_candidates)
     m = sp.add_parser("comment")
     m.add_argument("video")

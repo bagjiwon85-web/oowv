@@ -1,0 +1,122 @@
+[
+{"id": "8qEIG5vNTqE", "date": "2026-10-15", "series": "창업·자영업", "photo_query": ["dessert cafe display", "bakery pastry shop"],
+ "cards": [
+  {"type": "cover", "kicker": "창업 100일 차 1인 디저트카페 사장", "head": "로망으로 시작한\n카페의\n*냉정한 현실*", "who": "디디엘DDL 「창업 백일 디저트카페사장의 현실이야기」"},
+  {"type": "text", "lead": "예쁜 디저트, 내 가게,\n내가 정한 시간.", "body": "창업 전엔 그랬다.\n100일이 지나고 나서야\n*숫자의 현실*이 보이기 시작했다."},
+  {"type": "point", "num": 1, "lead": "*하루 매출*의\n최소선을 안다", "body": "월세를 감당하려면 하루에 얼마를 팔아야 하는지.\n그 숫자를 모르면 버틸 수 없다."},
+  {"type": "point", "num": 2, "lead": "*재고보다\n판매량*", "body": "많이 만드는 게 아니라\n하루 평균 몇 개 팔리는지 알고\n그만큼만 만든다."},
+  {"type": "point", "num": 3, "lead": "*재료비 일부를\n광고비로*", "body": "아무리 맛있어도\n알려지지 않으면 팔리지 않는다."},
+  {"type": "quote", "quote": "월세 × 3 ÷ 25.\n하루에 이만큼은 팔아야\n가게가 버팁니다.", "by": "이 영상 베스트 댓글 (자영업 선배의 조언)"},
+  {"type": "check", "lead": "창업 전 계산", "items": ["*월세 × 3 ÷ 25*는 얼마인가?", "그만큼 팔려면 *하루 몇 개?*", "알리는 데 쓸 *광고 예산*은?"]},
+  {"type": "end", "lead": "로망은 시작하게 하고\n*숫자는 버티게* 한다.", "body": "저장해 두고 창업 전에 꼭 계산해 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "KkK-Y7GiQ2o", "date": "2026-10-15", "series": "유튜브·콘텐츠", "photo_query": ["crowd watching phone screens", "people looking smartphones"],
+ "cards": [
+  {"type": "cover", "kicker": "지루한 브랜드로 30억 뷰를 만든 크리에이터", "head": "바이럴은\n콘텐츠가 아니라\n*뇌의 문제*다", "who": "Tuan Le 「What Getting 3 Billion Views Taught Me」"},
+  {"type": "text", "lead": "라면, 소프트웨어,\n휴대폰 요금제.", "body": "누구도 관심 없을 브랜드로\n*30억 뷰*를 만들었다.\n\n비결은 사람의 뇌가 작동하는 방식이었다."},
+  {"type": "stat", "big": "30억 뷰", "label": "가장 지루한 브랜드로\n만들어 낸 조회수."},
+  {"type": "point", "num": 1, "lead": "*Hook*\n멈추게 한다", "body": "뇌는 낯선 것, 의외의 것에\n반사적으로 반응한다."},
+  {"type": "point", "num": 2, "lead": "*Problem*\n공감하게 한다", "body": "\"이거 내 얘기다\" 싶은 순간\n사람은 끝까지 본다."},
+  {"type": "point", "num": 3, "lead": "*Story → Payoff*\n보상을 준다", "body": "이야기로 끌고 가서\n마지막에 확실한 답이나 반전을 준다."},
+  {"type": "quote", "quote": "1. Hook 2. Problem\n3. Story 4. Payoff\n정말 최고의 포맷이에요.", "by": "이 영상 베스트 댓글"},
+  {"type": "end", "lead": "조회수는 운이 아니라\n*심리를 아는 설계*다.", "body": "저장해 두고 대본 쓸 때 꺼내 보세요.\n더 많은 콘텐츠 팁은 *@mindgrow.kr*"}
+ ]},
+{"id": "96pMGkgSzUE", "date": "2026-10-15", "series": "자기계발·심리", "photo_query": ["mirror reflection person", "woman looking mirror"],
+ "cards": [
+  {"type": "cover", "kicker": "왜 요즘은 외모가 더 중요해졌을까", "head": "외모지상주의가\n*점점 심해지는\n이유*", "who": "재점화 「외모지상주의가 점점 심해지는 이유」"},
+  {"type": "text", "lead": "예전보다 지금,\n외모가 더 중요해졌다고\n느끼는 건 기분 탓일까?", "body": "그 배경에는\n*달라진 환경*이 있다."},
+  {"type": "point", "num": 1, "lead": "*보이는 것*으로\n먼저 판단되는 시대", "body": "SNS 속 첫인상은 사진 한 장.\n짧은 순간에 판단이 끝난다."},
+  {"type": "point", "num": 2, "lead": "*비교 대상*이\n끝없이 많아졌다", "body": "예전엔 동네 사람과 비교했다면\n이제는 전 세계와 비교한다."},
+  {"type": "point", "num": 3, "lead": "그래서 필요한 건\n*내가 쌓은 것*", "body": "타고난 건 바꾸기 어렵지만\n내 생각, 내 결과물, 내 콘텐츠는\n쌓을수록 나를 설명해 준다."},
+  {"type": "quote", "quote": "타고난 걸 가지고\n비난받는 것 자체가\n사람을 미치게 함.", "by": "이 영상 베스트 댓글 · 좋아요 2,700"},
+  {"type": "check", "lead": "비교에 지칠 때", "items": ["*비교를 부르는* 계정 정리하기", "내가 *쌓아온 것* 적어보기", "남이 아닌 *어제의 나*와 비교하기"]},
+  {"type": "end", "lead": "보이는 것보다\n*쌓이는 것*이\n오래 남는다.", "body": "저장해 두고 마음이 흔들릴 때 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "-Fr-TTxWIFs", "date": "2026-10-15", "series": "유튜브·콘텐츠", "photo_query": ["youtuber camera setup room", "creator editing video desk"],
+ "cards": [
+  {"type": "cover", "kicker": "조회수가 안 나와 지친 크리에이터에게", "head": "아무도\n내 영상을 안 본다면\n*이렇게 하세요*", "who": "George Alexander 「If nobody watches your videos」"},
+  {"type": "text", "lead": "열심히 만들었는데\n조회수는 두 자릿수.", "body": "포기하고 싶은 그 순간,\n*관점을 바꾸면*\n다음 영상이 달라진다."},
+  {"type": "point", "num": 1, "lead": "*예술가처럼*\n만든다", "body": "남이 좋아할 것만 따라 하지 말고\n내가 진심으로 만들고 싶은 걸 만든다."},
+  {"type": "point", "num": 2, "lead": "*연구자처럼*\n분석한다", "body": "올리고 끝이 아니라\n어디서 이탈했는지, 왜 안 눌렀는지\n데이터로 가설을 세운다."},
+  {"type": "point", "num": 3, "lead": "*한 영상이 아니라\n과정*을 본다", "body": "실패한 영상 하나하나가\n다음 영상을 위한 실험이다."},
+  {"type": "quote", "quote": "작은 크리에이터들, 여기 모여요.\n지금 제가 딱 겪고 있는 일이에요.", "by": "이 영상 베스트 댓글 · 좋아요 816"},
+  {"type": "check", "lead": "다음 영상 전에", "items": ["지난 영상의 *이탈 구간* 확인", "*썸네일·제목* 가설 하나 세우기", "*10개는 올려보고* 판단하기"]},
+  {"type": "end", "lead": "조회수가 없는 게 아니라\n*아직 쌓이는 중*이다.", "body": "저장해 두고 지칠 때 다시 보세요.\n더 많은 크리에이터 팁은 *@mindgrow.kr*"}
+ ]},
+{"id": "tOOjNhJQnx0", "date": "2026-10-15", "series": "부자·마인드", "photo_query": ["sunrise morning desk", "early morning coffee work"],
+ "cards": [
+  {"type": "cover", "kicker": "엔비디아 CEO 젠슨 황", "head": "살인적인 스케줄에도\n*끝까지 지키는\n1가지*", "who": "시몰: 시스템 몰입 「젠슨 황이 고집하는 1가지」"},
+  {"type": "text", "lead": "세계에서 가장 바쁜 CEO 중 한 명.", "body": "그는 바쁠수록\n*가장 중요한 일을\n아침에 먼저* 끝낸다고 한다."},
+  {"type": "point", "num": 1, "lead": "아침의\n*첫 행동*이\n하루를 좌우한다", "body": "아침에 휴대폰부터 보면\n남이 정한 일정에 끌려다닌다."},
+  {"type": "point", "num": 2, "lead": "아침에\n*에너지와 실행력*이\n가장 높다", "body": "가장 맑은 시간을\n가장 가치 있는 일에 쓴다."},
+  {"type": "point", "num": 3, "lead": "할 일은\n*전날 밤에* 정한다", "body": "아침에 고민하지 않도록\n내일의 가장 중요한 일 하나를\n미리 적어둔다."},
+  {"type": "quote", "quote": "서두를 것이 없습니다.\n시간은 충분합니다.", "by": "교토 은각사 정원사의 말 · 영상 중"},
+  {"type": "check", "lead": "내일 아침을 위해", "items": ["오늘 밤 *내일의 1순위* 적기", "아침 *첫 1시간*은 휴대폰 멀리", "가장 중요한 일을 *제일 먼저*"]},
+  {"type": "end", "lead": "아침 1시간이\n*인생의 방향*을 바꾼다.", "body": "저장해 두고 오늘 밤 실천해 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "mFAk_pMHmAg", "date": "2026-10-15", "series": "부자·마인드", "photo_query": ["computer chip circuit", "graphics card technology"],
+ "cards": [
+  {"type": "cover", "kicker": "엔비디아 젠슨 황 이야기", "head": "*20만 원*으로\n200조를\n만든 남자", "who": "라이프시크릿 「20만원으로 200조를 만든 남자」"},
+  {"type": "text", "lead": "작은 돈으로 시작해\n세계에서 가장 가치 있는 기업 중 하나를\n만든 사람.", "body": "수많은 인터뷰에서\n그가 가장 강조한 성공의 핵심은\n*우선순위*였다."},
+  {"type": "point", "num": 1, "lead": "*가장 중요한 일*에\n시간을 쓴다", "body": "세계 최고의 차이는\n결국 시간을 어떻게 쓰느냐에서 시작된다."},
+  {"type": "point", "num": 2, "lead": "*기술만으로는*\n부족하다", "body": "좋은 기술도 사람들이 이해하고 믿어야\n세상을 바꾼다.\n그래서 그는 직접 이야기한다."},
+  {"type": "point", "num": 3, "lead": "*버티는 시간*이\n결과를 만든다", "body": "하루아침의 성공이 아니었다.\n수십 년 동안 한 방향으로 걸었다."},
+  {"type": "stat", "big": "우선순위", "label": "세계 최고들이\n*공통으로 지키는 것.*"},
+  {"type": "check", "lead": "오늘의 우선순위", "items": ["오늘 *가장 중요한 일* 하나는?", "그 일에 *몇 시간*을 썼나?", "*하지 않을 일* 목록도 적었나?"]},
+  {"type": "end", "lead": "무엇을 할지보다\n*무엇을 먼저 할지.*", "body": "저장해 두고 하루를 시작할 때 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "rojH_j1MgBI", "date": "2026-10-15", "series": "자기계발·심리", "photo_query": ["phone scrolling night bed", "smartphone addiction dark"],
+ "cards": [
+  {"type": "cover", "kicker": "뇌과학이 말하는", "head": "숏폼 중독이\n*무서운\n진짜 이유*", "who": "심리학 고양이 「숏폼 중독이 무서운 진짜 이유」"},
+  {"type": "text", "lead": "진짜 뇌 썩어가는 게 느껴지는데\n*그럼에도 끊을 수 없다.*", "body": "숏폼 자체가 나쁜 게 아니라\n*한 가지 자극에만* 치우친 생활이\n문제다."},
+  {"type": "point", "num": 1, "lead": "뇌에는\n*인지 예비능*이 있다", "body": "다양한 생각과 활동으로 쌓은\n뇌의 여유 체력.\n이게 뇌를 오래 지켜준다."},
+  {"type": "point", "num": 2, "lead": "*수녀 연구*가\n보여준 것", "body": "글을 쓰고 배우며 다양하게 생각한 사람들은\n뇌가 손상돼도 기능을 더 오래 지켰다."},
+  {"type": "point", "num": 3, "lead": "단일 자극은\n*예비능을 깎는다*", "body": "짧은 자극만 반복하면\n깊게 생각하는 힘이 약해진다."},
+  {"type": "check", "lead": "뇌를 지키는 3가지", "items": ["하루 *한 번은 긴 글* 읽기", "보기만 하지 말고 *직접 만들기*", "*새로운 것* 하나 배우기"]},
+  {"type": "end", "lead": "보는 사람에서\n*만드는 사람*으로.", "body": "저장해 두고 스크롤을 멈추고 싶을 때 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "EwHxC-ninm4", "date": "2026-10-15", "series": "부자·마인드", "photo_query": ["water pipeline flow", "river flowing landscape"],
+ "cards": [
+  {"type": "cover", "kicker": "한 우물 vs 여러 파이프라인", "head": "부자들만 아는\n*부를 빠르게\n쌓는 방법*", "who": "Turbo832 TV 「사업, 투자, 파이프라인 이야기」"},
+  {"type": "text", "lead": "성공하려면\n한 우물을 파야 할까,\n*여러 개를 동시에* 해야 할까?", "body": "정답은 없지만\n자산을 쌓은 사람들에겐\n공통점이 있었다."},
+  {"type": "point", "num": 1, "lead": "*돈이 흐르는 곳*에\n자리 잡는다", "body": "아무리 열심히 해도\n돈이 흐르지 않는 곳에서는 쌓이지 않는다."},
+  {"type": "point", "num": 2, "lead": "*사업*으로\n크게 벌고", "body": "근로소득의 한계를 넘는 건\n결국 사업 소득이다."},
+  {"type": "point", "num": 3, "lead": "*투자*로\n지키고 키운다", "body": "번 돈을 그냥 두지 않고\n자산으로 바꿔 일하게 한다."},
+  {"type": "quote", "quote": "여러 우물을 파든 한 우물을 파든\n돈이 흐르는 곳에\n자리 잡아야 한다.", "by": "이 영상 베스트 댓글 · 좋아요 878"},
+  {"type": "check", "lead": "내 파이프라인 점검", "items": ["지금 *돈이 흐르는 곳*에 있나?", "*사업 소득*의 씨앗이 있나?", "번 돈이 *일하고* 있나?"]},
+  {"type": "end", "lead": "많이 파는 것보다\n*어디를 파느냐*가 먼저다.", "body": "저장해 두고 다시 곱씹어 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "_uGxu6ZdisQ", "date": "2026-10-15", "series": "부자·마인드", "photo_query": ["calm businessman office window", "man thinking calm office"],
+ "cards": [
+  {"type": "cover", "kicker": "아마존 창업자 제프 베조스", "head": "스트레스는\n*힘든 일에서\n오는 게 아니다*", "who": "더파운더 「스트레스 안 받는 법」"},
+  {"type": "text", "lead": "\"스트레스는 힘든 일에서\n오는 게 아닙니다.\"", "body": "*\"무시하면 안 될 것들을\n무시할 때 받는 거예요.\"*\n\n— 제프 베조스"},
+  {"type": "point", "num": 1, "lead": "*미뤄둔 일*이\n스트레스가 된다", "body": "해야 하는 걸 알면서 손대지 않을 때\n마음은 계속 그 일을 붙잡고 있다."},
+  {"type": "point", "num": 2, "lead": "*통제할 수 있는\n행동* 하나", "body": "모든 걸 해결할 수는 없어도\n지금 할 수 있는 첫 행동 하나가\n불안을 줄인다."},
+  {"type": "point", "num": 3, "lead": "*전화 한 통,\n메일 한 통*", "body": "작은 행동이라도 시작하면\n막연한 스트레스는\n구체적인 할 일로 바뀐다."},
+  {"type": "text", "lead": "다만,\n모두에게 통하는 말은 아니다.", "body": "이 발언은 노동 환경을 둘러싼\n비판도 함께 받았다.\n*내 상황에 맞게* 받아들이자."},
+  {"type": "check", "lead": "지금 마음이 무겁다면", "items": ["*무시하고 있는 일* 적어보기", "그중 *5분 안에* 할 수 있는 것", "*오늘 안에* 첫 행동 하기"]},
+  {"type": "end", "lead": "피하면 커지고\n*마주하면 작아진다.*", "body": "저장해 두고 마음이 무거울 때 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "7V8Uf7c8gYY", "date": "2026-10-15", "series": "AI·커리어", "photo_query": ["solo entrepreneur laptop", "person alone office night ai"],
+ "cards": [
+  {"type": "cover", "kicker": "샘 올트먼의 경고", "head": "2030년,\n*혼자서\n유니콘*을 만든다", "who": "언더독백 「1인 유니콘 시대」"},
+  {"type": "text", "lead": "기업가치 1조 원이 넘는 회사,\n*유니콘.*", "body": "예전엔 수백 명이 필요했다.\n이제는 AI와 함께\n*한 사람이 만들 수 있는* 시대가 온다."},
+  {"type": "point", "num": 1, "lead": "*AI가\n팀이 된다*", "body": "개발, 디자인, 마케팅, 고객 응대.\nAI 도구가 직원의 역할을 나눠 맡는다."},
+  {"type": "point", "num": 2, "lead": "*사업가의 자질*이\n더 중요해진다", "body": "도구는 누구나 쓸 수 있다.\n무엇을 만들지 정하는 판단력이\n차이를 만든다."},
+  {"type": "point", "num": 3, "lead": "*진짜 고객*을\n확보하는 힘", "body": "결국 사업은 사주는 사람이 있어야 한다.\n나를 믿는 고객이 가장 큰 자산이다."},
+  {"type": "quote", "quote": "말이 1인이지\n일당백 역할을 할 수 있어야\n유니콘을 만들 듯.", "by": "이 영상 베스트 댓글"},
+  {"type": "check", "lead": "1인 기업 준비", "items": ["내 일에 쓸 *AI 도구* 3개는?", "*나 혼자* 끝까지 만들어 본 것은?", "나를 믿는 *첫 고객 10명*은?"]},
+  {"type": "end", "lead": "회사가 아니라\n*한 사람*이 경쟁력인 시대.", "body": "저장해 두고 미래를 준비해 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "amRYMyBs8qM", "date": "2026-10-15", "series": "자기계발·심리", "photo_query": ["runner sunset summer", "person running golden hour"],
+ "cards": [
+  {"type": "cover", "kicker": "철학이 답하는 질문", "head": "오늘이 가는 게\n*아까운\n진짜 이유*", "who": "이런철학 「오늘이 가는 게 아까운 진짜 이유」"},
+  {"type": "text", "lead": "여름 한가운데,\n기분 좋은 날씨에 뛰러 나갔다.", "body": "뛰는 내내\n*'이 하루가 줄어드는 게 아깝다'*고\n생각했다."},
+  {"type": "point", "num": 1, "lead": "*마지막*이라는 걸\n알면 달라진다", "body": "똑같은 초콜릿도\n'이게 마지막'이라는 말을 들으면\n더 맛있게 느껴진다."},
+  {"type": "point", "num": 2, "lead": "*끝이 있기에*\n소중하다", "body": "영원히 계속된다면\n오늘을 아낄 이유도 없다.\n유한함이 의미를 만든다."},
+  {"type": "point", "num": 3, "lead": "그래서\n*오늘 남길 것*", "body": "흘려보내지 않으려면\n오늘이 무언가로 남아야 한다.\n기록, 결과물, 관계."},
+  {"type": "quote", "quote": "아침에는\n죽음을 생각하는 것이 좋다.", "by": "이 영상 베스트 댓글"},
+  {"type": "check", "lead": "오늘을 남기는 법", "items": ["오늘 *가장 좋았던 순간* 적기", "*내 이름으로 남는 것* 하나 만들기", "고마운 사람에게 *연락하기*"]},
+  {"type": "end", "lead": "오늘이 아깝다면\n*오늘을 남기자.*", "body": "저장해 두고 하루 끝에 다시 보세요.\n*@mindgrow.kr*"}
+ ]}
+]

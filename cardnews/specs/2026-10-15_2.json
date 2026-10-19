@@ -1,0 +1,122 @@
+[
+{"id": "CBYhVcO4WgI", "date": "2026-10-15", "series": "사업·창업", "photo_query": ["startup team whiteboard", "founders brainstorming"],
+ "cards": [
+  {"type": "cover", "kicker": "샘 올트먼 × 더스틴 모스코비츠", "head": "스타트업의\n*교과서*가 된\n첫 번째 강의", "who": "Y Combinator 「How to Start a Startup」 1강"},
+  {"type": "text", "lead": "Y Combinator 대표였던 샘 올트먼과\n페이스북 공동창업자 더스틴 모스코비츠.", "body": "10년이 지난 지금도\n창업자들이 다시 찾아보는\n*스타트업 1강.*"},
+  {"type": "text", "lead": "성공하는 스타트업의\n*4가지 핵심*", "body": "*아이디어, 제품, 팀, 실행.*\n\n이 중 하나라도 빠지면\n오래 버티기 어렵다."},
+  {"type": "point", "num": 1, "lead": "*좋은 아이디어*는\n처음엔 이상해 보인다", "body": "모두가 좋다고 하는 아이디어엔\n이미 경쟁자가 많다.\n남들이 놓친 문제를 찾아야 한다."},
+  {"type": "point", "num": 2, "lead": "*사람들이 사랑하는\n제품*부터", "body": "적당히 좋아하는 많은 사람보다\n정말 사랑하는 소수의 사용자가\n성장의 출발점이다."},
+  {"type": "point", "num": 3, "lead": "*왜 창업하는가*\n먼저 묻는다", "body": "돈이나 멋이 아니라\n이 문제를 꼭 풀고 싶다는 마음이\n힘든 시기를 버티게 한다."},
+  {"type": "check", "lead": "내 아이디어 점검", "items": ["*내가 직접* 겪은 문제인가?", "사랑하는 사용자 *10명*이 있나?", "*몇 년을 쏟아도* 좋은 문제인가?"]},
+  {"type": "end", "lead": "창업은 아이디어가 아니라\n*끝까지 실행하는 힘*이다.", "body": "저장해 두고 시작할 때 다시 보세요.\n더 많은 창업 인사이트는 *@mindgrow.kr*"}
+ ]},
+{"id": "bNpx7gpSqbY", "date": "2026-10-15", "series": "사업·창업", "photo_query": ["clock time concept", "hourglass sand time"],
+ "cards": [
+  {"type": "cover", "kicker": "수백 개 스타트업 데이터를 분석한 빌 그로스", "head": "스타트업 성공의\n1등 요인은\n*아이디어가 아니었다*", "who": "TED 「The single biggest reason why start-ups succeed」"},
+  {"type": "text", "lead": "왜 어떤 회사는 성공하고\n어떤 회사는 실패할까?", "body": "수많은 스타트업을 만든 빌 그로스는\n수백 개 회사를\n*5가지 요인*으로 분석했다."},
+  {"type": "text", "lead": "아이디어, 팀,\n비즈니스 모델, 자금,\n그리고 *타이밍.*", "body": "결과는\n본인조차 놀랄 만한 것이었다."},
+  {"type": "stat", "big": "타이밍", "label": "성공과 실패를 가른\n*가장 큰 요인.*"},
+  {"type": "point", "num": 1, "lead": "좋은 아이디어도\n*너무 이르면* 실패한다", "body": "세상이 준비되지 않았을 때 나온 제품은\n아무리 좋아도 외면받는다."},
+  {"type": "point", "num": 2, "lead": "*지금 사람들이\n원하는가*를 본다", "body": "내가 하고 싶은 것보다\n시장이 받아들일 준비가 됐는지\n냉정하게 봐야 한다."},
+  {"type": "quote", "quote": "때가 된 아이디어보다\n강한 것은 없다.", "by": "빅토르 위고 · 이 영상 베스트 댓글"},
+  {"type": "end", "lead": "무엇을 하느냐만큼\n*언제 하느냐*가 중요하다.", "body": "저장해 두고 시작 전에 점검해 보세요.\n더 많은 창업 인사이트는 *@mindgrow.kr*"}
+ ]},
+{"id": "Pum2gV7N_9A", "date": "2026-10-15", "series": "마케팅·카피라이팅", "photo_query": ["writing notebook coffee", "typing laptop writer"],
+ "cards": [
+  {"type": "cover", "kicker": "5달러 작가에서 시작한 카피라이터", "head": "글 한 줄로\n*돈을 버는 사람들*의\n연습법", "who": "Mike Nardi 「Practical Copywriting Course」"},
+  {"type": "text", "lead": "카피라이팅은\n타고난 글솜씨가 아니라\n*훈련되는 기술*이다.", "body": "건당 5달러에서 시작해\n단가를 올린 카피라이터가\n초보를 위해 정리한 방법."},
+  {"type": "point", "num": 1, "lead": "*내 말이 아니라\n고객의 말*로 쓴다", "body": "고객이 실제로 쓰는 단어와 고민을\n그대로 옮겨야 글이 꽂힌다."},
+  {"type": "point", "num": 2, "lead": "*기능보다\n얻게 되는 것*", "body": "제품이 무엇을 하는지보다\n고객의 삶이 어떻게 달라지는지를 쓴다."},
+  {"type": "point", "num": 3, "lead": "*잘 팔린 글을\n따라 써본다*", "body": "좋은 광고 문구를 손으로 옮겨 쓰면\n문장의 구조가 몸에 익는다."},
+  {"type": "point", "num": 4, "lead": "*매일 읽고\n매일 쓴다*", "body": "실력은 강의가 아니라\n쌓인 연습량에서 나온다."},
+  {"type": "check", "lead": "오늘의 카피 연습", "items": ["고객 후기에서 *반복되는 단어* 찾기", "잘 팔린 광고 문구 *3개 필사*", "내 상품 장점을 *고객의 말로* 바꾸기"]},
+  {"type": "end", "lead": "팔리는 글은\n*고객의 머릿속*에서\n시작된다.", "body": "저장해 두고 매일 하나씩 연습하세요.\n더 많은 마케팅 팁은 *@mindgrow.kr*"}
+ ]},
+{"id": "aUerDG2SNTA", "date": "2026-10-15", "series": "마케팅", "photo_query": ["digital marketing laptop analytics", "marketing dashboard screen"],
+ "cards": [
+  {"type": "cover", "kicker": "다시 처음부터 배운다면", "head": "디지털 마케팅,\n*이 순서로* 배우면\n훨씬 빠르다", "who": "Senator We Run Ads 「how I would learn digital marketing」"},
+  {"type": "text", "lead": "이것저것 강의만 듣다\n지쳐버린 적 있다면.", "body": "문제는 노력이 아니라\n*배우는 순서*일 수 있다."},
+  {"type": "point", "num": 1, "lead": "*기초 개념*부터\n탄탄하게", "body": "고객, 퍼널, 전환.\n원리를 알면 도구가 바뀌어도\n흔들리지 않는다."},
+  {"type": "point", "num": 2, "lead": "*한 채널*을\n깊게 판다", "body": "모든 채널을 조금씩 하기보다\n하나를 제대로 다룰 줄 알아야 한다."},
+  {"type": "point", "num": 3, "lead": "*작게라도\n직접 돌려본다*", "body": "실제 광고를 돌리고 결과를 보는 것.\n이론보다 훨씬 빨리 실력이 붙는다."},
+  {"type": "quote", "quote": "첫 구글 광고 강의를 듣고\n이모 가게 광고를 돌렸어요.\n7개월 뒤, 대행사에 정식 입사했습니다.", "by": "이 영상 베스트 댓글 · 좋아요 3,447"},
+  {"type": "check", "lead": "이번 주에 할 일", "items": ["*퍼널*의 기본 개념 정리하기", "집중할 *채널 하나* 고르기", "*소액 광고* 직접 돌려보기"]},
+  {"type": "end", "lead": "마케팅은\n*해본 사람*이\n가장 빨리 는다.", "body": "저장해 두고 학습 로드맵으로 쓰세요.\n더 많은 마케팅 팁은 *@mindgrow.kr*"}
+ ]},
+{"id": "Ch4Sl0POBhU", "date": "2026-10-15", "series": "브랜딩·SNS", "photo_query": ["confident person portrait studio", "creator filming studio"],
+ "cards": [
+  {"type": "cover", "kicker": "퍼스널 브랜딩 전문가 Caleb Ralston", "head": "*나라는 브랜드*를\n만드는\n6시간 풀코스 요약", "who": "Caleb Ralston 「How to Build a Personal Brand」"},
+  {"type": "text", "lead": "퍼스널 브랜드는\n*유명해지는 것*이 아니다.", "body": "내가 누구이고\n무엇을 믿는지\n사람들이 정확히 알게 하는 것이다."},
+  {"type": "point", "num": 1, "lead": "*정체성*부터\n정의한다", "body": "무엇을 말할지보다\n내가 어떤 사람인지가 먼저다.\n브랜드는 거기서 흘러나온다."},
+  {"type": "point", "num": 2, "lead": "*믿는 것*을\n분명히 한다", "body": "내가 지지하는 가치와 반대하는 것.\n분명한 관점이 팬을 만든다."},
+  {"type": "point", "num": 3, "lead": "콘텐츠는\n*브랜드의 증거*", "body": "말로 하는 브랜딩이 아니라\n꾸준한 콘텐츠로\n내가 누구인지 증명한다."},
+  {"type": "point", "num": 4, "lead": "*고객으로 이어지는*\n콘텐츠", "body": "조회수만 쫓으면 지친다.\n내 고객이 될 사람을 위한\n콘텐츠를 만든다."},
+  {"type": "check", "lead": "내 브랜드 질문", "items": ["나를 *한 문장*으로 소개하면?", "내가 *반대하는 것*은 무엇인가?", "내 콘텐츠는 *누구를* 위한 것인가?"]},
+  {"type": "end", "lead": "브랜드는 만드는 게 아니라\n*드러내는 것*이다.", "body": "저장해 두고 나를 정리해 보세요.\n더 많은 브랜딩 인사이트는 *@mindgrow.kr*"}
+ ]},
+{"id": "6pY7EjqD3QA", "date": "2026-10-15", "series": "마케팅·세일즈", "photo_query": ["vintage car design", "retro industrial design"],
+ "cards": [
+  {"type": "cover", "kicker": "코카콜라 병을 디자인한 레이먼드 로위", "head": "무엇이든 팔리게 하는\n*4글자 공식*\n'MAYA'", "who": "TEDx 데릭 톰슨 「The four-letter code to selling anything」"},
+  {"type": "text", "lead": "우리는 왜\n어떤 것은 좋아하고\n어떤 것은 외면할까?", "body": "산업 디자인의 아버지\n레이먼드 로위는\n이 질문에 하나의 답을 남겼다."},
+  {"type": "stat", "big": "MAYA", "label": "Most Advanced Yet Acceptable\n*가장 새롭지만\n받아들일 수 있는 것.*"},
+  {"type": "point", "num": 1, "lead": "사람은\n*새로운 것*을 원한다", "body": "익숙한 것만 반복되면\n금방 지루해진다.\n호기심은 새로움에서 나온다."},
+  {"type": "point", "num": 2, "lead": "동시에\n*낯선 것*은 두려워한다", "body": "너무 새로운 것은\n이해되지 않아 거부당한다."},
+  {"type": "point", "num": 3, "lead": "그래서 답은\n*익숙함 + 새로움*", "body": "익숙한 것에 새로움 한 스푼.\n히트 상품, 히트 콘텐츠의 공통점이다."},
+  {"type": "check", "lead": "내 상품에 적용하기", "items": ["고객에게 *이미 익숙한 것*은?", "거기에 더할 *새로움 하나*는?", "*너무 낯설지는* 않은가?"]},
+  {"type": "end", "lead": "팔리는 것은\n*새롭지만 낯설지 않다.*", "body": "저장해 두고 기획할 때 꺼내 보세요.\n더 많은 마케팅 인사이트는 *@mindgrow.kr*"}
+ ]},
+{"id": "x9ueaxf75SU", "date": "2026-10-15", "series": "돈·부자", "photo_query": ["piggy bank savings", "budget planning notebook money"],
+ "cards": [
+  {"type": "cover", "kicker": "미국 재무 상담가 데이브 램지", "head": "당신을 부자로\n만들어 줄\n*단 5가지*", "who": "The Ramsey Show 「5 Things That Will Make You Wealthy」"},
+  {"type": "text", "lead": "부자가 되는 방법은\n생각보다 *단순하다.*", "body": "다만 단순한 걸\n꾸준히 하는 사람이\n드물 뿐이다."},
+  {"type": "point", "num": 1, "lead": "*예산*을 세운다", "body": "돈이 어디로 가는지 모르면\n모을 수도 없다.\n매달 쓰기 전에 계획한다."},
+  {"type": "point", "num": 2, "lead": "*빚에서\n벗어난다*", "body": "이자를 내는 동안에는\n내 돈이 남을 위해 일한다."},
+  {"type": "point", "num": 3, "lead": "*버는 것보다\n적게 쓴다*", "body": "수입이 늘어도 지출이 같이 늘면\n결과는 똑같다."},
+  {"type": "point", "num": 4, "lead": "*저축*하고\n*베푼다*", "body": "남는 돈을 쌓고\n여유가 생기면 나눈다.\n부는 쌓는 것과 흐르게 하는 것 모두다."},
+  {"type": "quote", "quote": "1. 예산 2. 빚 탈출\n3. 버는 것보다 적게 쓰기\n4. 저축 5. 베풀기", "by": "좋아요 1.5만 개를 받은 베스트 댓글"},
+  {"type": "end", "lead": "부자의 비밀은\n*특별함이 아니라\n꾸준함*이다.", "body": "저장해 두고 매달 점검해 보세요.\n더 많은 돈 공부는 *@mindgrow.kr*"}
+ ]},
+{"id": "1kcxUhjuW_0", "date": "2026-10-15", "series": "브랜딩", "photo_query": ["luxury watch dark", "premium perfume bottle dark"],
+ "cards": [
+  {"type": "cover", "kicker": "프리미엄 브랜드는 무엇이 다를까", "head": "사람들이\n*10배를 더 내고도*\n사는 이유", "who": "Omar Eddaoudi 「The Psychology of Premium Branding」"},
+  {"type": "text", "lead": "대부분의 광고는\n*팔려고* 한다.", "body": "하지만 프리미엄 브랜드는\n사람들이 *더 비싸게 사고 싶게* 만든다.\n\n비결은 화려함이 아니라 심리다."},
+  {"type": "point", "num": 1, "lead": "*설명하지 않는다*", "body": "장점을 늘어놓을수록 싸 보인다.\n프리미엄은 말을 아끼고\n분위기로 말한다."},
+  {"type": "point", "num": 2, "lead": "*가격이 곧\n가치의 신호*", "body": "사람들은 가격을 보고 품질을 짐작한다.\n싸게 팔면 오히려 의심받기도 한다."},
+  {"type": "point", "num": 3, "lead": "제품이 아니라\n*정체성*을 판다", "body": "이걸 쓰는 나는 어떤 사람인가.\n고객은 그 이미지를 산다."},
+  {"type": "check", "lead": "내 브랜드 점검", "items": ["장점을 *너무 많이* 말하고 있진 않나?", "가격이 *가치를 말해주고* 있나?", "고객이 *되고 싶은 모습*을 보여주나?"]},
+  {"type": "end", "lead": "비싸서 사는 게 아니라\n*그 브랜드라서* 산다.", "body": "저장해 두고 브랜드를 다듬을 때 보세요.\n더 많은 브랜딩 인사이트는 *@mindgrow.kr*"}
+ ]},
+{"id": "27qUZLk3iEw", "date": "2026-10-15", "series": "자기계발", "photo_query": ["morning routine bed made", "journal morning sunlight"],
+ "cards": [
+  {"type": "cover", "kicker": "조용히, 하지만 확실하게", "head": "인생을 바꾸는\n*작은 습관들*", "who": "Mr. Know A Little 「15 Habits That Transform Your Life」"},
+  {"type": "text", "lead": "인생은 한 번의 결심이 아니라\n*매일의 작은 행동*으로 바뀐다.", "body": "눈에 띄지 않지만\n시간이 지나면 차이를 만드는 습관들."},
+  {"type": "point", "num": 1, "lead": "*아침에\n이불부터* 정리한다", "body": "하루의 첫 번째 일을 끝내면\n그다음 일도 해낼 힘이 생긴다."},
+  {"type": "point", "num": 2, "lead": "*하루를\n기록*한다", "body": "생각을 적으면 머리가 정리되고\n내가 어디로 가는지 보인다."},
+  {"type": "point", "num": 3, "lead": "*입력을\n고른다*", "body": "무엇을 보고 듣고 읽는지가\n내 생각과 말투를 만든다."},
+  {"type": "point", "num": 4, "lead": "*몸을\n움직인다*", "body": "짧은 산책 하나로도\n기분과 집중력이 달라진다."},
+  {"type": "quote", "quote": "영상 보고 바로 침대를 정리했어요.\n이제 깔끔한 '작업 공간'에 누워\n나머지 14개 습관을 생각해 봅니다.", "by": "이 영상 베스트 댓글 · 좋아요 1,316"},
+  {"type": "end", "lead": "작은 습관 하나가\n*1년 뒤의 나*를 바꾼다.", "body": "저장해 두고 오늘 하나만 시작해 보세요.\n더 많은 성장 습관은 *@mindgrow.kr*"}
+ ]},
+{"id": "EGF6neqw3hs", "date": "2026-10-15", "series": "돈·재테크", "photo_query": ["apartment buildings seoul", "city skyline apartments"],
+ "cards": [
+  {"type": "cover", "kicker": "통계청 가계금융복지조사로 본", "head": "대한민국\n*자산 8계급,*\n당신은 몇 층인가요?", "who": "경제왕토끼 「2026년 대한민국 자산별 8계급」"},
+  {"type": "text", "lead": "통장에 *4억 7천*이면 평균,\n*11억*이면 상위 10%,\n*33억*이면 상위 1%.", "body": "그런데 진짜 부자를 가르는 기준은\n자산 총액만이 아니었다."},
+  {"type": "point", "num": 1, "lead": "평균은\n*착시*를 만든다", "body": "평균 순자산은 4억 7천,\n하지만 중위값은 2억 4천.\n소수의 큰 자산이 평균을 끌어올린다."},
+  {"type": "point", "num": 2, "lead": "*1억*은\n하위 30% 탈출선", "body": "첫 1억이 가장 어렵다.\n하지만 그 선을 넘으면\n다음 단계가 보이기 시작한다."},
+  {"type": "point", "num": 3, "lead": "결국 중요한 건\n*매달 들어오는 현금흐름*", "body": "자산이 많아도 현금이 막히면 불안하다.\n노후까지 생각하면\n흐름이 총액보다 중요하다."},
+  {"type": "stat", "big": "57%", "label": "순자산 3억 미만인\n한국 가구의 비율."},
+  {"type": "check", "lead": "내 위치 점검", "items": ["내 *순자산*을 정확히 알고 있나?", "월급 외 *현금흐름*이 있나?", "다음 단계까지 *얼마가* 필요한가?"]},
+  {"type": "end", "lead": "몇 층에 있느냐보다\n*어디로 올라가느냐.*", "body": "통계는 영상 기준이며 시점에 따라 다를 수 있습니다.\n저장해 두고 1년 뒤 다시 확인해 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "my3TM7r_jCE", "date": "2026-10-15", "series": "부자·마인드", "photo_query": ["peaceful morning coffee window", "relaxed person nature freedom"],
+ "cards": [
+  {"type": "cover", "kicker": "진짜 부자를 만나고 깨달은 것", "head": "99%가 모르는\n*돈에서\n자유로워지는 법*", "who": "소울정 「삶을 잘 사는 3가지 방법」"},
+  {"type": "text", "lead": "돈을 많이 버는 것과\n*돈에서 자유로운 것*은\n다르다.", "body": "진짜 부자를 만나고 나서야\n그 차이를 알게 됐다."},
+  {"type": "point", "num": 1, "lead": "*시간이 많은 어른*이\n진짜 부자다", "body": "통장 잔고보다\n내 시간을 내가 쓸 수 있는지가\n자유의 기준이다."},
+  {"type": "point", "num": 2, "lead": "돈이 *나를 위해\n일하게* 한다", "body": "내가 일한 만큼만 버는 구조에서는\n돈에서 자유로워질 수 없다."},
+  {"type": "point", "num": 3, "lead": "*삶의 기준*을\n스스로 정한다", "body": "남과 비교한 '충분함'은 끝이 없다.\n내 기준이 있어야 멈출 수 있다."},
+  {"type": "quote", "quote": "그렇게 애쓰며 치열하게 쫓았던 것의\n종착점이 단조로운 일상이었다.", "by": "이 영상 베스트 댓글"},
+  {"type": "check", "lead": "스스로에게 묻기", "items": ["나에게 *충분한 돈*은 얼마인가?", "내 시간은 *누구를 위해* 쓰이나?", "돈이 *나 대신 일하는* 구조가 있나?"]},
+  {"type": "end", "lead": "돈을 좇는 삶에서\n*돈이 따라오는 삶*으로.", "body": "저장해 두고 마음이 조급할 때 보세요.\n더 많은 부자 마인드는 *@mindgrow.kr*"}
+ ]}
+]

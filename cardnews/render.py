@@ -1,14 +1,18 @@
 """카드뉴스 렌더러: 카드 문구 JSON -> 1080x1350(인스타 4:5) PNG.
 
 사용법:
-  python3 cardnews/render.py specs/2026-10-16_5iV7NuZBBoA.json --out out/
-  python3 cardnews/render.py specs/*.json --out out/
+  python3 cardnews/render.py cardnews/specs/2026-10-16.json --out out/
+  python3 cardnews/render.py cardnews/specs/*.json --out out/ --only 5iV7NuZBBoA
+
+스펙 파일은 영상별 스펙의 리스트. 영상 스펙: {"id", "series", "photo_query", "cards": [...]}
+파일 제목·출처는 data/videos/<id>.json, 표지 사진은 data/photos/<id>.jpg 에서 채운다.
 
 문구 안에서 *이렇게* 감싼 부분은 노란색 강조, 줄바꿈은 \n.
 카드 종류: cover, text, point, stat, quote, check, end (아래 CARD 함수 참고).
 """
 import argparse
 import base64
+import glob
 import html
 import json
 import mimetypes
@@ -18,7 +22,11 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from crop import crop_cover  # noqa: E402
+
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "data")
 HANDLE = "@mindgrow.kr"
 W, H = 1080, 1350
 
@@ -65,9 +73,9 @@ body{background:#000;font-family:P,sans-serif;color:#fff;word-break:keep-all;
 .src{position:absolute;left:84px;right:84px;bottom:70px;font-size:28px;font-weight:500;
  color:#8a8a8a;line-height:1.5}
 /* cover */
-.bg{position:absolute;inset:0;background-size:cover;background-position:center 30%}
-.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,
- rgba(0,0,0,.55) 52%,rgba(0,0,0,.92) 68%,#000 80%)}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,
+ rgba(0,0,0,.5) 35%,rgba(0,0,0,.82) 62%,rgba(0,0,0,.94) 100%)}
 .cov{position:absolute;left:72px;right:72px;bottom:110px}
 .cov .kick{font-size:40px;font-weight:700;color:#FFC93C;letter-spacing:-0.8px;
  margin-bottom:26px;line-height:1.35}
@@ -102,11 +110,14 @@ def header(spec, i, n):
 
 
 def cover(c, spec, i, n, base):
-    photo = c.get("photo") or spec.get("photo")
-    if photo and not os.path.isabs(photo):
-        photo = os.path.join(base, photo)
+    photo = spec.get("photo")
     has = bool(photo and os.path.exists(photo))
-    bg = (f'<div class="bg" style="background-image:url({data_uri(photo)})"></div>'
+    if has:
+        cropped = os.path.join(base, f".cover_{os.getpid()}.jpg")
+        crop_cover(photo, cropped, c.get("crop"))
+        uri = data_uri(cropped)
+        os.remove(cropped)
+    bg = (f'<div class="bg" style="background-image:url({uri})"></div>'
           '<div class="shade"></div>') if has else (
         f'<div class="deco">{html.escape(c.get("deco", ""))}</div>')
     kick = f'<div class="kick">{rich(c["kicker"])}</div>' if c.get("kicker") else ""
@@ -151,7 +162,8 @@ def check(c, spec, i, n, base):
 
 
 def end(c, spec, i, n, base):
-    src = f'<div class="src">{rich(c["source"])}</div>' if c.get("source") else ""
+    source = c.get("source") or spec.get("source", "")
+    src = f'<div class="src">{html.escape(source)}</div>' if source else ""
     return (f'<div class="card">{header(spec, i, n)}<div class="wrap">'
             f'<div class="lead">{rich(c["lead"])}</div>'
             f'<div class="body">{rich(c.get("body", ""))}</div></div>{src}</div>')
@@ -166,13 +178,25 @@ def safe_name(s):
     return re.sub(r"\s+", " ", s).strip()[:90]
 
 
-def render(spec_path, out_dir, page):
-    with open(spec_path, encoding="utf-8") as f:
-        spec = json.load(f)
-    base = os.path.dirname(os.path.abspath(spec_path))
+def load(spec, base):
+    """영상 자료(data/videos/<id>.json)로 파일 제목, 출처, 표지 사진을 채운다."""
+    vid = spec["id"]
+    info_path = os.path.join(DATA, "videos", f"{vid}.json")
+    info = json.load(open(info_path, encoding="utf-8")) if os.path.exists(info_path) else {}
+    title = info.get("title", vid)
+    date = spec.get("date") or info.get("date", "")
+    spec.setdefault("file_title", f"[{date}] {title}" if date else title)
+    spec.setdefault("source", f"출처: 유튜브 {info.get('channel', '')} 「{title}」")
+    photo = spec.get("photo") or os.path.join(DATA, "photos", f"{vid}.jpg")
+    spec["photo"] = photo if os.path.isabs(photo) else os.path.join(base, photo)
+    return spec
+
+
+def render(spec, out_dir, page, base):
+    spec = load(spec, base)
     cards = spec["cards"]
     if len(cards) > 10:
-        sys.exit(f"{spec_path}: 카드는 10장 이내여야 합니다 ({len(cards)}장)")
+        sys.exit(f"{spec['id']}: 카드는 10장 이내여야 합니다 ({len(cards)}장)")
     n = len(cards)
     folder = os.path.join(out_dir, safe_name(spec["file_title"]))
     os.makedirs(folder, exist_ok=True)
@@ -196,14 +220,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("specs", nargs="+")
     ap.add_argument("--out", default="out")
+    ap.add_argument("--only", nargs="*", help="이 영상 ID만 렌더링")
     a = ap.parse_args()
     with sync_playwright() as p:
-        browser = p.chromium.launch(executable_path=os.environ.get(
-            "CHROMIUM_PATH") or None, args=["--allow-file-access-from-files"])
+        exe = os.environ.get("CHROMIUM_PATH") or next(
+            iter(sorted(glob.glob("/opt/pw-browsers/chromium-*/chrome-linux*/chrome"))), None)
+        browser = p.chromium.launch(executable_path=exe,
+                                    args=["--allow-file-access-from-files"])
         page = browser.new_page(viewport={"width": W, "height": H})
-        for s in a.specs:
-            folder, files = render(s, a.out, page)
-            print(f"{folder}\t{len(files)}")
+        for path in a.specs:
+            with open(path, encoding="utf-8") as f:
+                specs = json.load(f)
+            base = os.path.dirname(os.path.abspath(path))
+            for spec in specs if isinstance(specs, list) else [specs]:
+                if a.only and spec["id"] not in a.only:
+                    continue
+                folder, files = render(spec, a.out, page, base)
+                print(f"{folder}\t{len(files)}")
         browser.close()
 
 

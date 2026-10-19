@@ -15,13 +15,15 @@ import os
 import sys
 import urllib.request
 
+
 def upload_folder(folder):
     files = []
     for path in sorted(glob.glob(os.path.join(glob.escape(folder), "*.png"))):
         with open(path, "rb") as f:
             files.append({"name": os.path.basename(path), "mimeType": "image/png",
                           "base64": base64.b64encode(f.read()).decode()})
-    body = json.dumps({"token": os.environ["CARDNEWS_UPLOAD_TOKEN"], "folderName": os.path.basename(folder.rstrip("/")),
+    body = json.dumps({"token": os.environ["CARDNEWS_UPLOAD_TOKEN"],
+                       "folderName": os.path.basename(folder.rstrip("/")),
                        "files": files}).encode()
     req = urllib.request.Request(os.environ["CARDNEWS_UPLOAD_URL"], data=body,
                                  headers={"Content-Type": "application/json"})

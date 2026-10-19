@@ -37,6 +37,10 @@ pip install -q playwright pillow "opencv-python-headless<5"
 6. 렌더링: `python3 cardnews/render.py cardnews/specs/<날짜>_*.json --out out/<날짜>`
    "넘침" 경고가 나오면 그 카드 문구를 줄여 다시 렌더링.
    표지 몇 장을 직접 열어 글자가 잘 읽히는지 확인.
-7. 업로드: `python3 cardnews/upload.py out/<날짜>` → 영상별 `[날짜] 영상 제목` 폴더에 01~NN.png
-8. specs, ids.txt, data/videos, data/photos/used.json을 커밋하고 브랜치에 푸시.
+7. specs, ids.txt, data/videos를 커밋하고 브랜치에 푸시.
+8. 업로드: `python3 cardnews/upload.py out/<날짜>` → 영상별 `[날짜] 영상 제목` 폴더에 01~NN.png
+   (드라이브 '카드뉴스' 안의 '카드뉴스 자동 업로드' 폴더 아래에 생긴다).
+   CARDNEWS_UPLOAD_URL/TOKEN 환경변수가 이 세션에 없으면(환경변수는 새 세션에만 들어감),
+   create_session으로 같은 저장소·브랜치의 새 세션을 띄워 "pip 설치 → render.py로 오늘 specs 렌더링 →
+   upload.py로 업로드 → 결과 보고"를 맡기고, 몇 분 뒤 list_events로 결과를 확인한다.
 9. 한두 줄 보고: 만든 영상 수, 드라이브 폴더 링크, 문제 있던 영상.

@@ -1,6 +1,7 @@
-"""렌더링된 카드뉴스 폴더를 구글 드라이브 '카드뉴스' 폴더에 영상별 하위 폴더로 올린다.
+"""렌더링된 카드뉴스 폴더를 구글 드라이브에 영상별 하위 폴더로 올린다.
 
-drive_uploader.gs 웹앱(사용자 계정으로 실행)을 통해 업로드한다.
+drive_uploader.gs 웹앱(사용자 계정으로 실행)을 통해 업로드한다. 웹앱은 drive.file 권한만 써서
+자기가 만든 '카드뉴스 자동 업로드' 폴더 안에 올리며, 사용자가 이 폴더를 '카드뉴스' 폴더 안으로 옮겨 둔다.
 환경변수: CARDNEWS_UPLOAD_URL, CARDNEWS_UPLOAD_TOKEN
 
 사용법:
@@ -14,17 +15,13 @@ import os
 import sys
 import urllib.request
 
-PARENT_ID = "1VfBuDOcJhl5Caeh4fNwjcLZ33GzLlnZK"  # 드라이브 '카드뉴스' 폴더
-
-
 def upload_folder(folder):
     files = []
     for path in sorted(glob.glob(os.path.join(glob.escape(folder), "*.png"))):
         with open(path, "rb") as f:
             files.append({"name": os.path.basename(path), "mimeType": "image/png",
                           "base64": base64.b64encode(f.read()).decode()})
-    body = json.dumps({"token": os.environ["CARDNEWS_UPLOAD_TOKEN"], "parentId": PARENT_ID,
-                       "folderName": os.path.basename(folder.rstrip("/")),
+    body = json.dumps({"token": os.environ["CARDNEWS_UPLOAD_TOKEN"], "folderName": os.path.basename(folder.rstrip("/")),
                        "files": files}).encode()
     req = urllib.request.Request(os.environ["CARDNEWS_UPLOAD_URL"], data=body,
                                  headers={"Content-Type": "application/json"})

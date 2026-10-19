@@ -13,7 +13,7 @@
 ```
 pip install -q playwright pillow "opencv-python-headless<5"
 ```
-필요 환경변수: YOUTUBE_API_KEY, PEXELS_API_KEY, CARDNEWS_UPLOAD_URL, CARDNEWS_UPLOAD_TOKEN
+필요 환경변수: YOUTUBE_API_KEY, CARDNEWS_UPLOAD_URL, CARDNEWS_UPLOAD_TOKEN
 
 ## 절차
 
@@ -33,11 +33,10 @@ pip install -q playwright pillow "opencv-python-headless<5"
      널리 알려진 책·인물의 핵심 개념만 쓰고, 나머지는 일반적인 교훈으로 쓴다
    - end: 마무리 한 줄 + "저장해 두고 … *@mindgrow.kr*". 투자·수익 관련은 면책 한 줄
    - 원고 연결 포인트(R열)와 비즈니스PT 홍보 문구는 카드에 넣지 않는다
-5. 표지 사진: `python3 cardnews/photos.py cardnews/specs/<날짜>_*.json`
-   (Pexels에서 주제 관련 세로 사진. 유튜브 썸네일·화면은 쓰지 않는다)
+5. 표지는 사진 없이 검정 배경 + 글자만 쓴다(사용자 요청, 2026-10-19). photos.py는 실행하지 않는다.
 6. 렌더링: `python3 cardnews/render.py cardnews/specs/<날짜>_*.json --out out/<날짜>`
    "넘침" 경고가 나오면 그 카드 문구를 줄여 다시 렌더링.
-   표지 몇 장을 직접 열어 사진과 글자가 잘 읽히는지 확인.
+   표지 몇 장을 직접 열어 글자가 잘 읽히는지 확인.
 7. 업로드: `python3 cardnews/upload.py out/<날짜>` → 영상별 `[날짜] 영상 제목` 폴더에 01~NN.png
 8. specs, ids.txt, data/videos, data/photos/used.json을 커밋하고 브랜치에 푸시.
 9. 한두 줄 보고: 만든 영상 수, 드라이브 폴더 링크, 문제 있던 영상.

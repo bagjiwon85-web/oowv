@@ -1,0 +1,107 @@
+[
+{"id": "OwYsS-3P7vc", "date": "2026-10-19", "series": "자기계발·습관", "photo_query": ["reading book cozy", "book instead of phone"],
+ "cards": [
+  {"type": "cover", "kicker": "뇌과학으로 입증된", "head": "*도파민 중독*을 이용해\n휴대폰 대신\n책에 빠지는 법", "who": "콥튜브 「도파민 중독 이용한 독서 습관」"},
+  {"type": "text", "lead": "스마트폰만 보면 시간이 사라지고\n책상 앞에서는\n*10분도 못 버틴다면.*", "body": "도파민을 이기려 하지 말고\n*내 편으로* 만들면 된다."},
+  {"type": "point", "num": 1, "lead": "*작은 보상*을\n설계한다", "body": "한 챕터를 읽으면 체크 표시.\n작은 성취가 도파민을 만든다."},
+  {"type": "point", "num": 2, "lead": "*시작을\n아주 쉽게*", "body": "하루 한 페이지부터.\n뇌가 부담을 느끼지 않을 만큼 작게."},
+  {"type": "point", "num": 3, "lead": "*휴대폰은\n멀리, 책은 가까이*", "body": "손이 닿는 곳에 무엇이 있느냐가\n습관을 결정한다."},
+  {"type": "point", "num": 4, "lead": "*가장 중요한 하나*에\n집중한다", "body": "모든 걸 바꾸려 하지 말고\n독서 하나만 먼저 습관으로 만든다."},
+  {"type": "check", "lead": "오늘 밤부터", "items": ["침대 옆에 *책 한 권* 두기", "휴대폰은 *다른 방*에서 충전", "*한 페이지* 읽고 체크하기"]},
+  {"type": "end", "lead": "도파민은 적이 아니다.\n*어디에 쓰느냐*의 문제다.", "body": "저장해 두고 오늘 밤 실천해 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "L_g1h2oVZv0", "date": "2026-10-19", "series": "돈·재테크", "photo_query": ["retirement savings planning", "pension planning couple"],
+ "cards": [
+  {"type": "cover", "kicker": "박곰희 작가", "head": "월급에서\n*딱 50만 원만*\n'이 계좌'에 넣으세요", "who": "머니인사이드 「박곰희 작가 2부」"},
+  {"type": "text", "lead": "\"무슨 종목 살까?\"\n고민하는 사람이\n*주식으로 돈을 못 버는 이유.*", "body": "종목보다 먼저\n*계좌 구조*를 세팅해야 한다."},
+  {"type": "point", "num": 1, "lead": "재테크 필수\n*4개의 통장*", "body": "CMA, ISA, 연금저축, IRP.\n목적별로 계좌를 나누면\n세금도 아끼고 흔들림도 줄어든다."},
+  {"type": "point", "num": 2, "lead": "*ISA*에서\n시작하는 이유", "body": "절세 혜택이 있는 계좌에서\n시장 전체에 투자하는 것부터."},
+  {"type": "point", "num": 3, "lead": "수익률보다\n*원금을 키운다*", "body": "개별 종목으로 수익률을 올리기보다\n월급을 늘려 넣는 돈을 키우는 게\n더 확실하다."},
+  {"type": "quote", "quote": "좋은 대학, 좋은 회사.\n영원한 게 없어요.\n없는 사람일수록 이 영상을 곱씹어 공부하세요.", "by": "50대 엄마의 베스트 댓글 · 좋아요 3,016"},
+  {"type": "check", "lead": "이번 달 세팅", "items": ["*ISA 계좌* 있는지 확인", "*연금저축·IRP* 세액공제 한도 확인", "매달 *자동 투자* 금액 정하기"]},
+  {"type": "end", "lead": "종목보다\n*계좌가 먼저*다.", "body": "세제 혜택은 시기마다 달라질 수 있습니다.\n투자 판단은 본인의 몫입니다.\n*@mindgrow.kr*"}
+ ]},
+{"id": "yVq3Zb9XwwM", "date": "2026-10-19", "series": "성공한 사람 이야기·자수성가", "photo_query": ["luxury car showroom woman", "car dealer woman professional"],
+ "cards": [
+  {"type": "cover", "kicker": "우리나라 단 1명, 벤츠 여성 이사", "head": "엄마를 잃고 야반도주했던\n그녀가\n*자동차로 성공하기까지*", "who": "2030도전 「윤미애 이사 이야기」"},
+  {"type": "text", "lead": "어머니가 돌아가시고\n빚을 피해 떠나야 했던 날.", "body": "모든 걸 잃은 것 같던 그때부터\n그녀는 *자동차 영업*이라는\n한 길을 걸었다."},
+  {"type": "point", "num": 1, "lead": "*물러설 곳이 없을 때*\n사람은 강해진다", "body": "절박함은\n누구보다 오래 버티게 만든다."},
+  {"type": "point", "num": 2, "lead": "*한 분야*에서\n끝까지 간다", "body": "이것저것 옮겨 다니지 않고\n영업이라는 한 길에서\n최고의 자리까지 올랐다."},
+  {"type": "point", "num": 3, "lead": "*지독함*이\n실력이 된다", "body": "남들이 포기할 때 한 번 더.\n그 차이가 쌓여 유일한 자리가 됐다."},
+  {"type": "quote", "quote": "너무 리얼하게 나왔나 싶어요.\n너그럽게 봐주세요. 감사합니다.", "by": "윤미애 이사 본인의 베스트 댓글"},
+  {"type": "end", "lead": "가장 낮은 곳에서도\n*가장 높은 곳*으로 갈 수 있다.", "body": "저장해 두고 포기하고 싶을 때 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "gYvlBnppmsg", "date": "2026-10-19", "series": "커뮤니케이션·스피치", "photo_query": ["woman speaking meeting confident", "presentation speaker office"],
+ "cards": [
+  {"type": "cover", "kicker": "생각은 많은데 말이 안 나온다면", "head": "*조리 있게*\n말하는 법", "who": "이루다스피치TV 「스피치 잘하는 법」"},
+  {"type": "text", "lead": "머릿속엔 생각이 가득한데\n*말로 표현이 안 돼서*\n손해 본 적 있나요?", "body": "말을 잘하는 사람은\n말을 많이 하는 사람이 아니라\n*정리해서 말하는 사람*이다."},
+  {"type": "point", "num": 1, "lead": "먼저\n*한 줄평*을 정한다", "body": "하고 싶은 말을\n한 문장으로 먼저 정리한다."},
+  {"type": "point", "num": 2, "lead": "그다음\n*구체적으로* 설명한다", "body": "한 줄평에 이유와 예시를\n하나씩 붙인다."},
+  {"type": "point", "num": 3, "lead": "*매일*\n연습한다", "body": "\"오늘 하루는 어땠나요?\"\n이런 질문에도 한 줄평으로 답해 본다."},
+  {"type": "quote", "quote": "회의에서 의견을 확고하게 못 내서\n자존감이 떨어졌는데,\n'한 줄평' 명심하고 써먹어 볼게요!", "by": "이 영상 베스트 댓글"},
+  {"type": "check", "lead": "오늘의 스피치 연습", "items": ["오늘 하루를 *한 줄평*으로", "그 이유를 *한 문장*으로", "*예시 하나* 붙여 말해보기"]},
+  {"type": "end", "lead": "말 잘하는 비결은\n*먼저 한 줄로 정리하는 것.*", "body": "저장해 두고 회의 전에 다시 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "FQH9kDYTc5E", "date": "2026-10-19", "series": "사업·성공 이야기", "photo_query": ["restaurant owner woman", "busy restaurant staff"],
+ "cards": [
+  {"type": "cover", "kicker": "월매출 5억, 직원 40명", "head": "젊은 여사장님이\n*돈을 많이 벌 수 있었던\n이유*", "who": "자영업자스토리 「장사의 신」"},
+  {"type": "text", "lead": "월매출 5억 원,\n함께 일하는 직원 40명.", "body": "젊은 나이에\n이 규모의 가게를 만든 사장님의\n*장사 원칙.*"},
+  {"type": "point", "num": 1, "lead": "*사람*을\n남긴다", "body": "직원이 오래 일하는 가게가\n손님도 오래 오는 가게가 된다."},
+  {"type": "point", "num": 2, "lead": "*기본*을\n매일 지킨다", "body": "맛, 청결, 친절.\n당연한 것을 매일 똑같이 해내는 게\n가장 어렵고 가장 강하다."},
+  {"type": "point", "num": 3, "lead": "*사장이\n먼저 움직인다*", "body": "현장에서 함께 뛰는 사장을 보며\n직원들도 같은 마음이 된다."},
+  {"type": "check", "lead": "우리 가게 점검", "items": ["직원이 *오래 일하고 싶은* 가게인가?", "*기본 3가지*를 매일 지키나?", "사장이 *현장에* 있나?"]},
+  {"type": "end", "lead": "큰 가게는\n*작은 기본*으로 만들어진다.", "body": "저장해 두고 가게 운영 점검에 쓰세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "YTMXMnIFn7U", "date": "2026-10-19", "series": "돈", "photo_query": ["young woman saving money", "savings goal notebook"],
+ "cards": [
+  {"type": "cover", "kicker": "20대 사회초년생 필수 시청", "head": "3년 만에 1억 모으고\n*후회한 사실*", "who": "예프리 Yefree 「3년 만에 1억 모으고 후회한 사실」"},
+  {"type": "text", "lead": "5년이 아니라\n*3년 만에 1억.*", "body": "누가 봐도 성공한 저축.\n그런데 모으고 나서야\n후회한 것이 있었다."},
+  {"type": "point", "num": 1, "lead": "1억을\n*결심한 이유*", "body": "막연한 저축이 아니라\n분명한 목표가 있었기에\n버틸 수 있었다."},
+  {"type": "point", "num": 2, "lead": "*현실적인*\n방법", "body": "소득을 늘리고, 지출을 정하고,\n자동으로 모이게 했다."},
+  {"type": "point", "num": 3, "lead": "그리고\n*후회한 것*", "body": "모으기만 하고\n돈을 불리는 공부는 늦었다.\n자본주의는 빨리 깨우치는 사람이 이긴다."},
+  {"type": "quote", "quote": "절약하려면 통신비부터.\n알뜰폰으로 바꾸면\n같은 사용량에 3배 싸요.", "by": "이 영상 베스트 댓글 · 좋아요 1,051"},
+  {"type": "check", "lead": "1억 로드맵", "items": ["*목표 금액과 기한* 정하기", "*통신비 같은 고정비* 줄이기", "모으면서 *투자 공부*도 시작"]},
+  {"type": "end", "lead": "모으는 것과\n*불리는 것*은\n함께 배워야 한다.", "body": "저장해 두고 저축 계획을 세워 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "zUTM71QxHUY", "date": "2026-10-19", "series": "성공 습관", "photo_query": ["library reading genius", "stack of books reading lamp"],
+ "cards": [
+  {"type": "cover", "kicker": "KBS 수요기획", "head": "세상을 이끄는 1%,\n*천재들의\n독서법*", "who": "KBS 다큐 「천재들의 독서법」"},
+  {"type": "text", "lead": "스티브 잡스, 오프라 윈프리,\n빌 게이츠.", "body": "세상을 이끄는 사람들은 말한다.\n*\"나는 한 권의 책으로부터 왔다.\"*"},
+  {"type": "point", "num": 1, "lead": "*천재 남매*의\n공통점", "body": "10살에 대학에 입학한 사유리 야노,\n스무 살에 의대를 졸업한 쇼 야노.\n두 사람 곁엔 늘 책이 있었다."},
+  {"type": "point", "num": 2, "lead": "*읽고, 생각하고,\n말한다*", "body": "읽기만 하지 않는다.\n읽은 것을 곱씹고\n누군가와 이야기한다."},
+  {"type": "point", "num": 3, "lead": "*습관*이 된\n독서", "body": "특별한 날이 아니라\n매일의 일과로 책을 읽는다."},
+  {"type": "check", "lead": "천재처럼 읽기", "items": ["*매일 같은 시간* 30분 독서", "읽은 내용 *한 줄 요약*", "누군가에게 *이야기해 보기*"]},
+  {"type": "end", "lead": "한 권의 책이\n*한 사람의 인생*을 바꾼다.", "body": "저장해 두고 이번 주 책을 골라 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "i--1Sw3GTX4", "date": "2026-10-19", "series": "SNS·유튜브", "photo_query": ["youtube channel laptop setup", "beginner creator laptop desk"],
+ "cards": [
+  {"type": "cover", "kicker": "왕초보를 위한", "head": "유튜브 채널,\n*이 순서대로*\n만들면 끝", "who": "디지털거북이 「유튜브 시작하는 법」"},
+  {"type": "text", "lead": "유튜브를 해보고 싶은데\n*어디서부터* 해야 할지 모르겠다면.", "body": "계정 만들기부터 로고, 배너까지\n채널 개설의 모든 순서."},
+  {"type": "point", "num": 1, "lead": "*브랜드 계정*으로\n만든다", "body": "개인 계정보다 브랜드 계정이\n나중에 관리하고 키우기 편하다."},
+  {"type": "point", "num": 2, "lead": "*채널 맞춤 설정*", "body": "채널 이름, 설명, 링크.\n처음 온 사람이 무슨 채널인지\n바로 알 수 있게."},
+  {"type": "point", "num": 3, "lead": "*로고와 배너*", "body": "미리캔버스 같은 무료 도구로\n누구나 깔끔하게 만들 수 있다."},
+  {"type": "check", "lead": "오늘 채널 개설", "items": ["*브랜드 계정* 만들기", "채널 *소개 한 문장* 쓰기", "*로고·배너* 만들어 올리기"]},
+  {"type": "end", "lead": "완벽한 채널보다\n*시작한 채널*이 낫다.", "body": "저장해 두고 오늘 채널을 만들어 보세요.\n더 많은 유튜브 팁은 *@mindgrow.kr*"}
+ ]},
+{"id": "JgPzRChr1Do", "date": "2026-10-19", "series": "사업·성공 이야기", "photo_query": ["street food stall", "korean street food vendor"],
+ "cards": [
+  {"type": "cover", "kicker": "69세 사장님의 길거리 장사", "head": "*2천 원 메뉴*로\n길에서 대박 난\n비결", "who": "일상속으로 「2천원 메뉴로 길에서 대박난 69세」"},
+  {"type": "text", "lead": "69세, 길 위의 작은 가게.", "body": "비싼 메뉴도, 화려한 인테리어도 없다.\n대신 *2천 원짜리 메뉴*와\n사람을 끄는 철학이 있다."},
+  {"type": "point", "num": 1, "lead": "*부담 없는 가격*이\n발길을 만든다", "body": "누구나 쉽게 사 먹을 수 있는 가격.\n한 번 온 손님이 또 온다."},
+  {"type": "point", "num": 2, "lead": "*노하우를\n숨기지 않는다*", "body": "\"전부 무료로 알려줘요.\"\n나누는 사람에게 사람이 모인다."},
+  {"type": "point", "num": 3, "lead": "*나이*는\n숫자일 뿐", "body": "늦은 나이의 시작도\n진심과 꾸준함이 있으면\n대박이 된다."},
+  {"type": "quote", "quote": "소리 지르는 손님을\n고등학생들이 몸으로 막아줬다니.\n눈물이 핑 도네요.", "by": "이 영상 베스트 댓글 · 좋아요 2,262"},
+  {"type": "end", "lead": "작은 가게를 지키는 건\n*사람의 마음*이다.", "body": "저장해 두고 장사의 기본을 떠올려 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "ecsasNM-13Y", "date": "2026-10-19", "series": "성공한 사람 이야기", "photo_query": ["engineer building prototype", "hands on learning workshop"],
+ "cards": [
+  {"type": "cover", "kicker": "일론 머스크가 생각하는", "head": "*'최고'의\n학습 방법*", "who": "ED - 1인 기업가 「일론 머스크의 학습 방법」"},
+  {"type": "text", "lead": "로켓, 전기차, AI.\n전혀 다른 분야를\n어떻게 그렇게 빨리 배울까?", "body": "답은 *배우는 순서*에 있었다."},
+  {"type": "point", "num": 1, "lead": "공부 다 하고 해보기\n*✕*", "body": "모든 걸 알고 시작하려 하면\n시작은 계속 늦어진다.\n속도가 느리다."},
+  {"type": "point", "num": 2, "lead": "일단 해보고\n모르는 것 공부하기\n*○*", "body": "직접 부딪히면\n무엇을 모르는지 정확히 알게 된다."},
+  {"type": "point", "num": 3, "lead": "*지식보다\n중요한 것*", "body": "아는 것보다\n필요한 걸 빠르게 찾아 배우는 능력이\n더 큰 무기다."},
+  {"type": "quote", "quote": "일단 해보고 모르는 것 공부하기 →\n속도 정말 말도 안 되게 빠름.", "by": "이 영상 베스트 댓글 · 좋아요 1,939"},
+  {"type": "check", "lead": "오늘 바로", "items": ["배우고 싶은 걸 *일단 시작*하기", "막힌 부분만 *골라서 공부*", "*결과물 하나* 만들어 보기"]},
+  {"type": "end", "lead": "배우고 나서 하지 말고\n*하면서 배우자.*", "body": "저장해 두고 망설일 때 다시 보세요.\n*@mindgrow.kr*"}
+ ]}
+]

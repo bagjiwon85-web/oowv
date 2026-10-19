@@ -1,0 +1,110 @@
+[
+{"id": "TQHW7gGjrCQ", "date": "2026-10-18", "series": "커뮤니케이션", "photo_query": ["job interview office", "interview handshake candidate"],
+ "cards": [
+  {"type": "cover", "kicker": "전직 CEO가 알려주는", "head": "\"자기소개 해보세요\"\n*최고의 답변*은\n이렇게 한다", "who": "The Companies Expert 「Tell Me About Yourself」"},
+  {"type": "text", "lead": "면접의 첫 질문,\n*\"자기소개 해보세요.\"*", "body": "가장 쉬워 보이지만\n가장 많이 망치는 질문.\n989만 명이 본 답변 공식."},
+  {"type": "point", "num": 1, "lead": "*인생 이야기*를\n하지 않는다", "body": "태어난 곳부터 말할 필요 없다.\n상대가 궁금한 건\n이 일과 관련된 나다."},
+  {"type": "point", "num": 2, "lead": "*현재 → 과거 → 미래*", "body": "지금 무엇을 하는지,\n어떤 경험을 쌓았는지,\n왜 이 자리에 왔는지."},
+  {"type": "point", "num": 3, "lead": "*짧고 구조적으로*", "body": "1~2분 안에 끝낸다.\n구조가 있으면 자신감도 따라온다."},
+  {"type": "quote", "quote": "저는 아주 어린 나이에 태어났습니다.\n제 얘기는 이쯤 하고,\n당신 얘기를 해주세요.", "by": "이 영상 베스트 댓글 · 좋아요 3.4만 (유머)"},
+  {"type": "check", "lead": "나의 자기소개", "items": ["*지금* 하는 일 한 문장", "관련된 *경험* 한 문장", "*왜 이곳*인지 한 문장"]},
+  {"type": "end", "lead": "좋은 자기소개는\n*상대가 듣고 싶은 나*를\n말하는 것이다.", "body": "저장해 두고 면접·발표 전에 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "gJctVD_oMx4", "date": "2026-10-18", "series": "자기계발", "photo_query": ["clean desk workspace minimal", "organized room productivity"],
+ "cards": [
+  {"type": "cover", "kicker": "의지력 말고 시스템", "head": "뇌가\n*자기 규율을 좋아하게*\n만드는 법", "who": "Psyphoria 「How to Trick Your Brain Into Liking Discipline」"},
+  {"type": "text", "lead": "나는 의지가 약한 사람일까?", "body": "아니다.\n*뇌는 원래 노력을 싫어하도록*\n만들어져 있다."},
+  {"type": "point", "num": 1, "lead": "뇌는\n*에너지를 아끼려* 한다", "body": "힘든 일을 피하는 건 게으름이 아니라\n생존 본능이다."},
+  {"type": "point", "num": 2, "lead": "*환경*이\n조용히 방해한다", "body": "눈앞의 휴대폰, 켜진 TV.\n환경이 의지보다 먼저 선택한다."},
+  {"type": "point", "num": 3, "lead": "*시스템*으로\n설계한다", "body": "좋은 행동은 쉽게, 나쁜 행동은 어렵게.\n동기 대신 구조를 바꾼다."},
+  {"type": "stat", "big": "556만", "label": "이 영상의 조회수.\n*모두가 같은 고민을 한다.*"},
+  {"type": "check", "lead": "환경 다시 설계하기", "items": ["*방해 요소*를 다른 방으로", "해야 할 일의 *도구를 눈앞에*", "시작을 *2분짜리*로 쪼개기"]},
+  {"type": "end", "lead": "동기를 기다리지 말고\n*시스템을 만들자.*", "body": "저장해 두고 오늘 환경 하나를 바꿔 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "89Vpqm2IaPE", "date": "2026-10-18", "series": "세일즈", "photo_query": ["customer trust conversation", "advisor client meeting"],
+ "cards": [
+  {"type": "cover", "kicker": "조던 피터슨 × 롭 무어", "head": "누구에게나\n무엇이든 파는\n*단 하나의 원칙*", "who": "Rob Moore 「Jordan Peterson Reveals How to Sell Anything」"},
+  {"type": "text", "lead": "사람들은 왜\n살까 말까 망설일까?", "body": "돈이 아까워서가 아니라\n*잘못된 선택을 할까 봐*\n불안하기 때문이다."},
+  {"type": "stat", "big": "불안 제거", "label": "세일즈하는 사람의\n*진짜 목표.*"},
+  {"type": "point", "num": 1, "lead": "*구매자의 불안*을\n먼저 본다", "body": "\"이게 정말 나에게 맞을까?\"\n그 걱정에 먼저 답해야 한다."},
+  {"type": "point", "num": 2, "lead": "*신뢰*가\n설득보다 강하다", "body": "밀어붙일수록 불안은 커진다.\n믿을 수 있는 사람에게서 사고 싶다."},
+  {"type": "point", "num": 3, "lead": "*진실*을\n말한다", "body": "단점도 솔직하게 말하는 사람에게\n고객은 마음을 연다."},
+  {"type": "quote", "quote": "세일즈하는 사람의 목표는\n돈을 쓰는 사람의\n불안을 없애주는 것이다.", "by": "이 영상 베스트 댓글"},
+  {"type": "end", "lead": "설득하지 말고\n*안심시키자.*", "body": "저장해 두고 상담 전에 다시 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "U_nzqnXWvSo", "date": "2026-10-18", "series": "성공 습관", "photo_query": ["small steps progress", "dominoes chain reaction"],
+ "cards": [
+  {"type": "cover", "kicker": "『아주 작은 습관의 힘』 제임스 클리어", "head": "*매일 1%*만\n나아지면\n생기는 일", "who": "APB Speakers 「Atomic Habits: How to Get 1% Better Every Day」"},
+  {"type": "text", "lead": "큰 변화는\n한 번에 일어나지 않는다.", "body": "눈에 보이지 않을 만큼 작은 개선이\n쌓이고 쌓여\n*어느 날 큰 차이*가 된다."},
+  {"type": "stat", "big": "37배", "label": "매일 1%씩 1년 동안 나아지면\n*1.01의 365제곱 ≈ 37.8*"},
+  {"type": "point", "num": 1, "lead": "*목표보다\n시스템*", "body": "이기는 사람도 지는 사람도 목표는 같다.\n차이는 매일의 시스템이다."},
+  {"type": "point", "num": 2, "lead": "*정체성*을\n바꾼다", "body": "\"책을 읽어야지\"가 아니라\n\"나는 읽는 사람이다\".\n정체성이 습관을 지킨다."},
+  {"type": "point", "num": 3, "lead": "*쉽게, 눈에 띄게*", "body": "좋은 습관은 보이게, 쉽게, 즐겁게.\n환경을 바꾸면 습관이 따라온다."},
+  {"type": "check", "lead": "오늘의 1%", "items": ["되고 싶은 *정체성* 한 문장", "그 사람이 할 *작은 행동* 하나", "*매일 같은 시간*에 반복하기"]},
+  {"type": "end", "lead": "오늘의 1%가\n*1년 뒤의 나*를 만든다.", "body": "저장해 두고 매일 1%씩 해보세요.\n더 많은 성공 습관은 *@mindgrow.kr*"}
+ ]},
+{"id": "h95cQkEWBx0", "date": "2026-10-18", "series": "마케팅", "photo_query": ["marketing funnel whiteboard", "marketer planning wall"],
+ "cards": [
+  {"type": "cover", "kicker": "40시간짜리 강의를 17분에", "head": "*마케팅 101*\n처음 배우는 사람을 위한\n핵심 정리", "who": "Adam Erhart 「Digital Marketing 101」"},
+  {"type": "text", "lead": "마케팅은 어렵다?", "body": "핵심만 보면 단순하다.\n*누구에게, 무엇을, 어떻게*\n전달하느냐의 문제다."},
+  {"type": "point", "num": 1, "lead": "*누구에게*\n팔 것인가", "body": "모두에게 팔려고 하면\n아무에게도 팔지 못한다.\n고객을 좁혀야 한다."},
+  {"type": "point", "num": 2, "lead": "*무엇을*\n약속하는가", "body": "고객이 얻게 될 결과를\n한 문장으로 말할 수 있어야 한다."},
+  {"type": "point", "num": 3, "lead": "*어떻게*\n데려오는가", "body": "관심 → 관계 → 구매.\n고객이 지나가는 길, 퍼널을 설계한다."},
+  {"type": "quote", "quote": "다른 교육이 40시간 걸려 하는 걸\n17분 만에 했네요.\n이렇게 어렵지 않아도 되는 거였어요.", "by": "이 영상 베스트 댓글"},
+  {"type": "check", "lead": "마케팅 기본 점검", "items": ["내 *핵심 고객*은 누구인가?", "그들에게 주는 *약속*은?", "*관심에서 구매까지* 길이 있나?"]},
+  {"type": "end", "lead": "마케팅은 기술이 아니라\n*고객을 이해하는 일*이다.", "body": "저장해 두고 입문 노트로 쓰세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "XrIlx_VXwlU", "date": "2026-10-18", "series": "SNS·콘텐츠", "photo_query": ["instagram growth phone hand", "content creator phone recording"],
+ "cards": [
+  {"type": "cover", "kicker": "150일 동안 일어난 일", "head": "팔로워 1천에서\n*80만*까지\n콘텐츠 로드맵", "who": "Arpit Sharma 「1k to 800k Followers in 150 Days」"},
+  {"type": "text", "lead": "팔로워 1,000명에서\n*150일 만에 80만 명.*", "body": "처음부터 시작하든\n성장이 멈춰 있든\n적용할 수 있는 단계별 전략."},
+  {"type": "point", "num": 1, "lead": "*니치*를\n정한다", "body": "무엇이든 올리는 계정이 아니라\n특정한 사람들을 위한 계정이 된다."},
+  {"type": "point", "num": 2, "lead": "*잘된 콘텐츠*를\n분석한다", "body": "내 분야에서 터진 콘텐츠의\n훅, 길이, 구조를 연구한다."},
+  {"type": "point", "num": 3, "lead": "*양으로*\n감을 잡는다", "body": "많이 올려 봐야\n무엇이 통하는지 알 수 있다."},
+  {"type": "point", "num": 4, "lead": "*터진 것*을\n반복한다", "body": "반응이 온 형식은\n다른 주제로 다시 만든다."},
+  {"type": "quote", "quote": "6~7개월 콘텐츠를 만들었는데\n결과가 없었어요.\n이게 이유였네요. 다시 생각해 볼게요.", "by": "이 영상 베스트 댓글"},
+  {"type": "end", "lead": "성장은 운이 아니라\n*분석과 반복*이다.", "body": "저장해 두고 콘텐츠 계획을 세워 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "m4RVTK7iU1c", "date": "2026-10-18", "series": "성공한 사람 이야기", "photo_query": ["apple store glass", "factory logistics warehouse"],
+ "cards": [
+  {"type": "cover", "kicker": "애플 CEO 팀 쿡", "head": "스티브 잡스는\n*어떻게 팀 쿡을\n데려왔을까*", "who": "WSJ. Style 「The Job Interview」"},
+  {"type": "text", "lead": "신문 배달 소년,\n그리고 IBM의 신입 사원.", "body": "세계에서 가장 가치 있는 회사를 이끄는\n팀 쿡의 커리어는\n*평범한 일*에서 시작됐다."},
+  {"type": "point", "num": 1, "lead": "*좋아하는 일*을\n깊게 판다", "body": "물류, 제조, 숫자.\n남들이 지루해하는 분야를 좋아했고\n그 분야의 최고가 됐다."},
+  {"type": "point", "num": 2, "lead": "*직감을 믿는*\n선택", "body": "모두가 말리던 시기의 애플 합류.\n잡스와의 만남은\n그의 직감을 움직였다."},
+  {"type": "point", "num": 3, "lead": "*다른 강점*이\n팀을 완성한다", "body": "잡스가 만들고 팔았다면\n쿡은 회사를 정교한 기계처럼 운영했다."},
+  {"type": "quote", "quote": "잡스는 제품을 디자인하고 마케팅할 줄 알았고,\n팀 쿡은 애플을 잘 돌아가는 기계처럼\n운영할 줄 알았다.", "by": "이 영상 베스트 댓글 · 좋아요 3,483"},
+  {"type": "end", "lead": "화려하지 않아도 된다.\n*나만의 강점*이면 충분하다.", "body": "저장해 두고 커리어를 고민할 때 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "qR_MveuZShU", "date": "2026-10-18", "series": "자수성가·돈", "photo_query": ["confident woman city", "woman success portrait"],
+ "cards": [
+  {"type": "cover", "kicker": "아프난 칼리파의 머니 마인드셋", "head": "빈털터리에서\n*26살 백만장자*가\n되기까지", "who": "Dream with Dr Sheen 「From Broke to Millionaire at 26」"},
+  {"type": "text", "lead": "평범한 시작,\n그리고 26살의 경제적 자유.", "body": "그녀를 바꾼 건\n돈 버는 기술보다\n*생각의 전환*이었다."},
+  {"type": "point", "num": 1, "lead": "*첫 직장*에서\n배운다", "body": "작은 일에서도 배울 게 있다.\n초반의 경험이 나중의 무기가 된다."},
+  {"type": "point", "num": 2, "lead": "*내 목소리*를\n낸다", "body": "나를 드러내는 걸 두려워하지 않을 때\n기회가 찾아온다."},
+  {"type": "point", "num": 3, "lead": "*믿음과 자신감*", "body": "안 될 이유보다 될 이유를 믿는 마음이\n행동을 계속하게 만든다."},
+  {"type": "check", "lead": "내 머니 마인드셋", "items": ["돈에 대해 *가진 두려움*은?", "내 목소리를 낼 *채널*이 있나?", "*될 이유* 세 가지 적어보기"]},
+  {"type": "end", "lead": "돈보다 먼저\n*생각이 부자*가 되어야 한다.", "body": "저장해 두고 자신감이 필요할 때 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "UYazb-zZPXI", "date": "2026-10-18", "series": "커뮤니케이션·비즈니스", "photo_query": ["ceo speaking meeting", "executive boardroom confident"],
+ "cards": [
+  {"type": "cover", "kicker": "코디 산체스", "head": "*상위 1% CEO*처럼\n말하는 법", "who": "BigDeal by Codie Sanchez 「How To Speak Like A Top 1% CEO」"},
+  {"type": "text", "lead": "같은 말을 해도\n*누구는 리더처럼* 들리고\n누구는 그렇지 않다.", "body": "차이는 말의 순서와 길이에 있다."},
+  {"type": "point", "num": 1, "lead": "*결론부터*\n말한다", "body": "BLUF, Bottom Line Up Front.\n핵심을 먼저 말하고\n설명은 그다음에."},
+  {"type": "point", "num": 2, "lead": "*짧게*\n말한다", "body": "길게 말할수록 자신 없어 보인다.\n짧고 분명한 문장이 힘을 가진다."},
+  {"type": "point", "num": 3, "lead": "*해결책*과 함께\n가져온다", "body": "문제만 말하지 않는다.\n선택지 세 개를 함께 제시한다."},
+  {"type": "quote", "quote": "장군에게는 절대\n직접적이고 빠르고\n해결책 없이 가지 않는다는 걸 배웠어요.", "by": "군 출신 베스트 댓글"},
+  {"type": "check", "lead": "다음 보고에서", "items": ["*첫 문장*에 결론 넣기", "*30초 안에* 끝내기", "*해결책 3개* 준비하기"]},
+  {"type": "end", "lead": "말을 줄이면\n*무게*가 생긴다.", "body": "저장해 두고 보고 전에 다시 보세요.\n*@mindgrow.kr*"}
+ ]},
+{"id": "xQuKdFNK7tk", "date": "2026-10-18", "series": "사업", "photo_query": ["business growth chart office", "small business team meeting"],
+ "cards": [
+  {"type": "cover", "kicker": "33년 사업 경험 풀코스", "head": "*100만 달러* 사업을\n만드는 단계", "who": "CEO Entrepreneur 「33Yrs of Business Experience in 4hrs」"},
+  {"type": "text", "lead": "시작, 성장, 그리고 확장.", "body": "작은 사업이 수백만 달러 규모로\n커지기까지 필요한\n*전략과 프레임워크, 마인드셋.*"},
+  {"type": "point", "num": 1, "lead": "*시작*:\n팔리는 걸 증명한다", "body": "아이디어가 아니라\n돈을 내는 고객이 있다는 증거가\n첫 번째 목표다."},
+  {"type": "point", "num": 2, "lead": "*성장*:\n반복 가능하게 만든다", "body": "한 번 팔린 방식을\n누가 해도 같은 결과가 나오게\n시스템으로 만든다."},
+  {"type": "point", "num": 3, "lead": "*확장*:\n나를 빼낸다", "body": "사장이 모든 걸 하면 성장은 멈춘다.\n사람과 시스템에 맡겨야 커진다."},
+  {"type": "quote", "quote": "4시간이 길다는 사람들이\n게임이나 넷플릭스는\n더 오래 보죠.", "by": "이 영상 베스트 댓글 · 좋아요 3,079"},
+  {"type": "check", "lead": "내 사업은 어디쯤", "items": ["*돈 낸 고객*이 있나?", "같은 결과를 *반복*할 수 있나?", "*내가 없어도* 돌아가나?"]},
+  {"type": "end", "lead": "사업은 열심히가 아니라\n*단계를 아는 것*에서 큰다.", "body": "저장해 두고 단계별로 점검해 보세요.\n*@mindgrow.kr*"}
+ ]}
+]

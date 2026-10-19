@@ -16,6 +16,7 @@ import glob
 import html
 import json
 import mimetypes
+import pathlib
 import os
 import re
 import sys
@@ -203,12 +204,25 @@ def render(spec, out_dir, page, base):
     files = []
     for i, c in enumerate(cards, 1):
         inner = CARD[c["type"]](c, spec, i, n, base)
-        tmp = os.path.join(folder, "_card.html")
+        tmp = os.path.join(out_dir, "_card.html")
         with open(tmp, "w", encoding="utf-8") as f:
             f.write(f"<html><head><meta charset='utf-8'><style>{font_face()}{CSS}"
                     f"</style></head><body>{inner}</body></html>")
-        page.goto(f"file://{tmp}")
+        page.goto(pathlib.Path(tmp).resolve().as_uri())
         page.evaluate("document.fonts.ready")
+        # 글자가 머리글(계정명)이나 카드 아래쪽 출처와 겹치면 경고
+        clash = page.evaluate("""() => {
+            const w = document.querySelector('.wrap, .cov');
+            if (!w) return null;
+            const kids = [...w.children].map(e => e.getBoundingClientRect());
+            const top = Math.min(...kids.map(r => r.top));
+            const bottom = Math.max(...kids.map(r => r.bottom));
+            const src = document.querySelector('.src');
+            const limit = src ? src.getBoundingClientRect().top - 20 : 1290;
+            return (top < 130 || bottom > limit) ? [Math.round(top), Math.round(bottom)] : null;
+        }""")
+        if clash:
+            print(f"  ! 넘침 {spec['id']} {i}장 {clash}", file=sys.stderr)
         path = os.path.join(folder, f"{i:02d}.png")
         page.locator(".card").screenshot(path=path)
         files.append(path)

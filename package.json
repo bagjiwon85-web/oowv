@@ -1,0 +1,23 @@
+{
+  "name": "oowv-video",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "icons": "node scripts/build-icons.mjs",
+    "studio": "npm run icons && remotion studio",
+    "render": "npm run icons && remotion render Main out/video.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.537",
+    "@remotion/fonts": "4.0.537",
+    "remotion": "4.0.537",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@iconify-json/fluent-emoji-flat": "1.2.6",
+    "@types/react": "19.1.8",
+    "pretendard": "1.3.9",
+    "typescript": "5.8.3"
+  }
+}

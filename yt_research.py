@@ -156,7 +156,21 @@ def cmd_candidates(a):
     if a.existing and os.path.exists(a.existing):
         existing = {l.strip() for l in open(a.existing) if l.strip()}
     found = {}
-    kq, eq = (KR_QUERIES2, EN_QUERIES2) if a.queryset == 2 else (KR_QUERIES, EN_QUERIES)
+    if a.per_region:
+        # 날짜별로 검색어 풀을 돌려 쓰며 국내/해외 각각 N개만 검색 (검색량 절약)
+        import datetime
+        day = datetime.date.today().toordinal() + a.shift
+        kpool, epool = KR_QUERIES + KR_QUERIES2, EN_QUERIES + EN_QUERIES2
+        n = a.per_region
+        kq = [kpool[(day * n + i) % len(kpool)] for i in range(n)]
+        eq = [epool[(day * n + i) % len(epool)] for i in range(n)]
+        if a.order == "auto":
+            a.order = ("relevance", "viewCount", "rating")[day % 3]
+        print("queries:", kq, eq, "order:", a.order, file=sys.stderr)
+    else:
+        kq, eq = (KR_QUERIES2, EN_QUERIES2) if a.queryset == 2 else (KR_QUERIES, EN_QUERIES)
+    if a.order == "auto":
+        a.order = "relevance"
     for region, qs in (("KR", kq), ("GLOBAL", eq)):
         for q in qs:
             for dur in ("medium", "long"):
@@ -186,6 +200,9 @@ def cmd_candidates(a):
             continue
         v["region"], v["query"] = ("국내" if kr else "해외"), q
         cands.append(v)
+    if a.exclude_channels and os.path.exists(a.exclude_channels):
+        skip = {l.strip() for l in open(a.exclude_channels) if l.strip()}
+        cands = [v for v in cands if v["channel"].strip() not in skip]
     chs = channels(list({v["channelId"] for v in cands}))
     by_ch = {}
     for v in cands:
@@ -237,6 +254,18 @@ def cmd_comment(a):
     print(json.dumps(best, ensure_ascii=False))
 
 
+def cmd_brief(a):
+    """후보를 짧게 출력 (선정용)."""
+    r = json.load(open(a.cand))
+    for reg in ("국내", "해외"):
+        rs = sorted((x for x in r if x["region"] == reg), key=lambda x: -x["picks"][0]["likes"])
+        print("==", reg, len(rs))
+        for x in rs[:a.top]:
+            p = x["picks"][0]
+            print(f"{x['channel'].strip()[:18]} | s={x['subs']} low={x['low']} | {p['likes']} {p['views']} "
+                  f"{p['sec']//60}m {p['published'][:4]} | {p['id']} | {p['title'][:50]}")
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     sp = p.add_subparsers(dest="cmd", required=True)
@@ -245,7 +274,15 @@ if __name__ == "__main__":
     c.add_argument("--out", default="cand.json")
     c.add_argument("--order", default="relevance")
     c.add_argument("--queryset", type=int, default=1)
+    c.add_argument("--per-region", type=int, default=0,
+                   help="국내/해외 각각 검색어 N개만 사용 (날짜별 순환)")
+    c.add_argument("--shift", type=int, default=0, help="후보가 모자랄 때 다른 검색어 묶음 사용(1,2..)")
+    c.add_argument("--exclude-channels", help="시트 E열 채널명 목록 파일 (이미 쓴 채널 제외)")
     c.set_defaults(f=cmd_candidates)
+    b = sp.add_parser("brief")
+    b.add_argument("cand")
+    b.add_argument("--top", type=int, default=25)
+    b.set_defaults(f=cmd_brief)
     m = sp.add_parser("comment")
     m.add_argument("video")
     m.set_defaults(f=cmd_comment)

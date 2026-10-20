@@ -1,9 +1,11 @@
 import React from 'react';
+import {P, blob, ink, smooth} from './ink';
 
 /*
- * Original black-and-white line-art characters (drawn from scratch as SVG).
- * Office outfit: white shirt + black tie. Two people: "man" and "woman".
- * Poses combine an expression with an arm gesture.
+ * Original hand-inked style characters (drawn from scratch, not traced).
+ * Office outfit: white shirt + black tie. "man" (messy layered hair) and
+ * "woman" (bob with side-swept bangs). Expressions and gestures are switchable.
+ * Head centre line is x = 470; the drawing spans x 150..790, y 20..580.
  */
 
 export type Who = 'man' | 'woman';
@@ -11,288 +13,500 @@ export type Face = 'neutral' | 'smile' | 'surprise' | 'worry' | 'think' | 'happy
 export type Arms = 'none' | 'chin' | 'cheek' | 'present' | 'point' | 'fist';
 
 const K = '#111';
-// Head drawn slightly larger than the body, scaled about the chin.
-const HEAD_SCALE = 'translate(200 330) scale(1.13) translate(-200 -330)';
-const SW = 4;
+const W = '#fff';
 
-const line = {fill: 'none', stroke: K, strokeWidth: SW, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const};
-const thin = {...line, strokeWidth: 3};
-const solid = {fill: K, stroke: K, strokeWidth: 2, strokeLinejoin: 'round' as const};
-const white = {fill: '#fff', stroke: K, strokeWidth: SW, strokeLinejoin: 'round' as const, strokeLinecap: 'round' as const};
+/** Mirror points around the head centre line. */
+const mx = (pts: P[]): P[] => pts.map(([x, y]) => [940 - x, y]);
+
+const Ink: React.FC<{p: P[]; w?: number; s?: number; e?: number; color?: string}> = ({p, w = 5, s = 0.15, e = 0.15, color = K}) => (
+  <path d={ink(p, w, s, e)} fill={color} />
+);
+const Fill: React.FC<{p: P[]; color?: string}> = ({p, color = W}) => <path d={smooth(p, true)} fill={color} />;
+
+// ───────────── body ─────────────
+
+const SHIRT_L: P[] = [[446, 300], [404, 320], [352, 338], [312, 360], [290, 392], [280, 440], [274, 500], [270, 580]];
+const SHIRT_R: P[] = mx(SHIRT_L);
 
 const Body: React.FC<{who: Who}> = ({who}) => {
-  const w = who === 'woman' ? 0.9 : 1;
-  const sx = (x: number) => 200 + (x - 200) * w;
+  const k = who === 'woman' ? 0.92 : 1;
+  const sc = (pts: P[]): P[] => pts.map(([x, y]) => [470 + (x - 470) * k, y]);
+  const L = sc(SHIRT_L);
+  const R = sc(SHIRT_R);
   return (
     <g>
+      <path d={`M${L.map((p) => p.join(' ')).join(' L')} L${[...R].reverse().map((p) => p.join(' ')).join(' L')} Z`} fill={W} />
+      <Ink p={L} w={6} s={0.5} e={0.9} />
+      <Ink p={R} w={6} s={0.5} e={0.9} />
+      {/* arm / torso boundary + folds */}
+      <Ink p={sc([[318, 430], [326, 480], [330, 540], [330, 580]])} w={4} s={0.1} e={0.6} />
+      <Ink p={sc([[622, 430], [614, 480], [610, 540], [610, 580]])} w={4} s={0.1} e={0.6} />
+      <Ink p={sc([[338, 396], [350, 408], [356, 426]])} w={3.4} />
+      <Ink p={sc([[602, 396], [590, 408], [584, 426]])} w={3.4} />
+      <Ink p={sc([[392, 470], [400, 500], [402, 530]])} w={3} />
+      <Ink p={sc([[548, 470], [540, 500], [538, 530]])} w={3} />
+      <Ink p={sc([[372, 360], [384, 368]])} w={2.6} />
+      <Ink p={sc([[568, 360], [556, 368]])} w={2.6} />
       {/* neck */}
-      <path d="M180 296 L178 360 L222 360 L220 296 Z" fill="#fff" stroke="none" />
-      <path d="M180 296 L178 356" {...line} />
-      <path d="M220 296 L222 356" {...line} />
-      {/* shirt */}
-      <path
-        d={`M${sx(26)} 600 C${sx(28)} 520 ${sx(36)} 466 ${sx(66)} 440 C${sx(94)} 418 ${sx(138)} 400 ${sx(170)} 366 L200 408 L${sx(230)} 366 C${sx(262)} 400 ${sx(306)} 418 ${sx(334)} 440 C${sx(364)} 466 ${sx(372)} 520 ${sx(374)} 600 Z`}
-        {...white}
-      />
-      {/* fold lines */}
-      <path d={`M${sx(84)} 500 C${sx(90)} 530 ${sx(90)} 566 ${sx(88)} 600`} {...thin} />
-      <path d={`M${sx(316)} 500 C${sx(310)} 530 ${sx(310)} 566 ${sx(312)} 600`} {...thin} />
-      <path d={`M${sx(112)} 440 C${sx(122)} 452 ${sx(126)} 466 ${sx(126)} 478`} {...thin} />
-      <path d={`M${sx(288)} 440 C${sx(278)} 452 ${sx(274)} 466 ${sx(274)} 478`} {...thin} />
+      <path d="M440 240 L436 330 L504 330 L500 240 Z" fill={W} />
+      <Ink p={[[442, 258], [440, 290], [436, 318]]} w={4.6} s={0.3} e={0.5} />
+      <Ink p={[[498, 258], [500, 290], [504, 318]]} w={4.6} s={0.3} e={0.5} />
+      <Ink p={[[452, 300], [460, 306]]} w={2.4} />
       {/* tie */}
-      <path d="M190 402 L210 402 L214 424 L186 424 Z" {...solid} />
-      <path d="M187 424 L213 424 L226 556 L200 600 L174 556 Z" {...solid} />
-      {/* collar */}
-      <path d="M178 348 L158 392 L198 412 Z" {...white} />
-      <path d="M222 348 L242 392 L202 412 Z" {...white} />
+      <path d={blob([[458, 348, true], [482, 348, true], [487, 372, true], [453, 372, true]])} fill={K} />
+      <path d={blob([[454, 370, true], [486, 370, true], [504, 540, true], [470, 590, true], [436, 540, true]])} fill={K} />
+      {/* collar flaps */}
+      {[false, true].map((m) => {
+        const flap: P[] = [[438, 288], [418, 318], [414, 348], [426, 376], [466, 352]];
+        const pts = m ? mx(flap) : flap;
+        return (
+          <g key={String(m)}>
+            <path d={blob(pts.map(([x, y], i) => [x, y, i === 3 || i === 4] as [number, number, boolean]))} fill={W} />
+            <Ink p={pts.slice(0, 4)} w={4.4} s={0.3} e={0.4} />
+            <Ink p={[pts[3], pts[4]]} w={4} s={0.4} e={0.2} />
+          </g>
+        );
+      })}
     </g>
   );
 };
 
-const HairBack: React.FC<{who: Who}> = ({who}) =>
-  who === 'woman' ? (
-    <path
-      d="M112 326 C92 250 96 150 140 104 C180 66 240 68 274 104 C312 146 312 250 290 326 C276 334 262 332 254 322 L262 200 L140 200 L146 322 C138 334 122 334 112 326 Z"
-      {...solid}
-    />
-  ) : null;
+// ───────────── head ─────────────
+
+const FACE_M: P[] = [[400, 150], [402, 192], [410, 226], [426, 254], [448, 274], [470, 281], [492, 274], [514, 254], [530, 226], [538, 192], [540, 150]];
+const FACE_W: P[] = [[404, 152], [406, 194], [414, 226], [430, 252], [450, 268], [470, 274], [490, 268], [510, 252], [526, 226], [534, 194], [536, 152]];
+const EAR: P[] = [[404, 176], [392, 168], [384, 182], [388, 204], [398, 220], [410, 222]];
+const EAR_IN: P[] = [[394, 186], [396, 200], [402, 208]];
 
 const Head: React.FC<{who: Who}> = ({who}) => {
-  const face =
-    who === 'woman'
-      ? 'M136 176 C134 244 154 298 200 312 C246 298 266 244 264 176'
-      : 'M130 176 C128 250 152 302 200 316 C248 302 272 250 270 176';
-  const ex = who === 'woman' ? 134 : 128;
+  const face = who === 'woman' ? FACE_W : FACE_M;
   return (
     <g>
-      <path d={`${face} L264 150 L136 150 Z`} fill="#fff" stroke="none" />
-      <path d={face} {...line} />
-      {/* ears */}
-      <path d={`M${ex + 2} 212 C${ex - 16} 202 ${ex - 18} 246 ${ex + 4} 256`} {...white} />
-      <path d={`M${400 - ex - 2} 212 C${400 - ex + 16} 202 ${400 - ex + 18} 246 ${400 - ex - 4} 256`} {...white} />
-      <path d={`M${ex - 4} 222 C${ex - 8} 230 ${ex - 6} 240 ${ex + 1} 244`} {...thin} />
-      <path d={`M${400 - ex + 4} 222 C${400 - ex + 8} 230 ${400 - ex + 6} 240 ${400 - ex - 1} 244`} {...thin} />
+      {[EAR, mx(EAR)].map((e, i) => (
+        <g key={i}>
+          <Fill p={e} />
+          <Ink p={e} w={4.2} s={0.3} e={0.3} />
+          <Ink p={i === 0 ? EAR_IN : mx(EAR_IN)} w={2.6} />
+        </g>
+      ))}
+      <path d={`${smooth(face, false)} L${face[face.length - 1][0]} 120 L${face[0][0]} 120 Z`} fill={W} />
+      <Ink p={face} w={5.2} s={0.4} e={0.4} />
     </g>
   );
 };
+
+// Messy layered men's hair: outer silhouette with clumped tips, fringe falling over the forehead.
+const HAIR_M: [number, number, boolean?][] = [
+  [404, 204, true],
+  [396, 172],
+  [388, 140],
+  [376, 118, true],
+  [392, 106],
+  [400, 84],
+  [418, 66],
+  [440, 54],
+  [462, 38, true],
+  [476, 48],
+  [500, 44],
+  [524, 52],
+  [544, 66],
+  [568, 70, true],
+  [558, 88],
+  [562, 112],
+  [558, 140],
+  [550, 166],
+  [540, 202, true],
+  [536, 168],
+  [528, 144],
+  [520, 134],
+  [518, 172, true],
+  [506, 140],
+  [494, 128],
+  [480, 126],
+  [482, 168, true],
+  [468, 136],
+  [452, 132],
+  [440, 140],
+  [430, 176, true],
+  [424, 148],
+  [414, 144],
+  [410, 160],
+  [410, 186],
+];
+
+// Women's bob: back mass + side-swept bangs.
+const HAIR_W_BACK: [number, number, boolean?][] = [
+  [382, 300, true],
+  [374, 240],
+  [372, 170],
+  [386, 100],
+  [430, 58],
+  [478, 50],
+  [530, 62],
+  [566, 104],
+  [574, 170],
+  [568, 240],
+  [560, 300, true],
+  [544, 292],
+  [530, 300, true],
+  [536, 220],
+  [404, 220],
+  [410, 300, true],
+  [396, 292],
+];
+const HAIR_W_FRONT: [number, number, boolean?][] = [
+  [404, 200, true],
+  [398, 150],
+  [410, 104],
+  [450, 72],
+  [500, 70],
+  [540, 96],
+  [548, 140],
+  [540, 196, true],
+  [530, 150],
+  [514, 126],
+  [496, 140],
+  [470, 156, true],
+  [478, 132],
+  [452, 146],
+  [430, 166],
+  [416, 190],
+];
+
+const HairBack: React.FC<{who: Who}> = ({who}) => (who === 'woman' ? <path d={blob(HAIR_W_BACK)} fill={K} /> : null);
 
 const HairFront: React.FC<{who: Who}> = ({who}) =>
   who === 'woman' ? (
     <g>
-      {/* fringe swept to one side */}
-      <path
-        d="M132 214 C124 140 160 92 210 90 C258 90 284 132 270 210 C262 180 252 160 236 146 C214 166 176 176 150 170 C142 184 136 198 132 214 Z"
-        {...solid}
-      />
-      <path d="M236 146 C226 170 214 184 200 192" fill="none" stroke={K} strokeWidth={3} strokeLinecap="round" />
+      <path d={blob(HAIR_W_FRONT)} fill={K} />
+      <Ink p={[[506, 92], [488, 104], [470, 124]]} w={2.6} color={W} />
     </g>
   ) : (
     <g>
-      <path
-        d="M124 212 C108 140 140 76 206 70 C262 66 296 108 284 196 C280 214 276 214 274 196 C272 168 262 148 250 136 C232 156 196 158 164 146 C152 166 140 184 136 206 C132 222 126 224 124 212 Z"
-        {...solid}
-      />
-      {/* side-part strands */}
-      <path d="M250 136 C258 120 268 116 280 120" fill="none" stroke="#fff" strokeWidth={3} strokeLinecap="round" />
-      <path d="M200 152 C214 138 228 132 244 132" fill="none" stroke="#fff" strokeWidth={2.5} strokeLinecap="round" />
-      <path d="M164 146 C170 156 166 170 158 178" fill="none" stroke={K} strokeWidth={5} strokeLinecap="round" />
+      <path d={blob(HAIR_M)} fill={K} />
+      {/* strand highlights following the sweep of the hair */}
+      <Ink p={[[430, 74], [452, 70], [476, 76], [496, 92]]} w={2.6} color={W} />
+      <Ink p={[[466, 92], [486, 98], [504, 112]]} w={2.2} color={W} />
+      <Ink p={[[520, 74], [536, 90], [544, 112]]} w={2.4} color={W} />
+      <Ink p={[[404, 112], [400, 132], [402, 150]]} w={2.2} color={W} />
     </g>
   );
 
+// ───────────── face features ─────────────
+
+const EYE_Y = 196;
+const EL = 440;
+const ER = 500;
+
 const Eyes: React.FC<{who: Who; face: Face}> = ({who, face}) => {
-  const L = 170;
-  const R = 230;
-  const y = 236;
-  const lash = who === 'woman';
+  const fem = who === 'woman';
   if (face === 'happy') {
     return (
       <g>
-        <path d={`M${L - 13} ${y + 2} Q${L} ${y - 12} ${L + 13} ${y + 2}`} {...line} strokeWidth={5} />
-        <path d={`M${R - 13} ${y + 2} Q${R} ${y - 12} ${R + 13} ${y + 2}`} {...line} strokeWidth={5} />
+        {[EL, ER].map((c) => (
+          <Ink key={c} p={[[c - 13, EYE_Y + 3], [c, EYE_Y - 7], [c + 13, EYE_Y + 3]]} w={5} s={0.3} e={0.3} />
+        ))}
       </g>
     );
   }
-  const big = face === 'surprise';
-  const rx = big ? 8 : 6.5;
-  const ry = big ? 9 : 8.5;
-  const eye = (cx: number, dir: number) => (
-    <g key={cx}>
-      {big ? (
-        <>
-          <circle cx={cx} cy={y} r={13} fill="#fff" stroke={K} strokeWidth={3} />
-          <circle cx={cx} cy={y + 1} r={6} fill={K} />
-        </>
-      ) : (
-        <>
-          <path d={`M${cx - 14} ${y - 3} Q${cx} ${y - 14} ${cx + 14} ${y - 3}`} {...line} strokeWidth={lash ? 5 : 4} />
-          <ellipse cx={face === 'think' ? cx + 3 * dir * 0 + 3 : cx} cy={y + 2} rx={rx} ry={ry} fill={K} />
-          <circle cx={(face === 'think' ? cx + 3 : cx) + 2} cy={y - 1} r={2} fill="#fff" />
-          {lash && <path d={`M${cx + 14 * dir} ${y - 4} L${cx + 19 * dir} ${y - 8}`} {...line} strokeWidth={3} />}
-        </>
-      )}
-    </g>
-  );
+  const wide = face === 'surprise';
+  const look = face === 'think' ? 3 : 0;
+  const lidY = face === 'determined' ? EYE_Y - 4 : EYE_Y - 7;
   return (
     <g>
-      {eye(L, -1)}
-      {eye(R, 1)}
-      {/* lower lid hints */}
-      {!big && (
-        <>
-          <path d={`M${L - 7} ${y + 14} Q${L} ${y + 16} ${L + 7} ${y + 14}`} {...thin} strokeWidth={2} />
-          <path d={`M${R - 7} ${y + 14} Q${R} ${y + 16} ${R + 7} ${y + 14}`} {...thin} strokeWidth={2} />
-        </>
-      )}
+      {[EL, ER].map((c, i) => {
+        const outer = i === 0 ? -1 : 1;
+        return (
+          <g key={c}>
+            {wide && <ellipse cx={c} cy={EYE_Y + 1} rx={11} ry={11} fill={W} stroke={K} strokeWidth={2.6} />}
+            <ellipse cx={c + look} cy={EYE_Y + 2} rx={wide ? 5 : 6} ry={wide ? 5 : 7.4} fill={K} />
+            <circle cx={c + look + 2} cy={EYE_Y - 1} r={1.8} fill={W} />
+            {!wide && (
+              <>
+                {/* heavy upper lid, thicker toward the outer corner */}
+                <Ink
+                  p={[[c - 14, lidY + 3], [c, lidY - 2], [c + 14, lidY + 2]]}
+                  w={fem ? 5.4 : 4.6}
+                  s={outer < 0 ? 0.9 : 0.2}
+                  e={outer < 0 ? 0.2 : 0.9}
+                />
+                {fem && <Ink p={[[c + 14 * outer, lidY + 2], [c + 19 * outer, lidY - 2]]} w={2.6} s={0.6} e={0.1} />}
+                <Ink p={[[c - 6, EYE_Y + 12], [c + 6, EYE_Y + 12]]} w={1.8} />
+              </>
+            )}
+          </g>
+        );
+      })}
     </g>
   );
+};
+
+const BROW_SHAPE: Record<Face, [number, number]> = {
+  neutral: [0, 2],
+  smile: [0, 2],
+  happy: [-3, -1],
+  surprise: [-12, -8],
+  worry: [-6, 6],
+  think: [2, -4],
+  determined: [6, -2],
 };
 
 const Brows: React.FC<{who: Who; face: Face}> = ({who, face}) => {
-  const t = who === 'woman' ? 3.5 : 5.5;
-  const b = {...line, strokeWidth: t};
-  switch (face) {
-    case 'surprise':
-      return (
-        <g>
-          <path d="M150 200 Q168 186 186 196" {...b} />
-          <path d="M214 196 Q232 186 250 200" {...b} />
-        </g>
-      );
-    case 'worry':
-      return (
-        <g>
-          <path d="M152 214 Q170 206 186 202" {...b} />
-          <path d="M214 202 Q230 206 248 214" {...b} />
-        </g>
-      );
-    case 'determined':
-      return (
-        <g>
-          <path d="M152 206 Q170 208 188 216" {...b} />
-          <path d="M212 216 Q230 208 248 206" {...b} />
-        </g>
-      );
-    case 'think':
-      return (
-        <g>
-          <path d="M152 210 Q168 204 186 208" {...b} />
-          <path d="M214 204 Q232 196 250 204" {...b} />
-        </g>
-      );
-    default:
-      return (
-        <g>
-          <path d="M152 210 Q168 202 186 206" {...b} />
-          <path d="M214 206 Q232 202 248 210" {...b} />
-        </g>
-      );
-  }
+  const w = who === 'woman' ? 3.6 : 5.2;
+  const [inner, outer] = BROW_SHAPE[face];
+  const y = 170;
+  const L: P[] = [[EL - 18, y + outer], [EL - 4, y - 3 + (inner + outer) / 2], [EL + 14, y + inner]];
+  let R: P[] = mx(L).reverse();
+  if (face === 'think') R = R.map(([x, yy]) => [x, yy - 6]); // one brow raised
+  return (
+    <g>
+      <Ink p={L} w={w} s={0.6} e={0.3} />
+      <Ink p={R} w={w} s={0.3} e={0.6} />
+    </g>
+  );
 };
 
+const Nose: React.FC = () => (
+  <g>
+    <Ink p={[[474, 206], [470, 222], [466, 230]]} w={2.6} s={0.1} e={0.6} />
+    <Ink p={[[464, 232], [472, 234]]} w={2.6} s={0.6} e={0.2} />
+  </g>
+);
+
 const Mouth: React.FC<{face: Face}> = ({face}) => {
+  const y = 252;
   switch (face) {
     case 'surprise':
       return (
         <g>
-          <ellipse cx={200} cy={292} rx={14} ry={17} fill="#fff" stroke={K} strokeWidth={4} />
-          <path d="M190 298 Q200 290 210 298 L208 304 Q200 308 192 304 Z" fill={K} />
+          <ellipse cx={470} cy={y} rx={9} ry={11} fill={K} />
+          <ellipse cx={470} cy={y + 5} rx={5} ry={3} fill="#555" />
         </g>
       );
     case 'smile':
-      return <path d="M184 286 Q200 298 216 286" {...line} />;
+      return <Ink p={[[458, y - 2], [470, y + 4], [482, y - 2]]} w={3.6} s={0.3} e={0.3} />;
     case 'happy':
       return (
         <g>
-          <path d="M180 282 Q200 284 220 282 Q214 306 200 306 Q186 306 180 282 Z" fill={K} stroke={K} strokeWidth={3} strokeLinejoin="round" />
-          <path d="M186 296 Q200 290 214 296 Q208 304 200 304 Q192 304 186 296 Z" fill="#fff" />
+          <path d={smooth([[454, y - 6], [470, y - 4], [486, y - 6], [480, y + 8], [470, y + 12], [460, y + 8]])} fill={K} />
+          <path d={smooth([[460, y + 4], [470, y + 1], [480, y + 4], [470, y + 10]])} fill="#666" />
         </g>
       );
     case 'worry':
-      return <path d="M186 294 Q193 288 200 292 Q207 296 214 290" {...line} />;
+      return <Ink p={[[460, y + 2], [466, y - 2], [474, y + 1], [482, y - 2]]} w={3.2} />;
     case 'think':
-      return <path d="M192 292 L210 289" {...line} />;
+      return <Ink p={[[464, y], [480, y - 3]]} w={3.2} />;
     case 'determined':
-      return <path d="M186 290 L214 290" {...line} />;
+      return <Ink p={[[460, y], [480, y]]} w={3.8} s={0.4} e={0.4} />;
     default:
-      return <path d="M188 289 Q200 293 212 289" {...line} />;
+      return <Ink p={[[462, y], [470, y + 1], [478, y]]} w={3.2} s={0.3} e={0.3} />;
   }
 };
 
-/** Simple hand shapes, drawn in local coordinates then placed by the arm. */
-const ArmsLayer: React.FC<{arms: Arms; who: Who}> = ({arms}) => {
+// ───────────── gestures ─────────────
+
+/** Sleeve from a (shoulder side) to b (cuff) drawn as a white tube with inked edges. */
+const Sleeve: React.FC<{a: P; b: P; w0: number; w1: number}> = ({a, b, w0, w1}) => {
+  const dx = b[0] - a[0];
+  const dy = b[1] - a[1];
+  const len = Math.hypot(dx, dy);
+  const ux = dx / len;
+  const uy = dy / len;
+  const nx = -uy;
+  const ny = ux;
+  const a1: P = [a[0] + nx * w0, a[1] + ny * w0];
+  const a2: P = [a[0] - nx * w0, a[1] - ny * w0];
+  const b1: P = [b[0] + nx * w1, b[1] + ny * w1];
+  const b2: P = [b[0] - nx * w1, b[1] - ny * w1];
+  const c1: P = [b1[0] - ux * 14, b1[1] - uy * 14];
+  const c2: P = [b2[0] - ux * 14, b2[1] - uy * 14];
+  return (
+    <g>
+      <path d={`M${a1.join(' ')} L${b1.join(' ')} L${b2.join(' ')} L${a2.join(' ')} Z`} fill={W} />
+      <Ink p={[a1, b1]} w={5} s={0.6} e={0.8} />
+      <Ink p={[a2, b2]} w={5} s={0.6} e={0.8} />
+      <Ink p={[c1, c2]} w={3.2} />
+      <Ink p={[b1, b2]} w={4.2} s={0.6} e={0.6} />
+    </g>
+  );
+};
+
+const Hand: React.FC<{outline: P[]; creases?: P[][]}> = ({outline, creases = []}) => (
+  <g>
+    <Fill p={outline} />
+    <Ink p={[...outline, outline[0], outline[1]]} w={4.4} s={0.5} e={0.5} />
+    {creases.map((c, i) => (
+      <Ink key={i} p={c} w={2.8} />
+    ))}
+  </g>
+);
+
+const ArmsLayer: React.FC<{arms: Arms}> = ({arms}) => {
   switch (arms) {
-    case 'chin':
-      // fist under the chin, forearm rising diagonally from the bottom
-      return (
-        <g>
-          <path d="M96 600 C120 520 150 440 178 384 L224 402 C200 460 172 530 150 600 Z" {...white} />
-          <path d="M176 392 L222 410" {...thin} />
-          <path
-            d="M178 388 C168 368 170 340 184 326 C196 314 220 314 230 326 C240 340 238 366 228 384 C220 398 196 402 178 388 Z"
-            {...white}
-          />
-          <path d="M188 328 C186 316 192 306 202 306 C210 306 214 314 212 324" {...white} />
-          <path d="M184 346 C198 342 214 344 230 350" {...thin} />
-          <path d="M182 366 C196 362 214 364 230 370" {...thin} />
-        </g>
-      );
-    case 'cheek':
-      // open palm against the left cheek
-      return (
-        <g>
-          <path d="M60 600 C70 520 96 450 118 400 L156 420 C140 470 120 530 112 600 Z" {...white} />
-          <path d="M112 404 L150 424" {...thin} />
-          <path
-            d="M118 404 C112 360 112 320 118 284 C120 268 132 266 134 282 L136 258 C138 242 152 242 152 258 L152 300 C158 296 166 302 164 314 C160 340 156 372 152 410 Z"
-            {...white}
-          />
-          <path d="M136 282 L138 330" {...thin} />
-          <path d="M152 300 L150 340" {...thin} />
-        </g>
-      );
     case 'present':
-      // right arm out to the side, palm up
+      // left forearm rising, open palm facing up at shoulder height
       return (
         <g>
-          <path d="M330 470 C360 470 400 450 432 420 L452 446 C420 482 380 510 336 520 Z" {...white} />
-          <path d="M428 424 L448 450" {...thin} />
-          <path
-            d="M440 424 C456 404 486 396 516 398 C524 400 522 410 512 412 L482 416 C500 418 514 424 512 434 C506 448 480 452 456 450 Z"
-            {...white}
+          <Sleeve a={[316, 600]} b={[276, 438]} w0={38} w1={30} />
+          <Hand
+            outline={[
+              [282, 462],
+              [248, 454],
+              [212, 446],
+              [190, 442],
+              [182, 432],
+              [170, 428],
+              [164, 420],
+              [152, 414],
+              [146, 406],
+              [136, 400],
+              [138, 392],
+              [154, 392],
+              [176, 396],
+              [190, 392],
+              [196, 372],
+              [206, 356],
+              [216, 352],
+              [222, 360],
+              [220, 380],
+              [232, 396],
+              [256, 402],
+              [278, 410],
+              [290, 426],
+            ]}
+            creases={[
+              [[182, 432], [204, 430]],
+              [[164, 420], [192, 418]],
+              [[146, 406], [176, 406]],
+              [[226, 418], [246, 426], [258, 440]],
+            ]}
           />
-          <path d="M486 430 L506 428" {...thin} />
         </g>
       );
     case 'point':
-      // index finger raised next to the face
+      // right hand raised beside the face; index finger up on the thumb side, other fingers folded
       return (
         <g>
-          <path d="M330 600 C334 530 330 470 320 420 L364 410 C374 460 382 530 380 600 Z" {...white} />
-          <path d="M320 426 L364 416" {...thin} />
-          <path
-            d="M318 420 C312 400 312 380 322 368 L326 300 C326 286 344 286 344 300 L344 362 C356 360 368 366 368 380 C372 396 368 410 362 418 Z"
-            {...white}
+          <Sleeve a={[648, 600]} b={[668, 414]} w0={36} w1={30} />
+          <Hand
+            outline={[
+              [640, 410],
+              [634, 380],
+              [636, 352],
+              [640, 330],
+              [640, 282],
+              [646, 270],
+              [656, 272],
+              [660, 284],
+              [660, 330],
+              [670, 334],
+              [682, 336],
+              [694, 344],
+              [702, 360],
+              [702, 386],
+              [696, 410],
+            ]}
+            creases={[
+              [[672, 336], [672, 350]],
+              [[686, 340], [686, 354]],
+              [[642, 382], [662, 374], [682, 368], [692, 362]],
+            ]}
           />
-          <path d="M326 372 C334 368 344 370 352 376" {...thin} />
-          <path d="M324 394 C334 390 346 392 356 398" {...thin} />
+        </g>
+      );
+    case 'chin':
+      // loose fist under the chin, forearm rising from the bottom
+      return (
+        <g>
+          <Sleeve a={[380, 600]} b={[440, 358]} w0={40} w1={30} />
+          <Hand
+            outline={[
+              [418, 352],
+              [416, 322],
+              [426, 300],
+              [440, 290],
+              [446, 276],
+              [458, 270],
+              [466, 278],
+              [464, 292],
+              [478, 300],
+              [484, 320],
+              [478, 346],
+              [462, 362],
+              [436, 366],
+            ]}
+            creases={[
+              [[428, 314], [446, 310], [466, 314]],
+              [[428, 334], [448, 330], [470, 334]],
+            ]}
+          />
+        </g>
+      );
+    case 'cheek':
+      // open palm pressed to the cheek (surprise)
+      return (
+        <g>
+          <Sleeve a={[290, 600]} b={[380, 334]} w0={38} w1={30} />
+          <Hand
+            outline={[
+              [360, 332],
+              [364, 290],
+              [372, 250],
+              [378, 212],
+              [388, 204],
+              [396, 214],
+              [396, 240],
+              [404, 206],
+              [414, 200],
+              [420, 212],
+              [414, 252],
+              [424, 230],
+              [432, 230],
+              [432, 248],
+              [422, 290],
+              [414, 330],
+              [398, 348],
+            ]}
+            creases={[[[396, 262], [394, 290]]]}
+          />
         </g>
       );
     case 'fist':
-      // determined fist at chest height
+      // determined fist raised at chest height
       return (
         <g>
-          <path d="M240 600 C250 540 266 500 280 470 L322 486 C310 520 296 560 290 600 Z" {...white} />
-          <path d="M280 476 L320 492" {...thin} />
-          <path d="M268 470 C262 440 272 416 296 412 C320 408 336 424 334 446 C332 470 318 486 296 488 C282 488 272 482 268 470 Z" {...white} />
-          <path d="M282 424 L284 452" {...thin} />
-          <path d="M298 420 L300 452" {...thin} />
-          <path d="M314 424 L314 452" {...thin} />
+          <Sleeve a={[650, 600]} b={[604, 458]} w0={38} w1={30} />
+          <Hand
+            outline={[
+              [572, 456],
+              [566, 426],
+              [570, 400],
+              [580, 390],
+              [592, 386],
+              [600, 392],
+              [608, 384],
+              [620, 388],
+              [632, 396],
+              [636, 422],
+              [630, 448],
+              [612, 462],
+              [588, 464],
+            ]}
+            creases={[
+              [[600, 392], [598, 404]],
+              [[620, 390], [618, 402]],
+              [[572, 432], [596, 426], [620, 432]],
+            ]}
+          />
         </g>
       );
     default:
       return null;
   }
 };
+
+/** Viewbox of the drawing; the head centre line (x = 470) is the horizontal middle. */
+export const PERSON_VB = {x: 150, y: 20, w: 640, h: 560};
 
 export const Person: React.FC<{
   who?: Who;
@@ -302,8 +516,7 @@ export const Person: React.FC<{
   flip?: boolean;
   style?: React.CSSProperties;
 }> = ({who = 'man', face = 'neutral', arms = 'none', height = 560, flip, style}) => {
-  // viewBox leaves room either side for gestures
-  const vb = {x: -20, y: 50, w: 560, h: 550};
+  const vb = PERSON_VB;
   return (
     <svg
       width={(height * vb.w) / vb.h}
@@ -311,20 +524,15 @@ export const Person: React.FC<{
       viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`}
       style={{overflow: 'visible', transform: flip ? 'scaleX(-1)' : undefined, ...style}}
     >
-      <g transform={HEAD_SCALE}>
-        <HairBack who={who} />
-      </g>
+      <HairBack who={who} />
       <Body who={who} />
-      <g transform={HEAD_SCALE}>
-        <Head who={who} />
-        <HairFront who={who} />
-        <Brows who={who} face={face} />
-        <Eyes who={who} face={face} />
-        {/* nose */}
-        <path d="M202 244 C198 258 196 266 206 268" {...line} strokeWidth={3} />
-        <Mouth face={face} />
-      </g>
-      <ArmsLayer arms={arms} who={who} />
+      <Head who={who} />
+      <Brows who={who} face={face} />
+      <Eyes who={who} face={face} />
+      <Nose />
+      <Mouth face={face} />
+      <HairFront who={who} />
+      <ArmsLayer arms={arms} />
     </svg>
   );
 };

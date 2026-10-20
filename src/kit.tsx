@@ -1,7 +1,7 @@
 import React, {createContext, useContext} from 'react';
 import {AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ICONS} from './icons.generated';
-import {Arms, Face, Person, Who} from './Person';
+import {Arms, Face, PERSON_VB, Person, Who} from './Person';
 
 /*
  * Motion rules (no jitter):
@@ -742,18 +742,20 @@ export const Char: React.FC<{
       a = pa ?? a;
     }
   }
-  const w = (h * 560) / 550;
+  const w = (h * PERSON_VB.w) / PERSON_VB.h;
+  // an open-palm gesture always faces the centre of the frame
+  const mirror = flip ?? (a === 'present' && x < 0);
   return (
     <div
       style={{
         position: 'absolute',
         bottom: -6,
-        left: 960 + x - w * (flip ? 0.61 : 0.39),
+        left: 960 + x - w / 2,
         opacity: p * o,
         transform: `translateY(${(1 - p) * 40}px)`,
       }}
     >
-      <Person who={who} face={f} arms={a} height={h} flip={flip} />
+      <Person who={who} face={f} arms={a} height={h} flip={mirror} />
     </div>
   );
 };

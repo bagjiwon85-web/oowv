@@ -143,7 +143,7 @@ S(46.9, '팔로워 1만', () => (
       </Col>
     </Row>
     <Row gap={24} align="center">
-      <Icon name="party-popper" size={90} />
+      <Rv at={51.6}><Icon name="party-popper" size={90} /></Rv>
       <Tx s="“곧 [대박] 날 거야!”" at={51.6} size={54} />
     </Row>
   </Frame>
@@ -700,7 +700,7 @@ S(315.15, '팬', () => (
     <Tx s="나와 같은 처지의 사람들이 [내 편]이 된다" at={315.25} size={58} />
     <Crowd n={8} at={315.6} cols={8} size={90} icons={[PERSON, PERSON2]} stagger={0.06} />
     <Row gap={24} align="center">
-      <Icon name="sparkling-heart" size={100} />
+      <Rv at={318.1}><Icon name="sparkling-heart" size={100} /></Rv>
       <Tx s="그게 바로 {팬}" at={318.1} size={72} hl={318.5} />
     </Row>
   </Frame>
@@ -846,7 +846,7 @@ S(420.0, '겪어 보지 않은 사람', () => (
 S(429.25, '좋은 소식', () => (
   <Frame gap={70}>
     <Row gap={24} align="center">
-      <Icon name="party-popper" size={100} />
+      <Rv at={429.35}><Icon name="party-popper" size={100} /></Rv>
       <Tx s="여기서 [좋은 소식]" at={429.35} />
     </Row>
     <Row gap={70}>
@@ -966,7 +966,7 @@ S(499.05, '만 명이 안 볼 수도', () => (
   <Frame gap={70}>
     <Tx s="상품 이야기만으로는|[만 명]이 보지 않을 수도 있다" at={499.15} size={60} />
     <Row gap={30} align="center">
-      <Icon name="bullseye" size={90} />
+      <Rv at={503.2}><Icon name="bullseye" size={90} /></Rv>
       <Tx s="주제를 좁히면 볼 사람이 적으니까" at={503.2} size={46} weight={700} color={C.gray} />
     </Row>
   </Frame>

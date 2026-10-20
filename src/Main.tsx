@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {loadFont} from '@remotion/fonts';
-import {C, FONT, SceneStartProvider} from './kit';
+import {C, CHAPTER_STARTS, FONT, Rail, SceneStartProvider} from './kit';
 import {SCENES} from './scenes';
 
 export const DURATION_SEC = 606.3;
@@ -17,6 +17,32 @@ for (const [name, weight] of weights) {
 }
 
 const FADE = 0.28;
+
+/** Chapter title cards hide the rail; it fades out/in around them. */
+const CHAPTER_CARD_SEC = [3.75, 2.25, 3.8, 3.45];
+const RAIL_FROM = 134.35;
+
+const railOpacity = (t: number) => {
+  const fade = (a: number, b: number) =>
+    interpolate(t, [a - 0.3, a, b, b + 0.3], [1, 0, 0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  let o = interpolate(t, [RAIL_FROM, RAIL_FROM + 0.4], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  CHAPTER_STARTS.slice(1).forEach((c, i) => {
+    o = Math.min(o, fade(c, c + CHAPTER_CARD_SEC[i]));
+  });
+  return o;
+};
+
+const RailLayer: React.FC = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  return (
+    <AbsoluteFill style={{opacity: railOpacity(frame / fps)}}>
+      <SceneStartProvider value={0}>
+        <Rail />
+      </SceneStartProvider>
+    </AbsoluteFill>
+  );
+};
 
 /** Fades a scene out over its last FADE seconds (opacity only — no movement). */
 const SceneShell: React.FC<{dur: number; children: React.ReactNode}> = ({dur, children}) => {
@@ -47,6 +73,7 @@ export const Main: React.FC = () => {
           </Sequence>
         );
       })}
+      <RailLayer />
     </AbsoluteFill>
   );
 };

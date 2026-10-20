@@ -1,6 +1,7 @@
 import React, {createContext, useContext} from 'react';
 import {AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ICONS} from './icons.generated';
+import {Arms, Face, Person, Who} from './Person';
 
 /*
  * Motion rules (no jitter):
@@ -13,11 +14,11 @@ import {ICONS} from './icons.generated';
 
 export const C = {
   bg: '#FFFFFF',
-  ink: '#262A3A',
-  red: '#F0462A',
-  redSoft: 'rgba(240, 70, 42, 0.16)',
-  gray: '#9BA1AF',
-  line: '#E6E8EE',
+  ink: '#111111',
+  // kept as `red` so call sites stay short: in this monochrome style "accent" is solid black
+  red: '#111111',
+  gray: '#9A9A9A',
+  line: '#E4E4E4',
   card: '#FFFFFF',
 };
 
@@ -68,8 +69,8 @@ const useDim = (dim?: boolean | number) => {
 
 /**
  * Inline markup:
- *   [text]  → red keyword
- *   {text}  → red keyword + highlighter swipe (strong emphasis)
+ *   [text]  → bold keyword
+ *   {text}  → bold keyword + underline drawn left→right (strong emphasis)
  *   |       → line break
  */
 export const Mk: React.FC<{s: string; hl?: number}> = ({s, hl}) => {
@@ -85,7 +86,7 @@ export const Mk: React.FC<{s: string; hl?: number}> = ({s, hl}) => {
             .map((seg, i) => {
               if (seg.startsWith('[')) {
                 return (
-                  <span key={i} style={{color: C.red}}>
+                  <span key={i} style={{fontWeight: 800}}>
                     {seg.slice(1, -1)}
                   </span>
                 );
@@ -108,21 +109,22 @@ const Marker: React.FC<{text: string; at?: number}> = ({text, at}) => {
   const base = useContext(HlAt);
   const p = prog(t, at ?? base + 0.45, 0.6);
   return (
-    <span style={{position: 'relative', color: C.red, whiteSpace: 'nowrap'}}>
+    <span style={{position: 'relative', fontWeight: 800, whiteSpace: 'nowrap'}}>
+      <span style={{position: 'relative'}}>{text}</span>
       <span
         style={{
           position: 'absolute',
-          left: '-0.08em',
-          right: '-0.08em',
-          bottom: '0.04em',
-          height: '0.42em',
-          background: C.redSoft,
-          borderRadius: '0.08em',
+          left: '-0.04em',
+          right: '-0.04em',
+          bottom: '-0.06em',
+          height: '0.09em',
+          minHeight: 3,
+          background: C.ink,
+          borderRadius: 99,
           transformOrigin: 'left center',
           transform: `scaleX(${p})`,
         }}
       />
-      <span style={{position: 'relative'}}>{text}</span>
     </span>
   );
 };
@@ -137,7 +139,7 @@ export const Tx: React.FC<{
   hl?: number;
   dim?: boolean | number;
   style?: React.CSSProperties;
-}> = ({s, at, size = 64, weight = 800, color = C.ink, hl, dim, style}) => {
+}> = ({s, at, size = 64, weight = 500, color = C.ink, hl, dim, style}) => {
   const o = useDim(dim);
   return (
     <HlAt.Provider value={at}>
@@ -161,15 +163,27 @@ export const Tx: React.FC<{
   );
 };
 
-export const Icon: React.FC<{name: string; size?: number}> = ({name, size = 170}) => {
+/** Tabler line icon (MIT), drawn in ink. */
+export const Icon: React.FC<{name: string; size?: number; stroke?: number; color?: string}> = ({
+  name,
+  size = 170,
+  stroke = 1.6,
+  color = C.ink,
+}) => {
   const body = ICONS[name];
   if (!body) throw new Error(`Unknown icon: ${name}`);
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" dangerouslySetInnerHTML={{__html: body}} />
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={{color, overflow: 'visible'}}
+      dangerouslySetInnerHTML={{__html: body.replace(/stroke-width="2"/g, `stroke-width="${stroke}"`)}}
+    />
   );
 };
 
-/** Icon with soft floor shadow + label underneath. */
+/** Line icon + label underneath. */
 export const Item: React.FC<{
   icon: string;
   label?: string;
@@ -220,21 +234,12 @@ export const Item: React.FC<{
             </div>
           )}
         </div>
-        <div
-          style={{
-            width: size * 0.62,
-            height: size * 0.07,
-            marginTop: size * 0.04,
-            borderRadius: '50%',
-            background: 'radial-gradient(closest-side, rgba(38,42,58,0.13), rgba(38,42,58,0))',
-          }}
-        />
         {label && (
           <div
             style={{
-              marginTop: 18,
+              marginTop: 22,
               fontSize: labelSize,
-              fontWeight: 700,
+              fontWeight: 500,
               color: C.ink,
               textAlign: 'center',
               lineHeight: 1.3,
@@ -298,7 +303,7 @@ const Cross: React.FC<{p: number; size: number}> = ({p, size}) => {
 
 export const CheckBadge: React.FC<{size: number}> = ({size}) => (
   <svg width={size} height={size} viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="11" fill={C.red} />
+    <circle cx="12" cy="12" r="11" fill={C.ink} stroke="#fff" strokeWidth="1.5" />
     <path d="M6.5 12.5l3.5 3.5 7.5-8" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
@@ -380,7 +385,7 @@ export const Pill: React.FC<{
           <div
             style={{
               fontSize: size,
-              fontWeight: 800,
+              fontWeight: 600,
               color: solid ? '#fff' : col,
               background: solid ? C.red : C.card,
               border: `${Math.max(3, size * 0.07)}px solid ${col}`,
@@ -388,7 +393,6 @@ export const Pill: React.FC<{
               padding: `${size * 0.32}px ${size * 0.75}px`,
               letterSpacing: '-0.02em',
               whiteSpace: 'nowrap',
-              boxShadow: '0 8px 22px rgba(38,42,58,0.10)',
               opacity: 1 - 0.55 * sp,
             }}
           >
@@ -431,7 +435,7 @@ export const Strike: React.FC<{s: string; at: number; strike: number; size?: num
         <div
           style={{
             fontSize: size,
-            fontWeight: 800,
+            fontWeight: 600,
             color: C.ink,
             opacity: 1 - 0.6 * sp,
             letterSpacing: '-0.02em',
@@ -475,17 +479,17 @@ export const Bubble: React.FC<{
           <div
             style={{
               fontSize: size,
-              fontWeight: 700,
+              fontWeight: 500,
               color: C.ink,
               background: '#fff',
-              border: `4px solid ${col}`,
+              border: `${red ? 5 : 3.5}px solid ${col}`,
               borderRadius: size * 1.2,
               padding: `${size * 0.45}px ${size * 0.85}px`,
               letterSpacing: '-0.02em',
               lineHeight: 1.4,
               textAlign: 'center',
+              whiteSpace: 'nowrap',
               maxWidth,
-              boxShadow: '0 10px 26px rgba(38,42,58,0.10)',
             }}
           >
             <Mk s={s} />
@@ -496,7 +500,7 @@ export const Bubble: React.FC<{
               height={22}
               style={{position: 'absolute', left: '50%', marginLeft: -18, bottom: -18}}
             >
-              <path d="M2 0 L18 19 L34 0" fill="#fff" stroke={col} strokeWidth={4} strokeLinejoin="round" />
+              <path d="M2 0 L18 19 L34 0" fill="#fff" stroke={col} strokeWidth={red ? 5 : 3.5} strokeLinejoin="round" />
               <rect x={4} y={-4} width={28} height={6} fill="#fff" />
             </svg>
           )}
@@ -518,7 +522,7 @@ export const Num: React.FC<{
   color?: string;
   dim?: boolean | number;
   fmt?: (n: number) => string;
-}> = ({to, from = 0, at, dur = 1.3, size = 200, prefix = '', suffix = '', color = C.red, dim, fmt}) => {
+}> = ({to, from = 0, at, dur = 1.3, size = 200, prefix = '', suffix = '', color = C.ink, dim, fmt}) => {
   const t = useT();
   const p = prog(t, at, 0.5);
   const cp = interpolate(t, [at, at + dur], [0, 1], {
@@ -572,9 +576,9 @@ export const Chapter: React.FC<{n: string; s: string; pre?: string; icon?: strin
     {pre && <Tx s={pre} at={at + 0.15} size={44} weight={700} color={C.gray} />}
     <Rv at={at + 0.2}>
       <div style={{display: 'flex', alignItems: 'baseline', gap: 28}}>
-        <span style={{fontSize: 120, fontWeight: 900, color: C.red, letterSpacing: '-0.03em'}}>{n}</span>
+        <span style={{fontSize: 120, fontWeight: 900, color: C.ink, letterSpacing: '-0.03em'}}>{n}</span>
         <HlAt.Provider value={at + 0.2}>
-          <span style={{fontSize: 66, fontWeight: 800, color: C.ink, letterSpacing: '-0.02em'}}>
+          <span style={{fontSize: 66, fontWeight: 500, color: C.ink, letterSpacing: '-0.02em'}}>
             <Mk s={s} />
           </span>
         </HlAt.Provider>
@@ -663,7 +667,7 @@ export const Card: React.FC<{at: number; children: React.ReactNode; style?: Reac
           background: C.card,
           borderRadius: 28,
           border: `2px solid ${C.line}`,
-          boxShadow: '0 14px 40px rgba(38,42,58,0.08)',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
           padding: '40px 56px',
           opacity: o,
           ...style,
@@ -672,5 +676,128 @@ export const Card: React.FC<{at: number; children: React.ReactNode; style?: Reac
         {children}
       </div>
     </Rv>
+  );
+};
+
+/** Top caption, like the reference: regular weight with [bold] keywords. */
+export const Cap: React.FC<{s: string; at: number; hl?: number; size?: number}> = ({s, at, hl, size = 54}) => (
+  <div style={{position: 'absolute', top: 96, left: 0, right: 0, display: 'flex', justifyContent: 'center'}}>
+    <Tx s={s} at={at} size={size} weight={400} hl={hl} />
+  </div>
+);
+
+/** Absolutely positioned content area below the caption. */
+export const Stage: React.FC<{children: React.ReactNode; top?: number; bottom?: number; left?: number; right?: number; gap?: number}> = ({
+  children,
+  top = 200,
+  bottom = 60,
+  left = 0,
+  right = 0,
+  gap = 50,
+}) => (
+  <div
+    style={{
+      position: 'absolute',
+      top,
+      bottom,
+      left,
+      right,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap,
+    }}
+  >
+    {children}
+  </div>
+);
+
+type Pose = [number, Face, Arms?];
+
+/**
+ * Character anchored to the bottom edge. `x` is the horizontal centre offset
+ * from the middle of the frame. `poses` switches expression/gesture at given
+ * times (an instant swap, like a cut — never an in-between wobble).
+ */
+export const Char: React.FC<{
+  who?: Who;
+  at: number;
+  x?: number;
+  h?: number;
+  face?: Face;
+  arms?: Arms;
+  poses?: Pose[];
+  flip?: boolean;
+  dim?: boolean | number;
+}> = ({who = 'man', at, x = 0, h = 640, face = 'neutral', arms = 'none', poses = [], flip, dim}) => {
+  const t = useT();
+  const p = prog(t, at, 0.6);
+  const o = useDim(dim);
+  let f = face;
+  let a = arms;
+  for (const [pt, pf, pa] of poses) {
+    if (t >= pt) {
+      f = pf;
+      a = pa ?? a;
+    }
+  }
+  const w = (h * 560) / 550;
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        bottom: -6,
+        left: 960 + x - w * (flip ? 0.61 : 0.39),
+        opacity: p * o,
+        transform: `translateY(${(1 - p) * 40}px)`,
+      }}
+    >
+      <Person who={who} face={f} arms={a} height={h} flip={flip} />
+    </div>
+  );
+};
+
+const RAIL_ICONS = ['search', 'users', 'ruler-2', 'heart-handshake', 'calculator'];
+export const CHAPTER_STARTS = [0, 145.05, 210.85, 343.2, 457.6];
+
+/** Left-side chapter progress rail (current chapter filled). */
+export const Rail: React.FC = () => {
+  const t = useT();
+  const cur = CHAPTER_STARTS.filter((c) => t >= c).length - 1;
+  const size = 46;
+  const gap = 30;
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: 72,
+        top: 540 - (RAIL_ICONS.length * size + (RAIL_ICONS.length - 1) * gap) / 2,
+        display: 'flex',
+        flexDirection: 'column',
+        gap,
+        alignItems: 'center',
+      }}
+    >
+      <div style={{position: 'absolute', top: size / 2, bottom: size / 2, width: 2, background: C.ink}} />
+      {RAIL_ICONS.map((ic, i) => (
+        <div
+          key={ic}
+          style={{
+            position: 'relative',
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            border: `2.5px solid ${C.ink}`,
+            background: i === cur ? C.ink : '#fff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Icon name={ic} size={24} stroke={2} color={i === cur ? '#fff' : C.ink} />
+        </div>
+      ))}
+    </div>
   );
 };

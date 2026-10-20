@@ -1,11 +1,11 @@
 // Collects every icon name used in src/*.tsx and writes a small subset file,
-// so the bundle doesn't ship all 3000+ Fluent Emoji icons. Fails on unknown names.
+// so the bundle doesn't ship all 6000+ Tabler icons. Fails on unknown names.
 import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 
 const require = createRequire(import.meta.url);
-const set = require('@iconify-json/fluent-emoji-flat/icons.json');
+const set = require('@iconify-json/tabler/icons.json');
 const srcDir = path.resolve('src');
 const names = new Set();
 const required = new Set();

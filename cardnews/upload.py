@@ -13,6 +13,8 @@ import glob
 import json
 import os
 import sys
+import time
+import urllib.error
 import urllib.request
 
 
@@ -42,9 +44,22 @@ def main():
         else:
             targets += sorted(d for d in glob.glob(os.path.join(glob.escape(arg), "*"))
                               if os.path.isdir(d))
+    failed = []
     for folder in targets:
-        res = upload_folder(folder)
-        print(f"{os.path.basename(folder)}\t{len(res['saved'])}장\t{res['folderUrl']}")
+        for attempt in range(4):  # Apps Script가 가끔 502/503을 돌려주므로 잠시 쉬고 다시 시도
+            try:
+                res = upload_folder(folder)
+                print(f"{os.path.basename(folder)}\t{len(res['saved'])}장\t{res['folderUrl']}",
+                      flush=True)
+                break
+            except (urllib.error.URLError, TimeoutError, ValueError) as e:
+                if attempt == 3:
+                    print(f"{os.path.basename(folder)}\t실패\t{e}", flush=True)
+                    failed.append(folder)
+                else:
+                    time.sleep(10 * 2 ** attempt)
+    if failed:
+        sys.exit(f"업로드 실패 {len(failed)}개")
 
 
 if __name__ == "__main__":

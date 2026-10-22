@@ -17,8 +17,10 @@ pip install -q playwright pillow "opencv-python-headless<5"
 
 ## 절차
 
-1. 시트 A:S를 읽어 A열이 오늘 날짜(KST)인 행을 모은다. 20개가 아니면 조사 작업이 아직 끝나지 않은 것:
-   10분 뒤 다시 확인하도록 send_later로 예약하고 종료(최대 6번).
+1. 시트 A:S를 읽어 A열이 오늘 날짜(KST)인 행을 모은다. 조사 작업은 2026-10-22부터 매일 06:50(KST)에
+   10개(국내 5, 해외 5)를 추가한다. 10개가 아니면 아직 진행 중인 것: 10분 뒤 다시 확인하도록
+   send_later로 예약하고 종료(최대 6번). 개수가 바뀌었으면 조사 예약 작업(유튜브 롱폼 영상 일일 조사)의
+   지시문을 확인한다.
 2. 이미 만든 영상은 건너뛴다: `cardnews/specs/*.json`에 있는 id는 제외.
 3. 오늘 ID를 `cardnews/data/ids.txt`에 `날짜 ID ID ...` 한 줄로 추가하고
    `python3 cardnews/fetch.py --ids-file cardnews/data/ids.txt` (제목·채널·설명 저장)
